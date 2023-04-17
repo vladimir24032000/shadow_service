@@ -1,4 +1,4 @@
-# service_app
+# bluetooth_package
 
 A new Flutter project.
 

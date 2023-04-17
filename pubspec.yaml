@@ -1,0 +1,45 @@
+name: service_app
+description: Shadow service app.
+
+publish_to: 'none' 
+
+version: 0.0.1+1
+
+environment:
+  sdk: '>=2.19.6 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  bloc: ^8.1.0
+  flutter_bloc: ^8.1.1
+  hydrated_bloc: ^9.0.0
+  injectable: ^1.5.3
+  path_provider: ^2.0.11
+  get_it: ^7.2.0
+  freezed_annotation: ^2.1.0
+  json_annotation: ^4.7.0
+  flutter_secure_storage: ^5.0.2
+  either_dart: ^0.3.0
+  geolocator: ^9.0.2
+  bluetooth_package:
+    path: packages/bluetooth_package
+
+
+
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  freezed: ^2.1.0+1
+  injectable_generator: ^1.5.4
+  json_serializable: ^6.2.0
+  build_runner: ^2.2.0
+
+  flutter_lints: ^2.0.0
+flutter:
+  uses-material-design: true
+
+
