@@ -22,6 +22,7 @@ class _SettingsPage extends State<SettingsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Settings"),
+        automaticallyImplyLeading: false,
       ),
       bottomNavigationBar: const ServiceAppBottomNavigationBar(),
       body: ListView(

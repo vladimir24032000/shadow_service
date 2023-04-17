@@ -409,15 +409,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-  loadtech_core_package:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: develop
-      resolved-ref: "544c3028ecf670460aa69ba571c88a8011773f0e"
-      url: "git@gitlab.com:dlt10/novel/loadtech/loadtech-core.git"
-    source: git
-    version: "0.0.9"
   logging:
     dependency: transitive
     description:

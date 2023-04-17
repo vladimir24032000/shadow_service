@@ -168,14 +168,14 @@ class BTConnectionBloc extends Bloc<BTConnectionEvent, BTConnectionState> {
       ..addAll(newDevices)
       ..removeWhere(removedDevices.contains);
 
-    for (final device in newDevices) {
-      state.devices[device.id]?.close();
-      add(
-        BTConnectionEvent.addDevices(
-          devices: {device.id: DeviceBloc.fromBluetoothDevice(device)},
-        ),
-      );
-    }
+    // for (final device in newDevices) {
+    //   state.devices[device.id]?.close();
+    //   add(
+    //     BTConnectionEvent.addDevices(
+    //       devices: {device.id: DeviceBloc.fromBluetoothDevice(device)},
+    //     ),
+    //   );
+    // }
     for (final device in removedDevices) {
       state.devices[device.id]?.close();
       add(

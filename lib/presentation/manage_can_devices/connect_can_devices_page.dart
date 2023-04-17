@@ -5,9 +5,11 @@ import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:injectable/injectable.dart';
 import 'package:service_app/bloc/bluetooth/connection/connection_bloc.dart';
 import 'package:service_app/bloc/bluetooth/device_bloc/device_bloc.dart';
 import 'package:service_app/core/navigator.dart';
+import 'package:service_app/presentation/manage_can_devices/manage_can_device_page.dart';
 import 'package:service_app/presentation/widgets/devices/grouped_devices.dart';
 import 'package:service_app/presentation/widgets/dialogs/enable_bt_dialog.dart';
 import 'package:service_app/presentation/widgets/dialogs/enable_location_dialog.dart';
@@ -207,16 +209,10 @@ class AvailableSensorWidget extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               if (isAvailable) {
-                final subscriprion = deviceBloc.stream.listen((event) {
-                  event.map(
-                      available: available,
-                      connecting: connecting,
-                      connected: (value) {
-                          navigateTo(context: context, nextPage: nextPage)
-                      },
-                      disconnecting: disconnecting);
-                });
                 deviceBloc.add(const DeviceEvent.connect());
+                navigateTo(
+                    context: context,
+                    nextPage: ManageCanDevicePage(device: deviceBloc));
               }
             },
             child: isAvailable

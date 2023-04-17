@@ -23,6 +23,7 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Account"),
+        automaticallyImplyLeading: false,
       ),
       body: ListView(
         children: [

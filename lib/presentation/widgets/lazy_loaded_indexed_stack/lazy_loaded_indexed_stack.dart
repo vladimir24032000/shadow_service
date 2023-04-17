@@ -42,13 +42,15 @@ class _LazyLoadIndexedStackState extends State<LazyLoadIndexedStack> {
 
   @override
   Widget build(final BuildContext context) {
-    return IndexedStack(
-      index: widget.index,
-      alignment: widget.alignment,
-      textDirection: widget.textDirection,
-      sizing: widget.sizing,
-      children: _loadedChildren(),
-    );
+    return WillPopScope(
+        child: IndexedStack(
+          index: widget.index,
+          alignment: widget.alignment,
+          textDirection: widget.textDirection,
+          sizing: widget.sizing,
+          children: _loadedChildren(),
+        ),
+        onWillPop: () async => false);
   }
 
   List<Widget> _loadedChildren() {
