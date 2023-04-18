@@ -1,4 +1,4 @@
-name: service_app
+name: Shadow service
 description: Shadow service app.
 
 publish_to: 'none' 
@@ -30,7 +30,10 @@ dependencies:
     path: packages/bluetooth_package
 
 
-
+  firebase_analytics: ^9.3.5
+  firebase_auth: ^3.11.2
+  firebase_core: ^1.22.0
+  firebase_core_platform_interface: 4.5.1
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
