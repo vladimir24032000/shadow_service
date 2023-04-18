@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.service_app">
+    package="com.shadow.service">
    <application
         android:label="service_app"
         android:name="${applicationName}"

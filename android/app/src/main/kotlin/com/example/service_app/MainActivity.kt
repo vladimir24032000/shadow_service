@@ -1,4 +1,4 @@
-package com.example.service_app
+package com.shadow.service
 
 import io.flutter.embedding.android.FlutterActivity
 

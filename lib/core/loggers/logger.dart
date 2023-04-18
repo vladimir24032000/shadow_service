@@ -21,4 +21,5 @@ class Logger {
 
 abstract class LoggerNames {
   static const String navigationBarBloc = 'NavigationBarBloc';
+  static const String firebaseBloc = 'firebaseBloc';
 }

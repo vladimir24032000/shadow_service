@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +11,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:passcode_screen/passcode_screen.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:service_app/bloc/bluetooth/connection/connection_bloc.dart';
+import 'package:service_app/bloc/firebase/firebase_bloc.dart';
 import 'package:service_app/bloc/navigation_bar/navigation_bar_bloc.dart';
 import 'package:service_app/core/navigator.dart';
 import 'package:service_app/core/services/get_it.dart';
@@ -21,8 +25,22 @@ enum _SupportState {
   unsupported,
 }
 
+const _appName = "Shadow-ic";
+
+final _appId = defaultTargetPlatform == TargetPlatform.iOS
+    ? "1:395085420724:ios:84afe9b29d923038f25fe1"
+    : "1:770102945430:android:61d72dc447e5938e3404b7";
+
+final _options = FirebaseOptions(
+  apiKey: "AIzaSyBSTgMEWLXoSyoJMSqlHzlERYIGEMjXVlw",
+  appId: _appId,
+  messagingSenderId: "395085420724",
+  projectId: "shadow-ic",
+);
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(name: _appName, options: _options);
   configureDependencies();
   final storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
@@ -178,6 +196,7 @@ class _MyAppState extends State<MyApp> {
     return Builder(builder: (context) {
       return MultiBlocProvider(
           providers: [
+            BlocProvider<FirebaseBloc>(create: (_) => getIt<FirebaseBloc>()),
             BlocProvider<BTConnectionBloc>(create: (_) => BTConnectionBloc()),
             BlocProvider(create: (_) => getIt<NavigationBarBloc>()),
           ],

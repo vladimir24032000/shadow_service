@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "770102945430",
+    "firebase_url": "https://shadow-ic-default-rtdb.firebaseio.com",
+    "project_id": "shadow-ic",
+    "storage_bucket": "shadow-ic.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770102945430:android:61d72dc447e5938e3404b7",
+        "android_client_info": {
+          "package_name": "com.shadow.service"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770102945430-23ol804dg80jp0p96vm76p14106ebsik.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shadow.service",
+            "certificate_hash": "40c02ecffac5b6cae4724ef23086eb6bd89ed3ed"
+          }
+        },
+        {
+          "client_id": "770102945430-s0a3coeabucejrqhio7qtothok0bn0gl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFf1N8gIKWpVjcq8zPkDQslkSlZ6drMsw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770102945430-s0a3coeabucejrqhio7qtothok0bn0gl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "770102945430-4u6imo4mquimbg6jc9u0qka1g61pjej6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.shadow-ic.shadow-1-8"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
