@@ -7,6 +7,8 @@ import 'package:flutter_loadapp_mock/domain/model/user_permission.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:service_app/bloc/logging_bloc.dart';
+import 'package:service_app/core/firebase/firebase_repo.dart';
+import 'package:service_app/core/firebase/model/user.dart';
 import 'package:service_app/core/loggers/logger.dart';
 import 'package:service_app/core/model/user.dart';
 

@@ -16,7 +16,7 @@ Map<String, dynamic> _$$_LoggingInToJson(_$_LoggingIn instance) =>
     };
 
 _$_LoggedIn _$$_LoggedInFromJson(Map<String, dynamic> json) => _$_LoggedIn(
-      user: User.fromJson(json['user'] as Map<String, dynamic>),
+      user: json['user'],
       $type: json['runtimeType'] as String?,
     );
 

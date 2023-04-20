@@ -1,4 +1,4 @@
-name: Shadow service
+name: service_app
 description: Shadow service app.
 
 publish_to: 'none' 
@@ -26,6 +26,7 @@ dependencies:
   file_picker: ^5.2.9
   local_auth: ^2.1.6
   passcode_screen: ^2.0.1
+  intl_phone_number_input: ^0.7.3+1
   bluetooth_package:
     path: packages/bluetooth_package
 
