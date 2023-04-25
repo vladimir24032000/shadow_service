@@ -1,90 +1,52 @@
-import 'dart:async';
-
-import 'package:either_dart/either.dart';
-import 'package:firebase_auth/firebase_auth.dart' as fb;
-import 'package:service_app/core/unit.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_phone_auth_handler/firebase_phone_auth_handler.dart';
 
 import 'model/user.dart';
 
 class FirebaseRepo {
-  final _auth = fb.FirebaseAuth.instance;
+  static final auth = FirebaseAuth.instance;
 
-  Future<void> signInWithPhone(String phoneNumber) async {
-    await _auth.verifyPhoneNumber(
-      phoneNumber: phoneNumber,
-      verificationCompleted: (fb.PhoneAuthCredential credential) async {
-        final user = await _auth.signInWithCredential(credential);
-      },
-      verificationFailed: (fb.FirebaseAuthException e) {},
-      codeSent: (String verificationId, int? resendToken) async {
-        // Update the UI - wait for the user to enter the SMS code
-        String smsCode = 'xxxx';
-
-        // Create a PhoneAuthCredential with the code
-        fb.PhoneAuthCredential credential = fb.PhoneAuthProvider.credential(
-            verificationId: verificationId, smsCode: smsCode);
-
-        // Sign the user in (or link) with the credential
-        await _auth.signInWithCredential(credential);
-      },
-      codeAutoRetrievalTimeout: (String verificationId) {},
-    );
-  }
-
-  Future<Either<Unit, User>> silentLogin() async {
-    final user = _auth.currentUser;
-    if (user == null) return const Left(unit);
-
-    return Right(User(email: "", phone: user.phoneNumber!, uid: user.uid));
-  }
-
-  Future<void> signOut() => _auth.signOut();
-
-  /// Deletes the user from firebase and firestore
-  /// Logs the user out
-  /// Returns either a string with the error message or a unit on success.
-  Future<Either<String, Unit>> deleteAccount({
-    required String password,
-    required String userUuid,
-  }) async {
-    final user = _auth.currentUser;
-    if (user == null) return const Left("User is null");
-
-    try {
-      await user.delete();
-    } on fb.FirebaseAuthException catch (e) {
-      if (e.code == "requires-recent-login") {
-        final credential = fb.PhoneAuthProvider.credential(
-          smsCode: '',
-          verificationId: '',
-        );
-
-        try {
-          await user.reauthenticateWithCredential(credential);
-        } on fb.FirebaseAuthException catch (e) {
-          return Left(e.message ?? "User deletion failed");
-        }
-        await user.delete();
+  static User? get firebaseUser => auth.currentUser;
+//TODO failures
+  ShadowUser? shadowUser;
+  Future<ShadowUser?> getUser() async {
+    if (auth.currentUser != null) {
+      final ref = FirebaseDatabase.instance.ref();
+      final snapshot = await ref.child('users/${auth.currentUser!.uid}').get();
+      if (snapshot.value != null) {
+        shadowUser = ShadowUser.fromJson(
+            (snapshot.value as Map<Object?, Object?>).cast<String, dynamic>());
+        return shadowUser;
+      } else {
+        return null;
       }
+    } else {
+      return null;
     }
-
-    await signOut();
-    return const Right(unit);
   }
 
-  Future<Either<String, User>> changePassword(
-    String oldPassword,
-    String newPassword,
-    User user,
-  ) async {
-    final authUser = _auth.currentUser;
-    if (authUser == null) return const Left("User is null");
+  Future<void> createUser(ShadowUser shadowUser) async {
+    if (auth.currentUser != null) {
+      DatabaseReference ref =
+          FirebaseDatabase.instance.ref("users/${auth.currentUser!.uid}");
+      await ref.set(shadowUser.toJson());
+    }
+  }
 
-    try {
-      await authUser.updatePassword(newPassword);
-      return Right(user);
-    } on fb.FirebaseAuthException catch (e) {
-      return Left(e.message ?? "Unknown error");
+  Future<void> deleteUser() async {
+    if (auth.currentUser != null) {
+      DatabaseReference ref =
+          FirebaseDatabase.instance.ref("users/${auth.currentUser!.uid}");
+      await ref.remove();
+      await firebaseUser?.delete();
+    }
+  }
+
+  Future<void> updateUser(ShadowUser shadowUser) async {
+    if (auth.currentUser != null) {
+      DatabaseReference ref =
+          FirebaseDatabase.instance.ref("users/${auth.currentUser!.uid}");
+      await ref.update(shadowUser.toJson());
     }
   }
 }

@@ -8,6 +8,7 @@ import 'package:service_app/core/navigator.dart';
 import 'package:service_app/presentation/manage_can_devices/car_firmware_page.dart';
 import 'package:service_app/presentation/widgets/custom_button/custom_elevated_button.dart';
 import 'package:service_app/presentation/widgets/dialogs/disconnect_dialog.dart';
+import 'package:service_app/presentation/widgets/loading_screen/loading_screen.dart';
 import 'package:service_app/presentation/widgets/logo_widget/logo_widget.dart';
 
 class ManageCanDevicePage extends StatefulWidget {
@@ -40,16 +41,7 @@ class ManageCanDevicePageState extends State<ManageCanDevicePage> {
                         return const SizedBox.shrink();
                       },
                       connecting: (value) {
-                        return Align(
-                            alignment: Alignment.center,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: const [
-                                LogoWidget(),
-                                CircularProgressIndicator.adaptive(),
-                              ],
-                            ));
+                        return LoadingScreen();
                       },
                       connected: (value) => _ManageDeviceWidget(
                             connectedDevice: value.connectedDeviceBloc,

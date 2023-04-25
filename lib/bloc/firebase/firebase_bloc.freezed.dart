@@ -18,70 +18,45 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$FirebaseEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() silentLogin,
-    required TResult Function(String email, String password) login,
-    required TResult Function() logout,
-    required TResult Function(String email, String password) signup,
-    required TResult Function(String email) resetPassword,
-    required TResult Function(String oldPassword, String newPassword)
-        changePassword,
-    required TResult Function(String password) deleteAccount,
+    required TResult Function() getUser,
+    required TResult Function(ShadowUser shadowUser) createUser,
+    required TResult Function() deleteUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? silentLogin,
-    TResult? Function(String email, String password)? login,
-    TResult? Function()? logout,
-    TResult? Function(String email, String password)? signup,
-    TResult? Function(String email)? resetPassword,
-    TResult? Function(String oldPassword, String newPassword)? changePassword,
-    TResult? Function(String password)? deleteAccount,
+    TResult? Function()? getUser,
+    TResult? Function(ShadowUser shadowUser)? createUser,
+    TResult? Function()? deleteUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? silentLogin,
-    TResult Function(String email, String password)? login,
-    TResult Function()? logout,
-    TResult Function(String email, String password)? signup,
-    TResult Function(String email)? resetPassword,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(String password)? deleteAccount,
+    TResult Function()? getUser,
+    TResult Function(ShadowUser shadowUser)? createUser,
+    TResult Function()? deleteUser,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SilentLogin value) silentLogin,
-    required TResult Function(_Login value) login,
-    required TResult Function(_Logout value) logout,
-    required TResult Function(_Signup value) signup,
-    required TResult Function(_ResetPassword value) resetPassword,
-    required TResult Function(_ChangePassword value) changePassword,
-    required TResult Function(_DeleteAccount value) deleteAccount,
+    required TResult Function(_GetUser value) getUser,
+    required TResult Function(_CreateUser value) createUser,
+    required TResult Function(_DeleteUser value) deleteUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SilentLogin value)? silentLogin,
-    TResult? Function(_Login value)? login,
-    TResult? Function(_Logout value)? logout,
-    TResult? Function(_Signup value)? signup,
-    TResult? Function(_ResetPassword value)? resetPassword,
-    TResult? Function(_ChangePassword value)? changePassword,
-    TResult? Function(_DeleteAccount value)? deleteAccount,
+    TResult? Function(_GetUser value)? getUser,
+    TResult? Function(_CreateUser value)? createUser,
+    TResult? Function(_DeleteUser value)? deleteUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SilentLogin value)? silentLogin,
-    TResult Function(_Login value)? login,
-    TResult Function(_Logout value)? logout,
-    TResult Function(_Signup value)? signup,
-    TResult Function(_ResetPassword value)? resetPassword,
-    TResult Function(_ChangePassword value)? changePassword,
-    TResult Function(_DeleteAccount value)? deleteAccount,
+    TResult Function(_GetUser value)? getUser,
+    TResult Function(_CreateUser value)? createUser,
+    TResult Function(_DeleteUser value)? deleteUser,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -106,35 +81,34 @@ class _$FirebaseEventCopyWithImpl<$Res, $Val extends FirebaseEvent>
 }
 
 /// @nodoc
-abstract class _$$_SilentLoginCopyWith<$Res> {
-  factory _$$_SilentLoginCopyWith(
-          _$_SilentLogin value, $Res Function(_$_SilentLogin) then) =
-      __$$_SilentLoginCopyWithImpl<$Res>;
+abstract class _$$_GetUserCopyWith<$Res> {
+  factory _$$_GetUserCopyWith(
+          _$_GetUser value, $Res Function(_$_GetUser) then) =
+      __$$_GetUserCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SilentLoginCopyWithImpl<$Res>
-    extends _$FirebaseEventCopyWithImpl<$Res, _$_SilentLogin>
-    implements _$$_SilentLoginCopyWith<$Res> {
-  __$$_SilentLoginCopyWithImpl(
-      _$_SilentLogin _value, $Res Function(_$_SilentLogin) _then)
+class __$$_GetUserCopyWithImpl<$Res>
+    extends _$FirebaseEventCopyWithImpl<$Res, _$_GetUser>
+    implements _$$_GetUserCopyWith<$Res> {
+  __$$_GetUserCopyWithImpl(_$_GetUser _value, $Res Function(_$_GetUser) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SilentLogin implements _SilentLogin {
-  const _$_SilentLogin();
+class _$_GetUser implements _GetUser {
+  const _$_GetUser();
 
   @override
   String toString() {
-    return 'FirebaseEvent.silentLogin()';
+    return 'FirebaseEvent.getUser()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_SilentLogin);
+        (other.runtimeType == runtimeType && other is _$_GetUser);
   }
 
   @override
@@ -143,46 +117,33 @@ class _$_SilentLogin implements _SilentLogin {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() silentLogin,
-    required TResult Function(String email, String password) login,
-    required TResult Function() logout,
-    required TResult Function(String email, String password) signup,
-    required TResult Function(String email) resetPassword,
-    required TResult Function(String oldPassword, String newPassword)
-        changePassword,
-    required TResult Function(String password) deleteAccount,
+    required TResult Function() getUser,
+    required TResult Function(ShadowUser shadowUser) createUser,
+    required TResult Function() deleteUser,
   }) {
-    return silentLogin();
+    return getUser();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? silentLogin,
-    TResult? Function(String email, String password)? login,
-    TResult? Function()? logout,
-    TResult? Function(String email, String password)? signup,
-    TResult? Function(String email)? resetPassword,
-    TResult? Function(String oldPassword, String newPassword)? changePassword,
-    TResult? Function(String password)? deleteAccount,
+    TResult? Function()? getUser,
+    TResult? Function(ShadowUser shadowUser)? createUser,
+    TResult? Function()? deleteUser,
   }) {
-    return silentLogin?.call();
+    return getUser?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? silentLogin,
-    TResult Function(String email, String password)? login,
-    TResult Function()? logout,
-    TResult Function(String email, String password)? signup,
-    TResult Function(String email)? resetPassword,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(String password)? deleteAccount,
+    TResult Function()? getUser,
+    TResult Function(ShadowUser shadowUser)? createUser,
+    TResult Function()? deleteUser,
     required TResult orElse(),
   }) {
-    if (silentLogin != null) {
-      return silentLogin();
+    if (getUser != null) {
+      return getUser();
     }
     return orElse();
   }
@@ -190,165 +151,144 @@ class _$_SilentLogin implements _SilentLogin {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SilentLogin value) silentLogin,
-    required TResult Function(_Login value) login,
-    required TResult Function(_Logout value) logout,
-    required TResult Function(_Signup value) signup,
-    required TResult Function(_ResetPassword value) resetPassword,
-    required TResult Function(_ChangePassword value) changePassword,
-    required TResult Function(_DeleteAccount value) deleteAccount,
+    required TResult Function(_GetUser value) getUser,
+    required TResult Function(_CreateUser value) createUser,
+    required TResult Function(_DeleteUser value) deleteUser,
   }) {
-    return silentLogin(this);
+    return getUser(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SilentLogin value)? silentLogin,
-    TResult? Function(_Login value)? login,
-    TResult? Function(_Logout value)? logout,
-    TResult? Function(_Signup value)? signup,
-    TResult? Function(_ResetPassword value)? resetPassword,
-    TResult? Function(_ChangePassword value)? changePassword,
-    TResult? Function(_DeleteAccount value)? deleteAccount,
+    TResult? Function(_GetUser value)? getUser,
+    TResult? Function(_CreateUser value)? createUser,
+    TResult? Function(_DeleteUser value)? deleteUser,
   }) {
-    return silentLogin?.call(this);
+    return getUser?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SilentLogin value)? silentLogin,
-    TResult Function(_Login value)? login,
-    TResult Function(_Logout value)? logout,
-    TResult Function(_Signup value)? signup,
-    TResult Function(_ResetPassword value)? resetPassword,
-    TResult Function(_ChangePassword value)? changePassword,
-    TResult Function(_DeleteAccount value)? deleteAccount,
+    TResult Function(_GetUser value)? getUser,
+    TResult Function(_CreateUser value)? createUser,
+    TResult Function(_DeleteUser value)? deleteUser,
     required TResult orElse(),
   }) {
-    if (silentLogin != null) {
-      return silentLogin(this);
+    if (getUser != null) {
+      return getUser(this);
     }
     return orElse();
   }
 }
 
-abstract class _SilentLogin implements FirebaseEvent {
-  const factory _SilentLogin() = _$_SilentLogin;
+abstract class _GetUser implements FirebaseEvent {
+  const factory _GetUser() = _$_GetUser;
 }
 
 /// @nodoc
-abstract class _$$_LoginCopyWith<$Res> {
-  factory _$$_LoginCopyWith(_$_Login value, $Res Function(_$_Login) then) =
-      __$$_LoginCopyWithImpl<$Res>;
+abstract class _$$_CreateUserCopyWith<$Res> {
+  factory _$$_CreateUserCopyWith(
+          _$_CreateUser value, $Res Function(_$_CreateUser) then) =
+      __$$_CreateUserCopyWithImpl<$Res>;
   @useResult
-  $Res call({String email, String password});
+  $Res call({ShadowUser shadowUser});
+
+  $ShadowUserCopyWith<$Res> get shadowUser;
 }
 
 /// @nodoc
-class __$$_LoginCopyWithImpl<$Res>
-    extends _$FirebaseEventCopyWithImpl<$Res, _$_Login>
-    implements _$$_LoginCopyWith<$Res> {
-  __$$_LoginCopyWithImpl(_$_Login _value, $Res Function(_$_Login) _then)
+class __$$_CreateUserCopyWithImpl<$Res>
+    extends _$FirebaseEventCopyWithImpl<$Res, _$_CreateUser>
+    implements _$$_CreateUserCopyWith<$Res> {
+  __$$_CreateUserCopyWithImpl(
+      _$_CreateUser _value, $Res Function(_$_CreateUser) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? email = null,
-    Object? password = null,
+    Object? shadowUser = null,
   }) {
-    return _then(_$_Login(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(_$_CreateUser(
+      shadowUser: null == shadowUser
+          ? _value.shadowUser
+          : shadowUser // ignore: cast_nullable_to_non_nullable
+              as ShadowUser,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ShadowUserCopyWith<$Res> get shadowUser {
+    return $ShadowUserCopyWith<$Res>(_value.shadowUser, (value) {
+      return _then(_value.copyWith(shadowUser: value));
+    });
   }
 }
 
 /// @nodoc
 
-class _$_Login implements _Login {
-  const _$_Login({required this.email, required this.password});
+class _$_CreateUser implements _CreateUser {
+  const _$_CreateUser({required this.shadowUser});
 
   @override
-  final String email;
-  @override
-  final String password;
+  final ShadowUser shadowUser;
 
   @override
   String toString() {
-    return 'FirebaseEvent.login(email: $email, password: $password)';
+    return 'FirebaseEvent.createUser(shadowUser: $shadowUser)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Login &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password));
+            other is _$_CreateUser &&
+            (identical(other.shadowUser, shadowUser) ||
+                other.shadowUser == shadowUser));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, password);
+  int get hashCode => Object.hash(runtimeType, shadowUser);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LoginCopyWith<_$_Login> get copyWith =>
-      __$$_LoginCopyWithImpl<_$_Login>(this, _$identity);
+  _$$_CreateUserCopyWith<_$_CreateUser> get copyWith =>
+      __$$_CreateUserCopyWithImpl<_$_CreateUser>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() silentLogin,
-    required TResult Function(String email, String password) login,
-    required TResult Function() logout,
-    required TResult Function(String email, String password) signup,
-    required TResult Function(String email) resetPassword,
-    required TResult Function(String oldPassword, String newPassword)
-        changePassword,
-    required TResult Function(String password) deleteAccount,
+    required TResult Function() getUser,
+    required TResult Function(ShadowUser shadowUser) createUser,
+    required TResult Function() deleteUser,
   }) {
-    return login(email, password);
+    return createUser(shadowUser);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? silentLogin,
-    TResult? Function(String email, String password)? login,
-    TResult? Function()? logout,
-    TResult? Function(String email, String password)? signup,
-    TResult? Function(String email)? resetPassword,
-    TResult? Function(String oldPassword, String newPassword)? changePassword,
-    TResult? Function(String password)? deleteAccount,
+    TResult? Function()? getUser,
+    TResult? Function(ShadowUser shadowUser)? createUser,
+    TResult? Function()? deleteUser,
   }) {
-    return login?.call(email, password);
+    return createUser?.call(shadowUser);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? silentLogin,
-    TResult Function(String email, String password)? login,
-    TResult Function()? logout,
-    TResult Function(String email, String password)? signup,
-    TResult Function(String email)? resetPassword,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(String password)? deleteAccount,
+    TResult Function()? getUser,
+    TResult Function(ShadowUser shadowUser)? createUser,
+    TResult Function()? deleteUser,
     required TResult orElse(),
   }) {
-    if (login != null) {
-      return login(email, password);
+    if (createUser != null) {
+      return createUser(shadowUser);
     }
     return orElse();
   }
@@ -356,89 +296,78 @@ class _$_Login implements _Login {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SilentLogin value) silentLogin,
-    required TResult Function(_Login value) login,
-    required TResult Function(_Logout value) logout,
-    required TResult Function(_Signup value) signup,
-    required TResult Function(_ResetPassword value) resetPassword,
-    required TResult Function(_ChangePassword value) changePassword,
-    required TResult Function(_DeleteAccount value) deleteAccount,
+    required TResult Function(_GetUser value) getUser,
+    required TResult Function(_CreateUser value) createUser,
+    required TResult Function(_DeleteUser value) deleteUser,
   }) {
-    return login(this);
+    return createUser(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SilentLogin value)? silentLogin,
-    TResult? Function(_Login value)? login,
-    TResult? Function(_Logout value)? logout,
-    TResult? Function(_Signup value)? signup,
-    TResult? Function(_ResetPassword value)? resetPassword,
-    TResult? Function(_ChangePassword value)? changePassword,
-    TResult? Function(_DeleteAccount value)? deleteAccount,
+    TResult? Function(_GetUser value)? getUser,
+    TResult? Function(_CreateUser value)? createUser,
+    TResult? Function(_DeleteUser value)? deleteUser,
   }) {
-    return login?.call(this);
+    return createUser?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SilentLogin value)? silentLogin,
-    TResult Function(_Login value)? login,
-    TResult Function(_Logout value)? logout,
-    TResult Function(_Signup value)? signup,
-    TResult Function(_ResetPassword value)? resetPassword,
-    TResult Function(_ChangePassword value)? changePassword,
-    TResult Function(_DeleteAccount value)? deleteAccount,
+    TResult Function(_GetUser value)? getUser,
+    TResult Function(_CreateUser value)? createUser,
+    TResult Function(_DeleteUser value)? deleteUser,
     required TResult orElse(),
   }) {
-    if (login != null) {
-      return login(this);
+    if (createUser != null) {
+      return createUser(this);
     }
     return orElse();
   }
 }
 
-abstract class _Login implements FirebaseEvent {
-  const factory _Login(
-      {required final String email, required final String password}) = _$_Login;
+abstract class _CreateUser implements FirebaseEvent {
+  const factory _CreateUser({required final ShadowUser shadowUser}) =
+      _$_CreateUser;
 
-  String get email;
-  String get password;
+  ShadowUser get shadowUser;
   @JsonKey(ignore: true)
-  _$$_LoginCopyWith<_$_Login> get copyWith =>
+  _$$_CreateUserCopyWith<_$_CreateUser> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_LogoutCopyWith<$Res> {
-  factory _$$_LogoutCopyWith(_$_Logout value, $Res Function(_$_Logout) then) =
-      __$$_LogoutCopyWithImpl<$Res>;
+abstract class _$$_DeleteUserCopyWith<$Res> {
+  factory _$$_DeleteUserCopyWith(
+          _$_DeleteUser value, $Res Function(_$_DeleteUser) then) =
+      __$$_DeleteUserCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_LogoutCopyWithImpl<$Res>
-    extends _$FirebaseEventCopyWithImpl<$Res, _$_Logout>
-    implements _$$_LogoutCopyWith<$Res> {
-  __$$_LogoutCopyWithImpl(_$_Logout _value, $Res Function(_$_Logout) _then)
+class __$$_DeleteUserCopyWithImpl<$Res>
+    extends _$FirebaseEventCopyWithImpl<$Res, _$_DeleteUser>
+    implements _$$_DeleteUserCopyWith<$Res> {
+  __$$_DeleteUserCopyWithImpl(
+      _$_DeleteUser _value, $Res Function(_$_DeleteUser) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Logout implements _Logout {
-  const _$_Logout();
+class _$_DeleteUser implements _DeleteUser {
+  const _$_DeleteUser();
 
   @override
   String toString() {
-    return 'FirebaseEvent.logout()';
+    return 'FirebaseEvent.deleteUser()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Logout);
+        (other.runtimeType == runtimeType && other is _$_DeleteUser);
   }
 
   @override
@@ -447,46 +376,33 @@ class _$_Logout implements _Logout {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() silentLogin,
-    required TResult Function(String email, String password) login,
-    required TResult Function() logout,
-    required TResult Function(String email, String password) signup,
-    required TResult Function(String email) resetPassword,
-    required TResult Function(String oldPassword, String newPassword)
-        changePassword,
-    required TResult Function(String password) deleteAccount,
+    required TResult Function() getUser,
+    required TResult Function(ShadowUser shadowUser) createUser,
+    required TResult Function() deleteUser,
   }) {
-    return logout();
+    return deleteUser();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? silentLogin,
-    TResult? Function(String email, String password)? login,
-    TResult? Function()? logout,
-    TResult? Function(String email, String password)? signup,
-    TResult? Function(String email)? resetPassword,
-    TResult? Function(String oldPassword, String newPassword)? changePassword,
-    TResult? Function(String password)? deleteAccount,
+    TResult? Function()? getUser,
+    TResult? Function(ShadowUser shadowUser)? createUser,
+    TResult? Function()? deleteUser,
   }) {
-    return logout?.call();
+    return deleteUser?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? silentLogin,
-    TResult Function(String email, String password)? login,
-    TResult Function()? logout,
-    TResult Function(String email, String password)? signup,
-    TResult Function(String email)? resetPassword,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(String password)? deleteAccount,
+    TResult Function()? getUser,
+    TResult Function(ShadowUser shadowUser)? createUser,
+    TResult Function()? deleteUser,
     required TResult orElse(),
   }) {
-    if (logout != null) {
-      return logout();
+    if (deleteUser != null) {
+      return deleteUser();
     }
     return orElse();
   }
@@ -494,766 +410,40 @@ class _$_Logout implements _Logout {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SilentLogin value) silentLogin,
-    required TResult Function(_Login value) login,
-    required TResult Function(_Logout value) logout,
-    required TResult Function(_Signup value) signup,
-    required TResult Function(_ResetPassword value) resetPassword,
-    required TResult Function(_ChangePassword value) changePassword,
-    required TResult Function(_DeleteAccount value) deleteAccount,
+    required TResult Function(_GetUser value) getUser,
+    required TResult Function(_CreateUser value) createUser,
+    required TResult Function(_DeleteUser value) deleteUser,
   }) {
-    return logout(this);
+    return deleteUser(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SilentLogin value)? silentLogin,
-    TResult? Function(_Login value)? login,
-    TResult? Function(_Logout value)? logout,
-    TResult? Function(_Signup value)? signup,
-    TResult? Function(_ResetPassword value)? resetPassword,
-    TResult? Function(_ChangePassword value)? changePassword,
-    TResult? Function(_DeleteAccount value)? deleteAccount,
+    TResult? Function(_GetUser value)? getUser,
+    TResult? Function(_CreateUser value)? createUser,
+    TResult? Function(_DeleteUser value)? deleteUser,
   }) {
-    return logout?.call(this);
+    return deleteUser?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SilentLogin value)? silentLogin,
-    TResult Function(_Login value)? login,
-    TResult Function(_Logout value)? logout,
-    TResult Function(_Signup value)? signup,
-    TResult Function(_ResetPassword value)? resetPassword,
-    TResult Function(_ChangePassword value)? changePassword,
-    TResult Function(_DeleteAccount value)? deleteAccount,
+    TResult Function(_GetUser value)? getUser,
+    TResult Function(_CreateUser value)? createUser,
+    TResult Function(_DeleteUser value)? deleteUser,
     required TResult orElse(),
   }) {
-    if (logout != null) {
-      return logout(this);
+    if (deleteUser != null) {
+      return deleteUser(this);
     }
     return orElse();
   }
 }
 
-abstract class _Logout implements FirebaseEvent {
-  const factory _Logout() = _$_Logout;
-}
-
-/// @nodoc
-abstract class _$$_SignupCopyWith<$Res> {
-  factory _$$_SignupCopyWith(_$_Signup value, $Res Function(_$_Signup) then) =
-      __$$_SignupCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String email, String password});
-}
-
-/// @nodoc
-class __$$_SignupCopyWithImpl<$Res>
-    extends _$FirebaseEventCopyWithImpl<$Res, _$_Signup>
-    implements _$$_SignupCopyWith<$Res> {
-  __$$_SignupCopyWithImpl(_$_Signup _value, $Res Function(_$_Signup) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? email = null,
-    Object? password = null,
-  }) {
-    return _then(_$_Signup(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_Signup implements _Signup {
-  const _$_Signup({required this.email, required this.password});
-
-  @override
-  final String email;
-  @override
-  final String password;
-
-  @override
-  String toString() {
-    return 'FirebaseEvent.signup(email: $email, password: $password)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Signup &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, email, password);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_SignupCopyWith<_$_Signup> get copyWith =>
-      __$$_SignupCopyWithImpl<_$_Signup>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() silentLogin,
-    required TResult Function(String email, String password) login,
-    required TResult Function() logout,
-    required TResult Function(String email, String password) signup,
-    required TResult Function(String email) resetPassword,
-    required TResult Function(String oldPassword, String newPassword)
-        changePassword,
-    required TResult Function(String password) deleteAccount,
-  }) {
-    return signup(email, password);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? silentLogin,
-    TResult? Function(String email, String password)? login,
-    TResult? Function()? logout,
-    TResult? Function(String email, String password)? signup,
-    TResult? Function(String email)? resetPassword,
-    TResult? Function(String oldPassword, String newPassword)? changePassword,
-    TResult? Function(String password)? deleteAccount,
-  }) {
-    return signup?.call(email, password);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? silentLogin,
-    TResult Function(String email, String password)? login,
-    TResult Function()? logout,
-    TResult Function(String email, String password)? signup,
-    TResult Function(String email)? resetPassword,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(String password)? deleteAccount,
-    required TResult orElse(),
-  }) {
-    if (signup != null) {
-      return signup(email, password);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_SilentLogin value) silentLogin,
-    required TResult Function(_Login value) login,
-    required TResult Function(_Logout value) logout,
-    required TResult Function(_Signup value) signup,
-    required TResult Function(_ResetPassword value) resetPassword,
-    required TResult Function(_ChangePassword value) changePassword,
-    required TResult Function(_DeleteAccount value) deleteAccount,
-  }) {
-    return signup(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SilentLogin value)? silentLogin,
-    TResult? Function(_Login value)? login,
-    TResult? Function(_Logout value)? logout,
-    TResult? Function(_Signup value)? signup,
-    TResult? Function(_ResetPassword value)? resetPassword,
-    TResult? Function(_ChangePassword value)? changePassword,
-    TResult? Function(_DeleteAccount value)? deleteAccount,
-  }) {
-    return signup?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SilentLogin value)? silentLogin,
-    TResult Function(_Login value)? login,
-    TResult Function(_Logout value)? logout,
-    TResult Function(_Signup value)? signup,
-    TResult Function(_ResetPassword value)? resetPassword,
-    TResult Function(_ChangePassword value)? changePassword,
-    TResult Function(_DeleteAccount value)? deleteAccount,
-    required TResult orElse(),
-  }) {
-    if (signup != null) {
-      return signup(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Signup implements FirebaseEvent {
-  const factory _Signup(
-      {required final String email,
-      required final String password}) = _$_Signup;
-
-  String get email;
-  String get password;
-  @JsonKey(ignore: true)
-  _$$_SignupCopyWith<_$_Signup> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_ResetPasswordCopyWith<$Res> {
-  factory _$$_ResetPasswordCopyWith(
-          _$_ResetPassword value, $Res Function(_$_ResetPassword) then) =
-      __$$_ResetPasswordCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String email});
-}
-
-/// @nodoc
-class __$$_ResetPasswordCopyWithImpl<$Res>
-    extends _$FirebaseEventCopyWithImpl<$Res, _$_ResetPassword>
-    implements _$$_ResetPasswordCopyWith<$Res> {
-  __$$_ResetPasswordCopyWithImpl(
-      _$_ResetPassword _value, $Res Function(_$_ResetPassword) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? email = null,
-  }) {
-    return _then(_$_ResetPassword(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_ResetPassword implements _ResetPassword {
-  const _$_ResetPassword({required this.email});
-
-  @override
-  final String email;
-
-  @override
-  String toString() {
-    return 'FirebaseEvent.resetPassword(email: $email)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ResetPassword &&
-            (identical(other.email, email) || other.email == email));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, email);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_ResetPasswordCopyWith<_$_ResetPassword> get copyWith =>
-      __$$_ResetPasswordCopyWithImpl<_$_ResetPassword>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() silentLogin,
-    required TResult Function(String email, String password) login,
-    required TResult Function() logout,
-    required TResult Function(String email, String password) signup,
-    required TResult Function(String email) resetPassword,
-    required TResult Function(String oldPassword, String newPassword)
-        changePassword,
-    required TResult Function(String password) deleteAccount,
-  }) {
-    return resetPassword(email);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? silentLogin,
-    TResult? Function(String email, String password)? login,
-    TResult? Function()? logout,
-    TResult? Function(String email, String password)? signup,
-    TResult? Function(String email)? resetPassword,
-    TResult? Function(String oldPassword, String newPassword)? changePassword,
-    TResult? Function(String password)? deleteAccount,
-  }) {
-    return resetPassword?.call(email);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? silentLogin,
-    TResult Function(String email, String password)? login,
-    TResult Function()? logout,
-    TResult Function(String email, String password)? signup,
-    TResult Function(String email)? resetPassword,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(String password)? deleteAccount,
-    required TResult orElse(),
-  }) {
-    if (resetPassword != null) {
-      return resetPassword(email);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_SilentLogin value) silentLogin,
-    required TResult Function(_Login value) login,
-    required TResult Function(_Logout value) logout,
-    required TResult Function(_Signup value) signup,
-    required TResult Function(_ResetPassword value) resetPassword,
-    required TResult Function(_ChangePassword value) changePassword,
-    required TResult Function(_DeleteAccount value) deleteAccount,
-  }) {
-    return resetPassword(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SilentLogin value)? silentLogin,
-    TResult? Function(_Login value)? login,
-    TResult? Function(_Logout value)? logout,
-    TResult? Function(_Signup value)? signup,
-    TResult? Function(_ResetPassword value)? resetPassword,
-    TResult? Function(_ChangePassword value)? changePassword,
-    TResult? Function(_DeleteAccount value)? deleteAccount,
-  }) {
-    return resetPassword?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SilentLogin value)? silentLogin,
-    TResult Function(_Login value)? login,
-    TResult Function(_Logout value)? logout,
-    TResult Function(_Signup value)? signup,
-    TResult Function(_ResetPassword value)? resetPassword,
-    TResult Function(_ChangePassword value)? changePassword,
-    TResult Function(_DeleteAccount value)? deleteAccount,
-    required TResult orElse(),
-  }) {
-    if (resetPassword != null) {
-      return resetPassword(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _ResetPassword implements FirebaseEvent {
-  const factory _ResetPassword({required final String email}) =
-      _$_ResetPassword;
-
-  String get email;
-  @JsonKey(ignore: true)
-  _$$_ResetPasswordCopyWith<_$_ResetPassword> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_ChangePasswordCopyWith<$Res> {
-  factory _$$_ChangePasswordCopyWith(
-          _$_ChangePassword value, $Res Function(_$_ChangePassword) then) =
-      __$$_ChangePasswordCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String oldPassword, String newPassword});
-}
-
-/// @nodoc
-class __$$_ChangePasswordCopyWithImpl<$Res>
-    extends _$FirebaseEventCopyWithImpl<$Res, _$_ChangePassword>
-    implements _$$_ChangePasswordCopyWith<$Res> {
-  __$$_ChangePasswordCopyWithImpl(
-      _$_ChangePassword _value, $Res Function(_$_ChangePassword) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? oldPassword = null,
-    Object? newPassword = null,
-  }) {
-    return _then(_$_ChangePassword(
-      oldPassword: null == oldPassword
-          ? _value.oldPassword
-          : oldPassword // ignore: cast_nullable_to_non_nullable
-              as String,
-      newPassword: null == newPassword
-          ? _value.newPassword
-          : newPassword // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_ChangePassword implements _ChangePassword {
-  const _$_ChangePassword(
-      {required this.oldPassword, required this.newPassword});
-
-  @override
-  final String oldPassword;
-  @override
-  final String newPassword;
-
-  @override
-  String toString() {
-    return 'FirebaseEvent.changePassword(oldPassword: $oldPassword, newPassword: $newPassword)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ChangePassword &&
-            (identical(other.oldPassword, oldPassword) ||
-                other.oldPassword == oldPassword) &&
-            (identical(other.newPassword, newPassword) ||
-                other.newPassword == newPassword));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, oldPassword, newPassword);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_ChangePasswordCopyWith<_$_ChangePassword> get copyWith =>
-      __$$_ChangePasswordCopyWithImpl<_$_ChangePassword>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() silentLogin,
-    required TResult Function(String email, String password) login,
-    required TResult Function() logout,
-    required TResult Function(String email, String password) signup,
-    required TResult Function(String email) resetPassword,
-    required TResult Function(String oldPassword, String newPassword)
-        changePassword,
-    required TResult Function(String password) deleteAccount,
-  }) {
-    return changePassword(oldPassword, newPassword);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? silentLogin,
-    TResult? Function(String email, String password)? login,
-    TResult? Function()? logout,
-    TResult? Function(String email, String password)? signup,
-    TResult? Function(String email)? resetPassword,
-    TResult? Function(String oldPassword, String newPassword)? changePassword,
-    TResult? Function(String password)? deleteAccount,
-  }) {
-    return changePassword?.call(oldPassword, newPassword);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? silentLogin,
-    TResult Function(String email, String password)? login,
-    TResult Function()? logout,
-    TResult Function(String email, String password)? signup,
-    TResult Function(String email)? resetPassword,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(String password)? deleteAccount,
-    required TResult orElse(),
-  }) {
-    if (changePassword != null) {
-      return changePassword(oldPassword, newPassword);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_SilentLogin value) silentLogin,
-    required TResult Function(_Login value) login,
-    required TResult Function(_Logout value) logout,
-    required TResult Function(_Signup value) signup,
-    required TResult Function(_ResetPassword value) resetPassword,
-    required TResult Function(_ChangePassword value) changePassword,
-    required TResult Function(_DeleteAccount value) deleteAccount,
-  }) {
-    return changePassword(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SilentLogin value)? silentLogin,
-    TResult? Function(_Login value)? login,
-    TResult? Function(_Logout value)? logout,
-    TResult? Function(_Signup value)? signup,
-    TResult? Function(_ResetPassword value)? resetPassword,
-    TResult? Function(_ChangePassword value)? changePassword,
-    TResult? Function(_DeleteAccount value)? deleteAccount,
-  }) {
-    return changePassword?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SilentLogin value)? silentLogin,
-    TResult Function(_Login value)? login,
-    TResult Function(_Logout value)? logout,
-    TResult Function(_Signup value)? signup,
-    TResult Function(_ResetPassword value)? resetPassword,
-    TResult Function(_ChangePassword value)? changePassword,
-    TResult Function(_DeleteAccount value)? deleteAccount,
-    required TResult orElse(),
-  }) {
-    if (changePassword != null) {
-      return changePassword(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _ChangePassword implements FirebaseEvent {
-  const factory _ChangePassword(
-      {required final String oldPassword,
-      required final String newPassword}) = _$_ChangePassword;
-
-  String get oldPassword;
-  String get newPassword;
-  @JsonKey(ignore: true)
-  _$$_ChangePasswordCopyWith<_$_ChangePassword> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_DeleteAccountCopyWith<$Res> {
-  factory _$$_DeleteAccountCopyWith(
-          _$_DeleteAccount value, $Res Function(_$_DeleteAccount) then) =
-      __$$_DeleteAccountCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String password});
-}
-
-/// @nodoc
-class __$$_DeleteAccountCopyWithImpl<$Res>
-    extends _$FirebaseEventCopyWithImpl<$Res, _$_DeleteAccount>
-    implements _$$_DeleteAccountCopyWith<$Res> {
-  __$$_DeleteAccountCopyWithImpl(
-      _$_DeleteAccount _value, $Res Function(_$_DeleteAccount) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? password = null,
-  }) {
-    return _then(_$_DeleteAccount(
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_DeleteAccount implements _DeleteAccount {
-  const _$_DeleteAccount({required this.password});
-
-  @override
-  final String password;
-
-  @override
-  String toString() {
-    return 'FirebaseEvent.deleteAccount(password: $password)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_DeleteAccount &&
-            (identical(other.password, password) ||
-                other.password == password));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, password);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_DeleteAccountCopyWith<_$_DeleteAccount> get copyWith =>
-      __$$_DeleteAccountCopyWithImpl<_$_DeleteAccount>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() silentLogin,
-    required TResult Function(String email, String password) login,
-    required TResult Function() logout,
-    required TResult Function(String email, String password) signup,
-    required TResult Function(String email) resetPassword,
-    required TResult Function(String oldPassword, String newPassword)
-        changePassword,
-    required TResult Function(String password) deleteAccount,
-  }) {
-    return deleteAccount(password);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? silentLogin,
-    TResult? Function(String email, String password)? login,
-    TResult? Function()? logout,
-    TResult? Function(String email, String password)? signup,
-    TResult? Function(String email)? resetPassword,
-    TResult? Function(String oldPassword, String newPassword)? changePassword,
-    TResult? Function(String password)? deleteAccount,
-  }) {
-    return deleteAccount?.call(password);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? silentLogin,
-    TResult Function(String email, String password)? login,
-    TResult Function()? logout,
-    TResult Function(String email, String password)? signup,
-    TResult Function(String email)? resetPassword,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(String password)? deleteAccount,
-    required TResult orElse(),
-  }) {
-    if (deleteAccount != null) {
-      return deleteAccount(password);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_SilentLogin value) silentLogin,
-    required TResult Function(_Login value) login,
-    required TResult Function(_Logout value) logout,
-    required TResult Function(_Signup value) signup,
-    required TResult Function(_ResetPassword value) resetPassword,
-    required TResult Function(_ChangePassword value) changePassword,
-    required TResult Function(_DeleteAccount value) deleteAccount,
-  }) {
-    return deleteAccount(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SilentLogin value)? silentLogin,
-    TResult? Function(_Login value)? login,
-    TResult? Function(_Logout value)? logout,
-    TResult? Function(_Signup value)? signup,
-    TResult? Function(_ResetPassword value)? resetPassword,
-    TResult? Function(_ChangePassword value)? changePassword,
-    TResult? Function(_DeleteAccount value)? deleteAccount,
-  }) {
-    return deleteAccount?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SilentLogin value)? silentLogin,
-    TResult Function(_Login value)? login,
-    TResult Function(_Logout value)? logout,
-    TResult Function(_Signup value)? signup,
-    TResult Function(_ResetPassword value)? resetPassword,
-    TResult Function(_ChangePassword value)? changePassword,
-    TResult Function(_DeleteAccount value)? deleteAccount,
-    required TResult orElse(),
-  }) {
-    if (deleteAccount != null) {
-      return deleteAccount(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _DeleteAccount implements FirebaseEvent {
-  const factory _DeleteAccount({required final String password}) =
-      _$_DeleteAccount;
-
-  String get password;
-  @JsonKey(ignore: true)
-  _$$_DeleteAccountCopyWith<_$_DeleteAccount> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-FirebaseState _$FirebaseStateFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType']) {
-    case 'loggingIn':
-      return _LoggingIn.fromJson(json);
-    case 'loggedIn':
-      return _LoggedIn.fromJson(json);
-    case 'loggingOut':
-      return _LoggingOut.fromJson(json);
-    case 'loggedOut':
-      return _LoggedOut.fromJson(json);
-    case 'signingUp':
-      return _SigningUp.fromJson(json);
-    case 'changingPassword':
-      return _ChangingPassword.fromJson(json);
-    case 'passwordChanged':
-      return _PasswordChanged.fromJson(json);
-    case 'sendingPasswordResetEmail':
-      return _SendingPasswordResetEmail.fromJson(json);
-    case 'sentPasswordResetEmail':
-      return _SentPasswordResetEmail.fromJson(json);
-    case 'deletingAccount':
-      return _DeletingAccount.fromJson(json);
-    case 'errorOccured':
-      return _ErrorOccured.fromJson(json);
-
-    default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'FirebaseState',
-          'Invalid union type "${json['runtimeType']}"!');
-  }
+abstract class _DeleteUser implements FirebaseEvent {
+  const factory _DeleteUser() = _$_DeleteUser;
 }
 
 /// @nodoc
@@ -1261,7 +451,7 @@ mixin _$FirebaseState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loggingIn,
-    required TResult Function(User user) loggedIn,
+    required TResult Function(ShadowUser shadowUser) loggedIn,
     required TResult Function() loggingOut,
     required TResult Function(String? message) loggedOut,
     required TResult Function() signingUp,
@@ -1276,7 +466,7 @@ mixin _$FirebaseState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loggingIn,
-    TResult? Function(User user)? loggedIn,
+    TResult? Function(ShadowUser shadowUser)? loggedIn,
     TResult? Function()? loggingOut,
     TResult? Function(String? message)? loggedOut,
     TResult? Function()? signingUp,
@@ -1291,7 +481,7 @@ mixin _$FirebaseState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loggingIn,
-    TResult Function(User user)? loggedIn,
+    TResult Function(ShadowUser shadowUser)? loggedIn,
     TResult Function()? loggingOut,
     TResult Function(String? message)? loggedOut,
     TResult Function()? signingUp,
@@ -1354,7 +544,6 @@ mixin _$FirebaseState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1392,17 +581,9 @@ class __$$_LoggingInCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$_LoggingIn extends _LoggingIn {
-  const _$_LoggingIn({final String? $type})
-      : $type = $type ?? 'loggingIn',
-        super._();
-
-  factory _$_LoggingIn.fromJson(Map<String, dynamic> json) =>
-      _$$_LoggingInFromJson(json);
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
+  const _$_LoggingIn() : super._();
 
   @override
   String toString() {
@@ -1415,7 +596,6 @@ class _$_LoggingIn extends _LoggingIn {
         (other.runtimeType == runtimeType && other is _$_LoggingIn);
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => runtimeType.hashCode;
 
@@ -1423,7 +603,7 @@ class _$_LoggingIn extends _LoggingIn {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loggingIn,
-    required TResult Function(User user) loggedIn,
+    required TResult Function(ShadowUser shadowUser) loggedIn,
     required TResult Function() loggingOut,
     required TResult Function(String? message) loggedOut,
     required TResult Function() signingUp,
@@ -1441,7 +621,7 @@ class _$_LoggingIn extends _LoggingIn {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loggingIn,
-    TResult? Function(User user)? loggedIn,
+    TResult? Function(ShadowUser shadowUser)? loggedIn,
     TResult? Function()? loggingOut,
     TResult? Function(String? message)? loggedOut,
     TResult? Function()? signingUp,
@@ -1459,7 +639,7 @@ class _$_LoggingIn extends _LoggingIn {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loggingIn,
-    TResult Function(User user)? loggedIn,
+    TResult Function(ShadowUser shadowUser)? loggedIn,
     TResult Function()? loggingOut,
     TResult Function(String? message)? loggedOut,
     TResult Function()? signingUp,
@@ -1538,21 +718,11 @@ class _$_LoggingIn extends _LoggingIn {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_LoggingInToJson(
-      this,
-    );
-  }
 }
 
 abstract class _LoggingIn extends FirebaseState {
   const factory _LoggingIn() = _$_LoggingIn;
   const _LoggingIn._() : super._();
-
-  factory _LoggingIn.fromJson(Map<String, dynamic> json) =
-      _$_LoggingIn.fromJson;
 }
 
 /// @nodoc
@@ -1561,7 +731,9 @@ abstract class _$$_LoggedInCopyWith<$Res> {
           _$_LoggedIn value, $Res Function(_$_LoggedIn) then) =
       __$$_LoggedInCopyWithImpl<$Res>;
   @useResult
-  $Res call({User user});
+  $Res call({ShadowUser shadowUser});
+
+  $ShadowUserCopyWith<$Res> get shadowUser;
 }
 
 /// @nodoc
@@ -1575,36 +747,36 @@ class __$$_LoggedInCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = freezed,
+    Object? shadowUser = null,
   }) {
     return _then(_$_LoggedIn(
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User,
+      shadowUser: null == shadowUser
+          ? _value.shadowUser
+          : shadowUser // ignore: cast_nullable_to_non_nullable
+              as ShadowUser,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ShadowUserCopyWith<$Res> get shadowUser {
+    return $ShadowUserCopyWith<$Res>(_value.shadowUser, (value) {
+      return _then(_value.copyWith(shadowUser: value));
+    });
   }
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$_LoggedIn extends _LoggedIn {
-  const _$_LoggedIn({required this.user, final String? $type})
-      : $type = $type ?? 'loggedIn',
-        super._();
 
-  factory _$_LoggedIn.fromJson(Map<String, dynamic> json) =>
-      _$$_LoggedInFromJson(json);
+class _$_LoggedIn extends _LoggedIn {
+  const _$_LoggedIn({required this.shadowUser}) : super._();
 
   @override
-  final User user;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
+  final ShadowUser shadowUser;
 
   @override
   String toString() {
-    return 'FirebaseState.loggedIn(user: $user)';
+    return 'FirebaseState.loggedIn(shadowUser: $shadowUser)';
   }
 
   @override
@@ -1612,13 +784,12 @@ class _$_LoggedIn extends _LoggedIn {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LoggedIn &&
-            const DeepCollectionEquality().equals(other.user, user));
+            (identical(other.shadowUser, shadowUser) ||
+                other.shadowUser == shadowUser));
   }
 
-  @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(user));
+  int get hashCode => Object.hash(runtimeType, shadowUser);
 
   @JsonKey(ignore: true)
   @override
@@ -1630,7 +801,7 @@ class _$_LoggedIn extends _LoggedIn {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loggingIn,
-    required TResult Function(User user) loggedIn,
+    required TResult Function(ShadowUser shadowUser) loggedIn,
     required TResult Function() loggingOut,
     required TResult Function(String? message) loggedOut,
     required TResult Function() signingUp,
@@ -1641,14 +812,14 @@ class _$_LoggedIn extends _LoggedIn {
     required TResult Function() deletingAccount,
     required TResult Function(String? message) errorOccured,
   }) {
-    return loggedIn(user);
+    return loggedIn(shadowUser);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loggingIn,
-    TResult? Function(User user)? loggedIn,
+    TResult? Function(ShadowUser shadowUser)? loggedIn,
     TResult? Function()? loggingOut,
     TResult? Function(String? message)? loggedOut,
     TResult? Function()? signingUp,
@@ -1659,14 +830,14 @@ class _$_LoggedIn extends _LoggedIn {
     TResult? Function()? deletingAccount,
     TResult? Function(String? message)? errorOccured,
   }) {
-    return loggedIn?.call(user);
+    return loggedIn?.call(shadowUser);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loggingIn,
-    TResult Function(User user)? loggedIn,
+    TResult Function(ShadowUser shadowUser)? loggedIn,
     TResult Function()? loggingOut,
     TResult Function(String? message)? loggedOut,
     TResult Function()? signingUp,
@@ -1679,7 +850,7 @@ class _$_LoggedIn extends _LoggedIn {
     required TResult orElse(),
   }) {
     if (loggedIn != null) {
-      return loggedIn(user);
+      return loggedIn(shadowUser);
     }
     return orElse();
   }
@@ -1745,22 +916,13 @@ class _$_LoggedIn extends _LoggedIn {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_LoggedInToJson(
-      this,
-    );
-  }
 }
 
 abstract class _LoggedIn extends FirebaseState {
-  const factory _LoggedIn({required final User user}) = _$_LoggedIn;
+  const factory _LoggedIn({required final ShadowUser shadowUser}) = _$_LoggedIn;
   const _LoggedIn._() : super._();
 
-  factory _LoggedIn.fromJson(Map<String, dynamic> json) = _$_LoggedIn.fromJson;
-
-  User get user;
+  ShadowUser get shadowUser;
   @JsonKey(ignore: true)
   _$$_LoggedInCopyWith<_$_LoggedIn> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1783,17 +945,9 @@ class __$$_LoggingOutCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$_LoggingOut extends _LoggingOut {
-  const _$_LoggingOut({final String? $type})
-      : $type = $type ?? 'loggingOut',
-        super._();
-
-  factory _$_LoggingOut.fromJson(Map<String, dynamic> json) =>
-      _$$_LoggingOutFromJson(json);
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
+  const _$_LoggingOut() : super._();
 
   @override
   String toString() {
@@ -1806,7 +960,6 @@ class _$_LoggingOut extends _LoggingOut {
         (other.runtimeType == runtimeType && other is _$_LoggingOut);
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => runtimeType.hashCode;
 
@@ -1814,7 +967,7 @@ class _$_LoggingOut extends _LoggingOut {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loggingIn,
-    required TResult Function(User user) loggedIn,
+    required TResult Function(ShadowUser shadowUser) loggedIn,
     required TResult Function() loggingOut,
     required TResult Function(String? message) loggedOut,
     required TResult Function() signingUp,
@@ -1832,7 +985,7 @@ class _$_LoggingOut extends _LoggingOut {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loggingIn,
-    TResult? Function(User user)? loggedIn,
+    TResult? Function(ShadowUser shadowUser)? loggedIn,
     TResult? Function()? loggingOut,
     TResult? Function(String? message)? loggedOut,
     TResult? Function()? signingUp,
@@ -1850,7 +1003,7 @@ class _$_LoggingOut extends _LoggingOut {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loggingIn,
-    TResult Function(User user)? loggedIn,
+    TResult Function(ShadowUser shadowUser)? loggedIn,
     TResult Function()? loggingOut,
     TResult Function(String? message)? loggedOut,
     TResult Function()? signingUp,
@@ -1929,21 +1082,11 @@ class _$_LoggingOut extends _LoggingOut {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_LoggingOutToJson(
-      this,
-    );
-  }
 }
 
 abstract class _LoggingOut extends FirebaseState {
   const factory _LoggingOut() = _$_LoggingOut;
   const _LoggingOut._() : super._();
-
-  factory _LoggingOut.fromJson(Map<String, dynamic> json) =
-      _$_LoggingOut.fromJson;
 }
 
 /// @nodoc
@@ -1978,20 +1121,12 @@ class __$$_LoggedOutCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$_LoggedOut extends _LoggedOut {
-  const _$_LoggedOut({this.message, final String? $type})
-      : $type = $type ?? 'loggedOut',
-        super._();
 
-  factory _$_LoggedOut.fromJson(Map<String, dynamic> json) =>
-      _$$_LoggedOutFromJson(json);
+class _$_LoggedOut extends _LoggedOut {
+  const _$_LoggedOut({this.message}) : super._();
 
   @override
   final String? message;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
 
   @override
   String toString() {
@@ -2006,7 +1141,6 @@ class _$_LoggedOut extends _LoggedOut {
             (identical(other.message, message) || other.message == message));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
@@ -2020,7 +1154,7 @@ class _$_LoggedOut extends _LoggedOut {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loggingIn,
-    required TResult Function(User user) loggedIn,
+    required TResult Function(ShadowUser shadowUser) loggedIn,
     required TResult Function() loggingOut,
     required TResult Function(String? message) loggedOut,
     required TResult Function() signingUp,
@@ -2038,7 +1172,7 @@ class _$_LoggedOut extends _LoggedOut {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loggingIn,
-    TResult? Function(User user)? loggedIn,
+    TResult? Function(ShadowUser shadowUser)? loggedIn,
     TResult? Function()? loggingOut,
     TResult? Function(String? message)? loggedOut,
     TResult? Function()? signingUp,
@@ -2056,7 +1190,7 @@ class _$_LoggedOut extends _LoggedOut {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loggingIn,
-    TResult Function(User user)? loggedIn,
+    TResult Function(ShadowUser shadowUser)? loggedIn,
     TResult Function()? loggingOut,
     TResult Function(String? message)? loggedOut,
     TResult Function()? signingUp,
@@ -2135,21 +1269,11 @@ class _$_LoggedOut extends _LoggedOut {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_LoggedOutToJson(
-      this,
-    );
-  }
 }
 
 abstract class _LoggedOut extends FirebaseState {
   const factory _LoggedOut({final String? message}) = _$_LoggedOut;
   const _LoggedOut._() : super._();
-
-  factory _LoggedOut.fromJson(Map<String, dynamic> json) =
-      _$_LoggedOut.fromJson;
 
   String? get message;
   @JsonKey(ignore: true)
@@ -2174,17 +1298,9 @@ class __$$_SigningUpCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$_SigningUp extends _SigningUp {
-  const _$_SigningUp({final String? $type})
-      : $type = $type ?? 'signingUp',
-        super._();
-
-  factory _$_SigningUp.fromJson(Map<String, dynamic> json) =>
-      _$$_SigningUpFromJson(json);
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
+  const _$_SigningUp() : super._();
 
   @override
   String toString() {
@@ -2197,7 +1313,6 @@ class _$_SigningUp extends _SigningUp {
         (other.runtimeType == runtimeType && other is _$_SigningUp);
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => runtimeType.hashCode;
 
@@ -2205,7 +1320,7 @@ class _$_SigningUp extends _SigningUp {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loggingIn,
-    required TResult Function(User user) loggedIn,
+    required TResult Function(ShadowUser shadowUser) loggedIn,
     required TResult Function() loggingOut,
     required TResult Function(String? message) loggedOut,
     required TResult Function() signingUp,
@@ -2223,7 +1338,7 @@ class _$_SigningUp extends _SigningUp {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loggingIn,
-    TResult? Function(User user)? loggedIn,
+    TResult? Function(ShadowUser shadowUser)? loggedIn,
     TResult? Function()? loggingOut,
     TResult? Function(String? message)? loggedOut,
     TResult? Function()? signingUp,
@@ -2241,7 +1356,7 @@ class _$_SigningUp extends _SigningUp {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loggingIn,
-    TResult Function(User user)? loggedIn,
+    TResult Function(ShadowUser shadowUser)? loggedIn,
     TResult Function()? loggingOut,
     TResult Function(String? message)? loggedOut,
     TResult Function()? signingUp,
@@ -2320,21 +1435,11 @@ class _$_SigningUp extends _SigningUp {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_SigningUpToJson(
-      this,
-    );
-  }
 }
 
 abstract class _SigningUp extends FirebaseState {
   const factory _SigningUp() = _$_SigningUp;
   const _SigningUp._() : super._();
-
-  factory _SigningUp.fromJson(Map<String, dynamic> json) =
-      _$_SigningUp.fromJson;
 }
 
 /// @nodoc
@@ -2354,17 +1459,9 @@ class __$$_ChangingPasswordCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$_ChangingPassword extends _ChangingPassword {
-  const _$_ChangingPassword({final String? $type})
-      : $type = $type ?? 'changingPassword',
-        super._();
-
-  factory _$_ChangingPassword.fromJson(Map<String, dynamic> json) =>
-      _$$_ChangingPasswordFromJson(json);
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
+  const _$_ChangingPassword() : super._();
 
   @override
   String toString() {
@@ -2377,7 +1474,6 @@ class _$_ChangingPassword extends _ChangingPassword {
         (other.runtimeType == runtimeType && other is _$_ChangingPassword);
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => runtimeType.hashCode;
 
@@ -2385,7 +1481,7 @@ class _$_ChangingPassword extends _ChangingPassword {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loggingIn,
-    required TResult Function(User user) loggedIn,
+    required TResult Function(ShadowUser shadowUser) loggedIn,
     required TResult Function() loggingOut,
     required TResult Function(String? message) loggedOut,
     required TResult Function() signingUp,
@@ -2403,7 +1499,7 @@ class _$_ChangingPassword extends _ChangingPassword {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loggingIn,
-    TResult? Function(User user)? loggedIn,
+    TResult? Function(ShadowUser shadowUser)? loggedIn,
     TResult? Function()? loggingOut,
     TResult? Function(String? message)? loggedOut,
     TResult? Function()? signingUp,
@@ -2421,7 +1517,7 @@ class _$_ChangingPassword extends _ChangingPassword {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loggingIn,
-    TResult Function(User user)? loggedIn,
+    TResult Function(ShadowUser shadowUser)? loggedIn,
     TResult Function()? loggingOut,
     TResult Function(String? message)? loggedOut,
     TResult Function()? signingUp,
@@ -2500,21 +1596,11 @@ class _$_ChangingPassword extends _ChangingPassword {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_ChangingPasswordToJson(
-      this,
-    );
-  }
 }
 
 abstract class _ChangingPassword extends FirebaseState {
   const factory _ChangingPassword() = _$_ChangingPassword;
   const _ChangingPassword._() : super._();
-
-  factory _ChangingPassword.fromJson(Map<String, dynamic> json) =
-      _$_ChangingPassword.fromJson;
 }
 
 /// @nodoc
@@ -2534,17 +1620,9 @@ class __$$_PasswordChangedCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$_PasswordChanged extends _PasswordChanged {
-  const _$_PasswordChanged({final String? $type})
-      : $type = $type ?? 'passwordChanged',
-        super._();
-
-  factory _$_PasswordChanged.fromJson(Map<String, dynamic> json) =>
-      _$$_PasswordChangedFromJson(json);
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
+  const _$_PasswordChanged() : super._();
 
   @override
   String toString() {
@@ -2557,7 +1635,6 @@ class _$_PasswordChanged extends _PasswordChanged {
         (other.runtimeType == runtimeType && other is _$_PasswordChanged);
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => runtimeType.hashCode;
 
@@ -2565,7 +1642,7 @@ class _$_PasswordChanged extends _PasswordChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loggingIn,
-    required TResult Function(User user) loggedIn,
+    required TResult Function(ShadowUser shadowUser) loggedIn,
     required TResult Function() loggingOut,
     required TResult Function(String? message) loggedOut,
     required TResult Function() signingUp,
@@ -2583,7 +1660,7 @@ class _$_PasswordChanged extends _PasswordChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loggingIn,
-    TResult? Function(User user)? loggedIn,
+    TResult? Function(ShadowUser shadowUser)? loggedIn,
     TResult? Function()? loggingOut,
     TResult? Function(String? message)? loggedOut,
     TResult? Function()? signingUp,
@@ -2601,7 +1678,7 @@ class _$_PasswordChanged extends _PasswordChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loggingIn,
-    TResult Function(User user)? loggedIn,
+    TResult Function(ShadowUser shadowUser)? loggedIn,
     TResult Function()? loggingOut,
     TResult Function(String? message)? loggedOut,
     TResult Function()? signingUp,
@@ -2680,21 +1757,11 @@ class _$_PasswordChanged extends _PasswordChanged {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_PasswordChangedToJson(
-      this,
-    );
-  }
 }
 
 abstract class _PasswordChanged extends FirebaseState {
   const factory _PasswordChanged() = _$_PasswordChanged;
   const _PasswordChanged._() : super._();
-
-  factory _PasswordChanged.fromJson(Map<String, dynamic> json) =
-      _$_PasswordChanged.fromJson;
 }
 
 /// @nodoc
@@ -2716,17 +1783,9 @@ class __$$_SendingPasswordResetEmailCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$_SendingPasswordResetEmail extends _SendingPasswordResetEmail {
-  const _$_SendingPasswordResetEmail({final String? $type})
-      : $type = $type ?? 'sendingPasswordResetEmail',
-        super._();
-
-  factory _$_SendingPasswordResetEmail.fromJson(Map<String, dynamic> json) =>
-      _$$_SendingPasswordResetEmailFromJson(json);
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
+  const _$_SendingPasswordResetEmail() : super._();
 
   @override
   String toString() {
@@ -2740,7 +1799,6 @@ class _$_SendingPasswordResetEmail extends _SendingPasswordResetEmail {
             other is _$_SendingPasswordResetEmail);
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => runtimeType.hashCode;
 
@@ -2748,7 +1806,7 @@ class _$_SendingPasswordResetEmail extends _SendingPasswordResetEmail {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loggingIn,
-    required TResult Function(User user) loggedIn,
+    required TResult Function(ShadowUser shadowUser) loggedIn,
     required TResult Function() loggingOut,
     required TResult Function(String? message) loggedOut,
     required TResult Function() signingUp,
@@ -2766,7 +1824,7 @@ class _$_SendingPasswordResetEmail extends _SendingPasswordResetEmail {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loggingIn,
-    TResult? Function(User user)? loggedIn,
+    TResult? Function(ShadowUser shadowUser)? loggedIn,
     TResult? Function()? loggingOut,
     TResult? Function(String? message)? loggedOut,
     TResult? Function()? signingUp,
@@ -2784,7 +1842,7 @@ class _$_SendingPasswordResetEmail extends _SendingPasswordResetEmail {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loggingIn,
-    TResult Function(User user)? loggedIn,
+    TResult Function(ShadowUser shadowUser)? loggedIn,
     TResult Function()? loggingOut,
     TResult Function(String? message)? loggedOut,
     TResult Function()? signingUp,
@@ -2863,21 +1921,11 @@ class _$_SendingPasswordResetEmail extends _SendingPasswordResetEmail {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_SendingPasswordResetEmailToJson(
-      this,
-    );
-  }
 }
 
 abstract class _SendingPasswordResetEmail extends FirebaseState {
   const factory _SendingPasswordResetEmail() = _$_SendingPasswordResetEmail;
   const _SendingPasswordResetEmail._() : super._();
-
-  factory _SendingPasswordResetEmail.fromJson(Map<String, dynamic> json) =
-      _$_SendingPasswordResetEmail.fromJson;
 }
 
 /// @nodoc
@@ -2897,17 +1945,9 @@ class __$$_SentPasswordResetEmailCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$_SentPasswordResetEmail extends _SentPasswordResetEmail {
-  const _$_SentPasswordResetEmail({final String? $type})
-      : $type = $type ?? 'sentPasswordResetEmail',
-        super._();
-
-  factory _$_SentPasswordResetEmail.fromJson(Map<String, dynamic> json) =>
-      _$$_SentPasswordResetEmailFromJson(json);
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
+  const _$_SentPasswordResetEmail() : super._();
 
   @override
   String toString() {
@@ -2921,7 +1961,6 @@ class _$_SentPasswordResetEmail extends _SentPasswordResetEmail {
             other is _$_SentPasswordResetEmail);
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => runtimeType.hashCode;
 
@@ -2929,7 +1968,7 @@ class _$_SentPasswordResetEmail extends _SentPasswordResetEmail {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loggingIn,
-    required TResult Function(User user) loggedIn,
+    required TResult Function(ShadowUser shadowUser) loggedIn,
     required TResult Function() loggingOut,
     required TResult Function(String? message) loggedOut,
     required TResult Function() signingUp,
@@ -2947,7 +1986,7 @@ class _$_SentPasswordResetEmail extends _SentPasswordResetEmail {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loggingIn,
-    TResult? Function(User user)? loggedIn,
+    TResult? Function(ShadowUser shadowUser)? loggedIn,
     TResult? Function()? loggingOut,
     TResult? Function(String? message)? loggedOut,
     TResult? Function()? signingUp,
@@ -2965,7 +2004,7 @@ class _$_SentPasswordResetEmail extends _SentPasswordResetEmail {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loggingIn,
-    TResult Function(User user)? loggedIn,
+    TResult Function(ShadowUser shadowUser)? loggedIn,
     TResult Function()? loggingOut,
     TResult Function(String? message)? loggedOut,
     TResult Function()? signingUp,
@@ -3044,21 +2083,11 @@ class _$_SentPasswordResetEmail extends _SentPasswordResetEmail {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_SentPasswordResetEmailToJson(
-      this,
-    );
-  }
 }
 
 abstract class _SentPasswordResetEmail extends FirebaseState {
   const factory _SentPasswordResetEmail() = _$_SentPasswordResetEmail;
   const _SentPasswordResetEmail._() : super._();
-
-  factory _SentPasswordResetEmail.fromJson(Map<String, dynamic> json) =
-      _$_SentPasswordResetEmail.fromJson;
 }
 
 /// @nodoc
@@ -3078,17 +2107,9 @@ class __$$_DeletingAccountCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$_DeletingAccount extends _DeletingAccount {
-  const _$_DeletingAccount({final String? $type})
-      : $type = $type ?? 'deletingAccount',
-        super._();
-
-  factory _$_DeletingAccount.fromJson(Map<String, dynamic> json) =>
-      _$$_DeletingAccountFromJson(json);
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
+  const _$_DeletingAccount() : super._();
 
   @override
   String toString() {
@@ -3101,7 +2122,6 @@ class _$_DeletingAccount extends _DeletingAccount {
         (other.runtimeType == runtimeType && other is _$_DeletingAccount);
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => runtimeType.hashCode;
 
@@ -3109,7 +2129,7 @@ class _$_DeletingAccount extends _DeletingAccount {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loggingIn,
-    required TResult Function(User user) loggedIn,
+    required TResult Function(ShadowUser shadowUser) loggedIn,
     required TResult Function() loggingOut,
     required TResult Function(String? message) loggedOut,
     required TResult Function() signingUp,
@@ -3127,7 +2147,7 @@ class _$_DeletingAccount extends _DeletingAccount {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loggingIn,
-    TResult? Function(User user)? loggedIn,
+    TResult? Function(ShadowUser shadowUser)? loggedIn,
     TResult? Function()? loggingOut,
     TResult? Function(String? message)? loggedOut,
     TResult? Function()? signingUp,
@@ -3145,7 +2165,7 @@ class _$_DeletingAccount extends _DeletingAccount {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loggingIn,
-    TResult Function(User user)? loggedIn,
+    TResult Function(ShadowUser shadowUser)? loggedIn,
     TResult Function()? loggingOut,
     TResult Function(String? message)? loggedOut,
     TResult Function()? signingUp,
@@ -3224,21 +2244,11 @@ class _$_DeletingAccount extends _DeletingAccount {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_DeletingAccountToJson(
-      this,
-    );
-  }
 }
 
 abstract class _DeletingAccount extends FirebaseState {
   const factory _DeletingAccount() = _$_DeletingAccount;
   const _DeletingAccount._() : super._();
-
-  factory _DeletingAccount.fromJson(Map<String, dynamic> json) =
-      _$_DeletingAccount.fromJson;
 }
 
 /// @nodoc
@@ -3273,20 +2283,12 @@ class __$$_ErrorOccuredCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$_ErrorOccured extends _ErrorOccured {
-  const _$_ErrorOccured({this.message, final String? $type})
-      : $type = $type ?? 'errorOccured',
-        super._();
 
-  factory _$_ErrorOccured.fromJson(Map<String, dynamic> json) =>
-      _$$_ErrorOccuredFromJson(json);
+class _$_ErrorOccured extends _ErrorOccured {
+  const _$_ErrorOccured({this.message}) : super._();
 
   @override
   final String? message;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
 
   @override
   String toString() {
@@ -3301,7 +2303,6 @@ class _$_ErrorOccured extends _ErrorOccured {
             (identical(other.message, message) || other.message == message));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
@@ -3315,7 +2316,7 @@ class _$_ErrorOccured extends _ErrorOccured {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loggingIn,
-    required TResult Function(User user) loggedIn,
+    required TResult Function(ShadowUser shadowUser) loggedIn,
     required TResult Function() loggingOut,
     required TResult Function(String? message) loggedOut,
     required TResult Function() signingUp,
@@ -3333,7 +2334,7 @@ class _$_ErrorOccured extends _ErrorOccured {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loggingIn,
-    TResult? Function(User user)? loggedIn,
+    TResult? Function(ShadowUser shadowUser)? loggedIn,
     TResult? Function()? loggingOut,
     TResult? Function(String? message)? loggedOut,
     TResult? Function()? signingUp,
@@ -3351,7 +2352,7 @@ class _$_ErrorOccured extends _ErrorOccured {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loggingIn,
-    TResult Function(User user)? loggedIn,
+    TResult Function(ShadowUser shadowUser)? loggedIn,
     TResult Function()? loggingOut,
     TResult Function(String? message)? loggedOut,
     TResult Function()? signingUp,
@@ -3430,21 +2431,11 @@ class _$_ErrorOccured extends _ErrorOccured {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_ErrorOccuredToJson(
-      this,
-    );
-  }
 }
 
 abstract class _ErrorOccured extends FirebaseState {
   const factory _ErrorOccured({final String? message}) = _$_ErrorOccured;
   const _ErrorOccured._() : super._();
-
-  factory _ErrorOccured.fromJson(Map<String, dynamic> json) =
-      _$_ErrorOccured.fromJson;
 
   String? get message;
   @JsonKey(ignore: true)

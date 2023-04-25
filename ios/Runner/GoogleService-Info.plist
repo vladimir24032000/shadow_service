@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>770102945430-pkds22b6uavjvc455n4aig2cesbhbjpf.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.770102945430-pkds22b6uavjvc455n4aig2cesbhbjpf</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>770102945430-23ol804dg80jp0p96vm76p14106ebsik.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDxNdKOZu1ACyrLWZiy2qRtAbzns0ocFc4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>770102945430</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.shadow.service</string>
+	<key>PROJECT_ID</key>
+	<string>shadow-ic</string>
+	<key>STORAGE_BUCKET</key>
+	<string>shadow-ic.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:770102945430:ios:b4ff5caf4f4b66a83404b7</string>
+	<key>DATABASE_URL</key>
+	<string>https://shadow-ic-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

@@ -14,33 +14,44 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-User _$UserFromJson(Map<String, dynamic> json) {
-  return _User.fromJson(json);
+ShadowUser _$ShadowUserFromJson(Map<String, dynamic> json) {
+  return _ShadowUser.fromJson(json);
 }
 
 /// @nodoc
-mixin _$User {
-  String get email => throw _privateConstructorUsedError;
-  String get phone => throw _privateConstructorUsedError;
-  String get uid => throw _privateConstructorUsedError;
+mixin _$ShadowUser {
+  String get name => throw _privateConstructorUsedError;
+  String get post => throw _privateConstructorUsedError;
+  String get cityCountry => throw _privateConstructorUsedError;
+  String get address => throw _privateConstructorUsedError;
+  String get company => throw _privateConstructorUsedError;
+  bool get enabled => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
+  $ShadowUserCopyWith<ShadowUser> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserCopyWith<$Res> {
-  factory $UserCopyWith(User value, $Res Function(User) then) =
-      _$UserCopyWithImpl<$Res, User>;
+abstract class $ShadowUserCopyWith<$Res> {
+  factory $ShadowUserCopyWith(
+          ShadowUser value, $Res Function(ShadowUser) then) =
+      _$ShadowUserCopyWithImpl<$Res, ShadowUser>;
   @useResult
-  $Res call({String email, String phone, String uid});
+  $Res call(
+      {String name,
+      String post,
+      String cityCountry,
+      String address,
+      String company,
+      bool enabled});
 }
 
 /// @nodoc
-class _$UserCopyWithImpl<$Res, $Val extends User>
-    implements $UserCopyWith<$Res> {
-  _$UserCopyWithImpl(this._value, this._then);
+class _$ShadowUserCopyWithImpl<$Res, $Val extends ShadowUser>
+    implements $ShadowUserCopyWith<$Res> {
+  _$ShadowUserCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -50,128 +61,197 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? email = null,
-    Object? phone = null,
-    Object? uid = null,
+    Object? name = null,
+    Object? post = null,
+    Object? cityCountry = null,
+    Object? address = null,
+    Object? company = null,
+    Object? enabled = null,
   }) {
     return _then(_value.copyWith(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      phone: null == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
+      post: null == post
+          ? _value.post
+          : post // ignore: cast_nullable_to_non_nullable
               as String,
-      uid: null == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
+      cityCountry: null == cityCountry
+          ? _value.cityCountry
+          : cityCountry // ignore: cast_nullable_to_non_nullable
               as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
+      company: null == company
+          ? _value.company
+          : company // ignore: cast_nullable_to_non_nullable
+              as String,
+      enabled: null == enabled
+          ? _value.enabled
+          : enabled // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
-  factory _$$_UserCopyWith(_$_User value, $Res Function(_$_User) then) =
-      __$$_UserCopyWithImpl<$Res>;
+abstract class _$$_ShadowUserCopyWith<$Res>
+    implements $ShadowUserCopyWith<$Res> {
+  factory _$$_ShadowUserCopyWith(
+          _$_ShadowUser value, $Res Function(_$_ShadowUser) then) =
+      __$$_ShadowUserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String email, String phone, String uid});
+  $Res call(
+      {String name,
+      String post,
+      String cityCountry,
+      String address,
+      String company,
+      bool enabled});
 }
 
 /// @nodoc
-class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
-    implements _$$_UserCopyWith<$Res> {
-  __$$_UserCopyWithImpl(_$_User _value, $Res Function(_$_User) _then)
+class __$$_ShadowUserCopyWithImpl<$Res>
+    extends _$ShadowUserCopyWithImpl<$Res, _$_ShadowUser>
+    implements _$$_ShadowUserCopyWith<$Res> {
+  __$$_ShadowUserCopyWithImpl(
+      _$_ShadowUser _value, $Res Function(_$_ShadowUser) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? email = null,
-    Object? phone = null,
-    Object? uid = null,
+    Object? name = null,
+    Object? post = null,
+    Object? cityCountry = null,
+    Object? address = null,
+    Object? company = null,
+    Object? enabled = null,
   }) {
-    return _then(_$_User(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
+    return _then(_$_ShadowUser(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      phone: null == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
+      post: null == post
+          ? _value.post
+          : post // ignore: cast_nullable_to_non_nullable
               as String,
-      uid: null == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
+      cityCountry: null == cityCountry
+          ? _value.cityCountry
+          : cityCountry // ignore: cast_nullable_to_non_nullable
               as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
+      company: null == company
+          ? _value.company
+          : company // ignore: cast_nullable_to_non_nullable
+              as String,
+      enabled: null == enabled
+          ? _value.enabled
+          : enabled // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_User implements _User {
-  const _$_User({required this.email, required this.phone, required this.uid});
+class _$_ShadowUser implements _ShadowUser {
+  const _$_ShadowUser(
+      {required this.name,
+      required this.post,
+      required this.cityCountry,
+      required this.address,
+      required this.company,
+      required this.enabled});
 
-  factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
+  factory _$_ShadowUser.fromJson(Map<String, dynamic> json) =>
+      _$$_ShadowUserFromJson(json);
 
   @override
-  final String email;
+  final String name;
   @override
-  final String phone;
+  final String post;
   @override
-  final String uid;
+  final String cityCountry;
+  @override
+  final String address;
+  @override
+  final String company;
+  @override
+  final bool enabled;
 
   @override
   String toString() {
-    return 'User(email: $email, phone: $phone, uid: $uid)';
+    return 'ShadowUser(name: $name, post: $post, cityCountry: $cityCountry, address: $address, company: $company, enabled: $enabled)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_User &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.uid, uid) || other.uid == uid));
+            other is _$_ShadowUser &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.post, post) || other.post == post) &&
+            (identical(other.cityCountry, cityCountry) ||
+                other.cityCountry == cityCountry) &&
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.company, company) || other.company == company) &&
+            (identical(other.enabled, enabled) || other.enabled == enabled));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, email, phone, uid);
+  int get hashCode => Object.hash(
+      runtimeType, name, post, cityCountry, address, company, enabled);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UserCopyWith<_$_User> get copyWith =>
-      __$$_UserCopyWithImpl<_$_User>(this, _$identity);
+  _$$_ShadowUserCopyWith<_$_ShadowUser> get copyWith =>
+      __$$_ShadowUserCopyWithImpl<_$_ShadowUser>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_UserToJson(
+    return _$$_ShadowUserToJson(
       this,
     );
   }
 }
 
-abstract class _User implements User {
-  const factory _User(
-      {required final String email,
-      required final String phone,
-      required final String uid}) = _$_User;
+abstract class _ShadowUser implements ShadowUser {
+  const factory _ShadowUser(
+      {required final String name,
+      required final String post,
+      required final String cityCountry,
+      required final String address,
+      required final String company,
+      required final bool enabled}) = _$_ShadowUser;
 
-  factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
+  factory _ShadowUser.fromJson(Map<String, dynamic> json) =
+      _$_ShadowUser.fromJson;
 
   @override
-  String get email;
+  String get name;
   @override
-  String get phone;
+  String get post;
   @override
-  String get uid;
+  String get cityCountry;
+  @override
+  String get address;
+  @override
+  String get company;
+  @override
+  bool get enabled;
   @override
   @JsonKey(ignore: true)
-  _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;
+  _$$_ShadowUserCopyWith<_$_ShadowUser> get copyWith =>
+      throw _privateConstructorUsedError;
 }

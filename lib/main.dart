@@ -1,22 +1,21 @@
 import 'dart:async';
 
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_phone_auth_handler/firebase_phone_auth_handler.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:local_auth/local_auth.dart';
-import 'package:passcode_screen/passcode_screen.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:service_app/bloc/bluetooth/connection/connection_bloc.dart';
 import 'package:service_app/bloc/firebase/firebase_bloc.dart';
+import 'package:service_app/bloc/firebase/firebase_db_cubit.dart';
 import 'package:service_app/bloc/navigation_bar/navigation_bar_bloc.dart';
-import 'package:service_app/core/navigator.dart';
+import 'package:service_app/core/globals.dart';
 import 'package:service_app/core/services/get_it.dart';
-import 'package:service_app/presentation/home_tabs/home_tabs.dart';
-import 'package:service_app/presentation/lock_screen/lock_screen_page.dart';
+import 'package:service_app/firebase_options.dart';
+import 'package:service_app/presentation/lock_screen/splash_screen.dart';
 import 'package:service_app/presentation/theme/theme.dart';
 
 enum _SupportState {
@@ -27,20 +26,21 @@ enum _SupportState {
 
 const _appName = "Shadow-ic";
 
-final _appId = defaultTargetPlatform == TargetPlatform.iOS
-    ? "1:395085420724:ios:84afe9b29d923038f25fe1"
-    : "1:770102945430:android:61d72dc447e5938e3404b7";
+// final _appId = defaultTargetPlatform == TargetPlatform.iOS
+//     ? "1:770102945430:ios:b4ff5caf4f4b66a83404b7"
+//     : "1:770102945430:android:61d72dc447e5938e3404b7";
 
-final _options = FirebaseOptions(
-  apiKey: "AIzaSyBSTgMEWLXoSyoJMSqlHzlERYIGEMjXVlw",
-  appId: _appId,
-  messagingSenderId: "395085420724",
-  projectId: "shadow-ic",
-);
+// final _options = FirebaseOptions(
+//   apiKey: "AIzaSyAFf1N8gIKWpVjcq8zPkDQslkSlZ6drMsw",
+//   appId: _appId,
+//   messagingSenderId: "770102945430",
+//   projectId: "shadow-ic",
+// );
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(name: _appName, options: _options);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  //app.name;
   configureDependencies();
   final storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
@@ -63,148 +63,31 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final LocalAuthentication auth = LocalAuthentication();
-  _SupportState _supportState = _SupportState.unknown;
-  bool? _canCheckBiometrics;
-  List<BiometricType>? _availableBiometrics;
-  String _authorized = 'Not Authorized';
-  bool _isAuthenticating = false;
-
-  @override
-  void initState() {
-    super.initState();
-    auth.isDeviceSupported().then(
-          (bool isSupported) => setState(() => _supportState = isSupported
-              ? _SupportState.supported
-              : _SupportState.unsupported),
-        );
-  }
-
-  Future<void> _checkBiometrics() async {
-    late bool canCheckBiometrics;
-    try {
-      canCheckBiometrics = await auth.canCheckBiometrics;
-    } on PlatformException catch (e) {
-      canCheckBiometrics = false;
-      print(e);
-    }
-    if (!mounted) {
-      return;
-    }
-
-    setState(() {
-      _canCheckBiometrics = canCheckBiometrics;
-    });
-  }
-
-  Future<void> _getAvailableBiometrics() async {
-    late List<BiometricType> availableBiometrics;
-    try {
-      availableBiometrics = await auth.getAvailableBiometrics();
-    } on PlatformException catch (e) {
-      availableBiometrics = <BiometricType>[];
-      print(e);
-    }
-    if (!mounted) {
-      return;
-    }
-
-    setState(() {
-      _availableBiometrics = availableBiometrics;
-    });
-  }
-
-  Future<void> _authenticate() async {
-    bool authenticated = false;
-    try {
-      setState(() {
-        _isAuthenticating = true;
-        _authorized = 'Authenticating';
-      });
-      authenticated = await auth.authenticate(
-        localizedReason: 'Let OS determine authentication method',
-        options: const AuthenticationOptions(
-          stickyAuth: true,
-        ),
-      );
-      if (context.mounted) {
-        navigateTo(context: context, nextPage: const HomeTabs());
-      }
-      setState(() {
-        _isAuthenticating = false;
-      });
-    } on PlatformException catch (e) {
-      print(e);
-      setState(() {
-        _isAuthenticating = false;
-        _authorized = 'Error - ${e.message}';
-      });
-      return;
-    }
-    if (!mounted) {
-      return;
-    }
-
-    setState(
-        () => _authorized = authenticated ? 'Authorized' : 'Not Authorized');
-  }
-
-  Future<void> _authenticateWithBiometrics() async {
-    bool authenticated = false;
-    try {
-      setState(() {
-        _isAuthenticating = true;
-        _authorized = 'Authenticating';
-      });
-      authenticated = await auth.authenticate(
-        localizedReason:
-            'Scan your fingerprint (or face or whatever) to authenticate',
-        options: const AuthenticationOptions(
-          stickyAuth: true,
-          biometricOnly: true,
-        ),
-      );
-      setState(() {
-        _isAuthenticating = false;
-        _authorized = 'Authenticating';
-      });
-    } on PlatformException catch (e) {
-      print(e);
-      setState(() {
-        _isAuthenticating = false;
-        _authorized = 'Error - ${e.message}';
-      });
-      return;
-    }
-    if (!mounted) {
-      return;
-    }
-
-    final String message = authenticated ? 'Authorized' : 'Not Authorized';
-    setState(() {
-      _authorized = message;
-    });
-  }
-
-  Future<void> _cancelAuthentication() async {
-    await auth.stopAuthentication();
-    setState(() => _isAuthenticating = false);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       return MultiBlocProvider(
-          providers: [
-            BlocProvider<FirebaseBloc>(create: (_) => getIt<FirebaseBloc>()),
-            BlocProvider<BTConnectionBloc>(create: (_) => BTConnectionBloc()),
-            BlocProvider(create: (_) => getIt<NavigationBarBloc>()),
-          ],
+        providers: [
+          BlocProvider<FirebaseDbCubit>(create: (_) => FirebaseDbCubit()),
+          BlocProvider<BTConnectionBloc>(create: (_) => BTConnectionBloc()),
+          BlocProvider(create: (_) => getIt<NavigationBarBloc>()),
+        ],
+        child: FirebasePhoneAuthProvider(
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
+            title: 'Shadow service',
+            scaffoldMessengerKey: Globals.scaffoldMessengerKey,
             theme: mobileThemeData(),
-            home: const LockScreenPage(),
-          ));
+            home: const SplashScreen(),
+          ),
+        ),
+      );
+
+      //  MaterialApp(
+      //   debugShowCheckedModeBanner: false,
+      //   theme: mobileThemeData(),
+      //   home: const LockScreenPage(),
+      // ));
     });
   }
 }

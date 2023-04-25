@@ -1,17 +1,19 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'user_permission.dart';
-
 part 'user.freezed.dart';
 part 'user.g.dart';
 
 @freezed
-class User with _$User {
-  const factory User({
-    required String email,
-    required String phone,
-    required String uid,
-  }) = _User;
+class ShadowUser with _$ShadowUser {
+  const factory ShadowUser({
+    required String name,
+    required String post,
+    required String cityCountry,
+    required String address,
+    required String company,
+    required bool enabled,
+  }) = _ShadowUser;
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory ShadowUser.fromJson(Map<String, dynamic> json) =>
+      _$ShadowUserFromJson(json);
 }

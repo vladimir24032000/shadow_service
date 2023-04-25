@@ -115,8 +115,9 @@ InputDecoration get loginInputDecorationTheme {
     iconColor: primaryColor,
     prefixIconColor: primaryColor,
     suffixIconColor: primaryColor,
+    errorStyle: TextStyle(color: Colors.white70),
     labelStyle: const TextStyle(
-      color: Colors.black,
+      color: primaryColor,
     ),
     constraints: const BoxConstraints(
       minHeight: 80,

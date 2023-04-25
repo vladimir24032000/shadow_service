@@ -7,7 +7,7 @@ class FirebaseState with _$FirebaseState {
   const factory FirebaseState.loggingIn() = _LoggingIn;
 
   const factory FirebaseState.loggedIn({
-    required User user,
+    required ShadowUser shadowUser,
   }) = _LoggedIn;
 
   const factory FirebaseState.loggingOut() = _LoggingOut;
@@ -37,7 +37,4 @@ class FirebaseState with _$FirebaseState {
   bool get isLoggedIn => this is _LoggedIn || this is _ChangingPassword;
   bool get isLoggingIn => this is _LoggingIn;
   bool get isChangingPassword => this is _ChangingPassword;
-
-  factory FirebaseState.fromJson(Map<String, dynamic> json) =>
-      _$FirebaseStateFromJson(json);
 }

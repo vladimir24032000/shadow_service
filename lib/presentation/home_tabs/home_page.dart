@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:service_app/bloc/firebase/firebase_db_cubit.dart';
+import 'package:service_app/core/firebase/firebase_repo.dart';
 import 'package:service_app/core/navigator.dart';
 import 'package:service_app/presentation/home_tabs/bottom_navigation_bar.dart';
 import 'package:service_app/presentation/manage_can_devices/connect_can_devices_page.dart';
@@ -31,32 +34,59 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: ConstrainedBox(
-                  constraints:
-                      const BoxConstraints(maxWidth: 320, minWidth: 300),
-                  child: const _ManageImmobilizersPageButton(),
+          if (((FirebaseRepo.firebaseUser!.email != null &&
+                      FirebaseRepo.firebaseUser!.emailVerified) ||
+                  FirebaseRepo.firebaseUser!.phoneNumber != null) &&
+              context.read<FirebaseDbCubit>().user!.enabled)
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ConstrainedBox(
+                    constraints:
+                        const BoxConstraints(maxWidth: 320, minWidth: 300),
+                    child: const _ManageImmobilizersPageButton(),
+                  ),
                 ),
               ),
             ),
-          ),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: ConstrainedBox(
-                  constraints:
-                      const BoxConstraints(maxWidth: 320, minWidth: 300),
-                  child: const _ManageCanDevicesPageButton(),
+          if (((FirebaseRepo.firebaseUser!.email != null &&
+                      FirebaseRepo.firebaseUser!.emailVerified) ||
+                  FirebaseRepo.firebaseUser!.phoneNumber != null) &&
+              context.read<FirebaseDbCubit>().user!.enabled)
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ConstrainedBox(
+                    constraints:
+                        const BoxConstraints(maxWidth: 320, minWidth: 300),
+                    child: const _ManageCanDevicesPageButton(),
+                  ),
                 ),
               ),
             ),
-          )
+          if ((FirebaseRepo.firebaseUser!.email != null &&
+                  !FirebaseRepo.firebaseUser!.emailVerified) ||
+              !context.read<FirebaseDbCubit>().user!.enabled)
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ConstrainedBox(
+                    constraints:
+                        const BoxConstraints(maxWidth: 320, minWidth: 300),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: const Text("Demo mode"),
+                    ),
+                  ),
+                ),
+              ),
+            )
         ],
       ),
       bottomNavigationBar: const ServiceAppBottomNavigationBar(),

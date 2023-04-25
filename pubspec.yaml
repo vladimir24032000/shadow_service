@@ -29,13 +29,13 @@ dependencies:
   intl_phone_number_input: ^0.7.3+1
   bluetooth_package:
     path: packages/bluetooth_package
-
-
-  firebase_analytics: ^9.3.5
-  firebase_auth: ^3.11.2
-  firebase_core: ^1.22.0
-  firebase_core_platform_interface: 4.5.1
+  pinput: ^2.2.16
+  firebase_core: ^2.1.0
+  easy_container: ^1.0.4
+  firebase_phone_auth_handler: ^1.0.8
   cupertino_icons: ^1.0.2
+  intl_phone_field: ^3.1.0
+  firebase_database: ^10.1.1
 
 dev_dependencies:
   flutter_test:
