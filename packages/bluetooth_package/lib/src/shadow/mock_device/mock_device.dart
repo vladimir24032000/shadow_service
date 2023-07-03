@@ -50,6 +50,10 @@ class MockDevice extends BaseShadowBluetoothDevice with EquatableMixin {
     _stateSubscription = _mockDeviceStateStream.listen((event) {});
     _id = const DeviceIdentifier("00:00:00:00:00:03");
   }
+  @override
+  Future<Either<Unit, Unit>> sendTest() async {
+    return const Right(unit);
+  }
 
   @override
   Future<Either<Unit, Unit>> connect() async {

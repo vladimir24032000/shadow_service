@@ -8,6 +8,7 @@ import 'package:service_app/bloc/firebase/firebase_email_auth_cubit.dart';
 import 'package:service_app/core/firebase/model/user.dart';
 import 'package:service_app/core/navigator.dart';
 import 'package:service_app/presentation/home_tabs/home_tabs.dart';
+import 'package:service_app/presentation/lock_screen/forgot_password_page.dart';
 import 'package:service_app/presentation/lock_screen/lock_screen_page.dart';
 import 'package:service_app/presentation/lock_screen/signup_page.dart';
 import 'package:service_app/presentation/theme/theme.dart';
@@ -222,7 +223,10 @@ class _SignUpWidget extends StatelessWidget {
             },
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              navigateTo(
+                  context: context, nextPage: const ForgotPasswordPage());
+            },
             child: Text("Forgot password?"),
           ),
         ],

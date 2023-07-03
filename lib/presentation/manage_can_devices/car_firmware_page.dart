@@ -136,7 +136,7 @@ class _ManageDeviceWidget extends StatelessWidget {
             Expanded(child: _SaveButton()),
           ],
         ),
-        const _UploadButton(),
+        _UploadButton(connectedDevice),
         const _InstallationButton(),
       ],
     );
@@ -389,8 +389,8 @@ class _OpenButton extends StatelessWidget {
 }
 
 class _UploadButton extends StatelessWidget {
-  const _UploadButton();
-
+  const _UploadButton(this.connctedDevice);
+  final ConnectedDeviceBloc connctedDevice;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -401,7 +401,8 @@ class _UploadButton extends StatelessWidget {
           showUploadingDialog(context, progressNotifier);
           for (var i = 0; i < 10; i++) {
             progressNotifier.value += 0.1;
-            await Future.delayed(const Duration(milliseconds: 300));
+            await Future.delayed(const Duration(milliseconds: 500));
+            connctedDevice.add(const ConnectedDeviceEvent.sendTest());
           }
           if (context.mounted) {
             Navigator.of(context).pop();

@@ -45,18 +45,47 @@ class FirebaseEmailAuthCubit extends Cubit<FirebaseEmailAuthState> {
     }
   }
 
+  Future<void> sendPasswordReset(String email) async {
+    emit(const RequestInProgress());
+    try {
+      await FirebaseRepo.auth.sendPasswordResetEmail(email: email);
+      emit(const LoggedOut());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found") {
+        emit(Failure(message: "User with entered email not found"));
+      } else {
+        emit(Failure(message: e.toString()));
+      }
+      return;
+    } catch (e) {
+      emit(Failure(message: e.toString()));
+    }
+  }
+
   Future<void> changePassword(
     String oldPassword,
     String newPassword,
   ) async {
     emit(const RequestInProgress());
     try {
+      await FirebaseRepo.auth.signInWithEmailAndPassword(
+          email: FirebaseRepo.firebaseUser!.email!, password: oldPassword);
       await FirebaseRepo.firebaseUser?.updatePassword(newPassword);
+      emit(const LoggedIn());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "wrong-password") {
+        emit(Failure(message: "Wrong password"));
+      } else if (e.code == "too-many-requests") {
+        emit(Failure(message: "Too many requests. Try again later"));
+      } else {
+        emit(Failure(message: e.toString()));
+      }
+      await Future.delayed(const Duration(milliseconds: 300));
+      emit(const LoggedOut());
+      return;
     } catch (e) {
       emit(Failure(message: e.toString()));
-    } finally {
-      emit(const LoggedIn());
-    }
+    } finally {}
   }
 
   Future<void> login(String email, String pass) async {
@@ -64,6 +93,17 @@ class FirebaseEmailAuthCubit extends Cubit<FirebaseEmailAuthState> {
     try {
       await FirebaseRepo.auth
           .signInWithEmailAndPassword(email: email, password: pass);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "wrong-password" || e.code == "user-not-found") {
+        emit(Failure(message: "Wrong email or password"));
+      } else if (e.code == "too-many-requests") {
+        emit(Failure(message: "Too many requests. Try again later"));
+      } else {
+        emit(Failure(message: e.toString()));
+      }
+      await Future.delayed(const Duration(milliseconds: 300));
+      emit(const LoggedOut());
+      return;
     } catch (e) {
       emit(Failure(message: e.toString()));
       await Future.delayed(const Duration(milliseconds: 300));

@@ -25,7 +25,6 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
   late FirebaseEmailAuthCubit _firebaseEmailAuthCubit;
 
   final TextEditingController _oldPassController = TextEditingController();
-  final TextEditingController _passController = TextEditingController();
   final TextEditingController _newPass1Controller = TextEditingController();
   final TextEditingController _newPass2Controller = TextEditingController();
 
@@ -44,22 +43,24 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Sign In")),
+      appBar: AppBar(title: Text("Change password")),
       body: BlocConsumer<FirebaseEmailAuthCubit, FirebaseEmailAuthState>(
         bloc: _firebaseEmailAuthCubit,
         builder: (context, state) {
           return state.map(
               failure: (value) => _SignUpWidget(
-                    emailController: _emailController,
-                    passController: _passController,
                     firebaseEmailAuthCubit: _firebaseEmailAuthCubit,
+                    oldPassController: _oldPassController,
+                    newPass1Controller: _newPass1Controller,
+                    newPass2Controller: _newPass2Controller,
                   ),
               requestInProgress: (_) => Stack(
                     children: [
                       _SignUpWidget(
-                        emailController: _emailController,
-                        passController: _passController,
                         firebaseEmailAuthCubit: _firebaseEmailAuthCubit,
+                        oldPassController: _oldPassController,
+                        newPass1Controller: _newPass1Controller,
+                        newPass2Controller: _newPass2Controller,
                       ),
                       Container(
                         color: const Color.fromARGB(80, 0, 0, 0),
@@ -70,23 +71,22 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                     ],
                   ),
               loggedIn: (_) => _SignUpWidget(
-                    emailController: _emailController,
-                    passController: _passController,
                     firebaseEmailAuthCubit: _firebaseEmailAuthCubit,
+                    oldPassController: _oldPassController,
+                    newPass1Controller: _newPass1Controller,
+                    newPass2Controller: _newPass2Controller,
                   ),
               loggedOut: (_) => _SignUpWidget(
-                    emailController: _emailController,
-                    passController: _passController,
                     firebaseEmailAuthCubit: _firebaseEmailAuthCubit,
+                    oldPassController: _oldPassController,
+                    newPass1Controller: _newPass1Controller,
+                    newPass2Controller: _newPass2Controller,
                   ));
         },
         listener: (context, state) {
           state.mapOrNull(
             loggedIn: (value) {
-              navigateTo(
-                  context: context,
-                  nextPage: const SignUpPage(),
-                  newRoot: true);
+              Navigator.of(context).pop();
             },
             failure: (value) {
               showModalMessage(context, "Error", value.message);
@@ -99,21 +99,25 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
 }
 
 class _SignUpWidget extends StatelessWidget {
-  final TextEditingController emailController;
-  final TextEditingController passController;
+  final TextEditingController oldPassController;
+  final TextEditingController newPass1Controller;
+  final TextEditingController newPass2Controller;
 
-  final FocusNode emailFocusNode = FocusNode();
-  final FocusNode passFocusNode = FocusNode();
+  final FocusNode oldPassFocusNode = FocusNode();
+  final FocusNode newPass1FocusNode = FocusNode();
+  final FocusNode newPass2FocusNode = FocusNode();
 
-  final ValueNotifier<String?> emailNotifier = ValueNotifier<String?>(null);
-  final ValueNotifier<String?> passNotifier = ValueNotifier<String?>(null);
+  final ValueNotifier<String?> oldPassNotifier = ValueNotifier<String?>(null);
+  final ValueNotifier<String?> newPass1Notifier = ValueNotifier<String?>(null);
+  final ValueNotifier<String?> newPass2Notifier = ValueNotifier<String?>(null);
 
   final FirebaseEmailAuthCubit firebaseEmailAuthCubit;
 
   _SignUpWidget(
       {required this.firebaseEmailAuthCubit,
-      required this.emailController,
-      required this.passController});
+      required this.oldPassController,
+      required this.newPass1Controller,
+      required this.newPass2Controller});
 
   bool commonValidate(
       TextEditingController controller, ValueNotifier<String?> notifier) {
@@ -126,37 +130,44 @@ class _SignUpWidget extends StatelessWidget {
     }
   }
 
-  bool emailValidate(
-      TextEditingController controller, ValueNotifier<String?> notifier) {
-    if (controller.text.isEmpty) {
-      notifier.value = "Field should not be empty";
+  bool passesValidate() {
+    if (newPass1Controller.text.isEmpty) {
+      newPass1Notifier.value = "Field should not be empty";
+      return false;
+    }
+    if (newPass2Controller.text.isEmpty) {
+      newPass2Notifier.value = "Field should not be empty";
+      return false;
+    }
+    if (newPass1Controller.text != newPass2Controller.text) {
+      newPass2Notifier.value = "Passwords are not mismatch";
       return false;
     } else {
-      if (!RegExp(r"^[A-Za-z0-9._+\-\']+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$")
-          .hasMatch(controller.text)) {
-        notifier.value = "Invalid email";
-        return false;
-      } else {
-        notifier.value = null;
-        return true;
-      }
+      newPass1Notifier.value = null;
+      newPass2Notifier.value = null;
+      return true;
     }
   }
 
-  void signUp(BuildContext context) {
-    if (!commonValidate(emailController, emailNotifier)) {
-      emailFocusNode.requestFocus();
+  void changePassword(BuildContext context) {
+    if (!commonValidate(oldPassController, oldPassNotifier)) {
+      oldPassFocusNode.requestFocus();
       return;
     }
-    if (!emailValidate(emailController, emailNotifier)) {
-      emailFocusNode.requestFocus();
+    if (!commonValidate(newPass1Controller, newPass1Notifier)) {
+      newPass1FocusNode.requestFocus();
       return;
     }
-    if (!commonValidate(passController, passNotifier)) {
-      passFocusNode.requestFocus();
+    if (!commonValidate(newPass2Controller, newPass2Notifier)) {
+      newPass2FocusNode.requestFocus();
       return;
     }
-    firebaseEmailAuthCubit.login(emailController.text, passController.text);
+    if (!passesValidate()) {
+      newPass2FocusNode.requestFocus();
+      return;
+    }
+    firebaseEmailAuthCubit.changePassword(
+        oldPassController.text, newPass2Controller.text);
   }
 
   @override
@@ -168,27 +179,25 @@ class _SignUpWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16),
             child: Text(
-              "Enter email and password",
+              "Enter old and new password",
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Padding(
               padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
               child: ValueListenableBuilder<String?>(
-                valueListenable: emailNotifier,
+                valueListenable: oldPassNotifier,
                 builder: (context, value, child) => TextField(
                   style: const TextStyle(color: Colors.black),
-                  focusNode: emailFocusNode,
-                  controller: emailController,
+                  focusNode: oldPassFocusNode,
+                  controller: oldPassController,
                   decoration: loginInputDecorationTheme.copyWith(
                       prefixIcon: const Icon(Icons.person),
-                      labelText: "Email",
-                      hintText: "Enter email",
+                      labelText: "Old password",
+                      hintText: "Enter old password",
                       errorText: value),
                   onChanged: (value) {
-                    if (commonValidate(emailController, emailNotifier)) {
-                      emailValidate(emailController, emailNotifier);
-                    }
+                    commonValidate(oldPassController, oldPassNotifier);
                   },
                   textInputAction: TextInputAction.next,
                 ),
@@ -196,37 +205,56 @@ class _SignUpWidget extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
               child: ValueListenableBuilder<String?>(
-                valueListenable: passNotifier,
+                valueListenable: newPass1Notifier,
                 builder: (context, value, child) => TextField(
                   style: const TextStyle(color: Colors.black),
-                  controller: passController,
-                  focusNode: passFocusNode,
+                  controller: newPass1Controller,
+                  focusNode: newPass1FocusNode,
                   decoration: loginInputDecorationTheme.copyWith(
                       prefixIcon: const Icon(Icons.business),
-                      labelText: "Password",
-                      hintText: "Enter password",
+                      labelText: "New password",
+                      hintText: "Enter new password",
                       errorText: value),
                   onChanged: (value) {
-                    commonValidate(passController, passNotifier);
+                    commonValidate(newPass1Controller, newPass1Notifier);
+                  },
+                  textInputAction: TextInputAction.next,
+                ),
+              )),
+          Padding(
+              padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+              child: ValueListenableBuilder<String?>(
+                valueListenable: newPass2Notifier,
+                builder: (context, value, child) => TextField(
+                  style: const TextStyle(color: Colors.black),
+                  controller: newPass2Controller,
+                  focusNode: newPass2FocusNode,
+                  decoration: loginInputDecorationTheme.copyWith(
+                      prefixIcon: const Icon(Icons.business),
+                      labelText: "New password",
+                      hintText: "Repeat new password",
+                      errorText: value),
+                  onChanged: (value) {
+                    commonValidate(newPass2Controller, newPass2Notifier);
                   },
                   textInputAction: TextInputAction.next,
                 ),
               )),
           CustomElevatedButton(
-            child: Text("LOG IN"),
+            child: Text("CHANGE"),
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
                 Theme.of(context).colorScheme.primary,
               ),
             ),
             onPressed: () {
-              signUp(context);
+              changePassword(context);
             },
           ),
-          TextButton(
-            onPressed: () {},
-            child: Text("Forgot password?"),
-          ),
+          // TextButton(
+          //   onPressed: () {},
+          //   child: Text("Forgot password?"),
+          // ),
         ],
       ),
     );

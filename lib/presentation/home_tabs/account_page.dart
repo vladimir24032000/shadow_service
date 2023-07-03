@@ -5,6 +5,7 @@ import 'package:service_app/bloc/firebase/firebase_db_cubit.dart';
 import 'package:service_app/core/firebase/firebase_repo.dart';
 import 'package:service_app/core/navigator.dart';
 import 'package:service_app/presentation/home_tabs/bottom_navigation_bar.dart';
+import 'package:service_app/presentation/home_tabs/change_password_page.dart';
 import 'package:service_app/presentation/lock_screen/lock_screen_cubit/lock_screen_cubit.dart';
 import 'package:service_app/presentation/lock_screen/splash_screen.dart';
 import 'package:service_app/presentation/widgets/custom_button/custom_elevated_button.dart';
@@ -146,7 +147,11 @@ class _AccountPageState extends State<AccountPage> {
                       Icons.edit,
                       color: Colors.white70,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      navigateTo(
+                          context: context,
+                          nextPage: const ChangePasswordPage());
+                    },
                   ),
                 ),
               ),
@@ -197,7 +202,7 @@ class _AccountPageState extends State<AccountPage> {
                 if (result == 0) {
                   await _firebaseDbCubit.deleteUser();
                   final lockScreenCubit = LockScreenCubit();
-                  lockScreenCubit.cleanPin();
+                  await lockScreenCubit.cleanPin();
                   await FirebaseRepo.auth.signOut();
                   if (mounted) {
                     navigateTo(
@@ -229,13 +234,16 @@ class _SignOutPageButton extends StatelessWidget {
         onPressed: () async {
           firebaseDbCubit.logOut();
           final lockScreenCubit = LockScreenCubit();
-          lockScreenCubit.cleanPin();
-          navigateTo(
-            newRoot: true,
-            context: context,
-            nextPage: const SplashScreen(),
-          );
+          await lockScreenCubit.cleanPin();
           await FirebaseRepo.auth.signOut();
+
+          if (context.mounted) {
+            navigateTo(
+              newRoot: true,
+              context: context,
+              nextPage: const SplashScreen(),
+            );
+          }
         },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(

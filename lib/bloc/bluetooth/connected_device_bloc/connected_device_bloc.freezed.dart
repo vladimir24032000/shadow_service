@@ -19,32 +19,38 @@ mixin _$ConnectedDeviceEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() zero,
+    required TResult Function() sendTest,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? zero,
+    TResult? Function()? sendTest,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? zero,
+    TResult Function()? sendTest,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Zero value) zero,
+    required TResult Function(_SendTest value) sendTest,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Zero value)? zero,
+    TResult? Function(_SendTest value)? sendTest,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Zero value)? zero,
+    TResult Function(_SendTest value)? sendTest,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -112,6 +118,7 @@ class _$_Zero with DiagnosticableTreeMixin implements _Zero {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() zero,
+    required TResult Function() sendTest,
   }) {
     return zero();
   }
@@ -120,6 +127,7 @@ class _$_Zero with DiagnosticableTreeMixin implements _Zero {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? zero,
+    TResult? Function()? sendTest,
   }) {
     return zero?.call();
   }
@@ -128,6 +136,7 @@ class _$_Zero with DiagnosticableTreeMixin implements _Zero {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? zero,
+    TResult Function()? sendTest,
     required TResult orElse(),
   }) {
     if (zero != null) {
@@ -140,6 +149,7 @@ class _$_Zero with DiagnosticableTreeMixin implements _Zero {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Zero value) zero,
+    required TResult Function(_SendTest value) sendTest,
   }) {
     return zero(this);
   }
@@ -148,6 +158,7 @@ class _$_Zero with DiagnosticableTreeMixin implements _Zero {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Zero value)? zero,
+    TResult? Function(_SendTest value)? sendTest,
   }) {
     return zero?.call(this);
   }
@@ -156,6 +167,7 @@ class _$_Zero with DiagnosticableTreeMixin implements _Zero {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Zero value)? zero,
+    TResult Function(_SendTest value)? sendTest,
     required TResult orElse(),
   }) {
     if (zero != null) {
@@ -167,6 +179,115 @@ class _$_Zero with DiagnosticableTreeMixin implements _Zero {
 
 abstract class _Zero implements ConnectedDeviceEvent {
   const factory _Zero() = _$_Zero;
+}
+
+/// @nodoc
+abstract class _$$_SendTestCopyWith<$Res> {
+  factory _$$_SendTestCopyWith(
+          _$_SendTest value, $Res Function(_$_SendTest) then) =
+      __$$_SendTestCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SendTestCopyWithImpl<$Res>
+    extends _$ConnectedDeviceEventCopyWithImpl<$Res, _$_SendTest>
+    implements _$$_SendTestCopyWith<$Res> {
+  __$$_SendTestCopyWithImpl(
+      _$_SendTest _value, $Res Function(_$_SendTest) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SendTest with DiagnosticableTreeMixin implements _SendTest {
+  const _$_SendTest();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ConnectedDeviceEvent.sendTest()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty('type', 'ConnectedDeviceEvent.sendTest'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_SendTest);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() zero,
+    required TResult Function() sendTest,
+  }) {
+    return sendTest();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? zero,
+    TResult? Function()? sendTest,
+  }) {
+    return sendTest?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? zero,
+    TResult Function()? sendTest,
+    required TResult orElse(),
+  }) {
+    if (sendTest != null) {
+      return sendTest();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Zero value) zero,
+    required TResult Function(_SendTest value) sendTest,
+  }) {
+    return sendTest(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Zero value)? zero,
+    TResult? Function(_SendTest value)? sendTest,
+  }) {
+    return sendTest?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Zero value)? zero,
+    TResult Function(_SendTest value)? sendTest,
+    required TResult orElse(),
+  }) {
+    if (sendTest != null) {
+      return sendTest(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SendTest implements ConnectedDeviceEvent {
+  const factory _SendTest() = _$_SendTest;
 }
 
 /// @nodoc

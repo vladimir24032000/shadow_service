@@ -2,8 +2,8 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 class ShadowBTUUID extends Guid {
   ShadowBTUUID({required String offset}) : super(_prefix + offset + _suffix);
-  static const _prefix = '8987';
-  static const _suffix = '0938403FA6B07BFDAB26629B';
+  static const _prefix = '0000';
+  static const _suffix = '51a1efde1523785feabcd123';
 }
 
 class CommonBTUUID extends Guid {
@@ -13,20 +13,13 @@ class CommonBTUUID extends Guid {
 }
 
 class ShadowBTServices {
-  static final deviceAdvertising = ShadowBTUUID(offset: '814B');
-  static final forceInsoleMeas = ShadowBTUUID(offset: '0500');
-  static final deviceInfo = CommonBTUUID(offset: "180a");
+  static final deviceAdvertising = ShadowBTUUID(offset: '5123');
+  static final uartService = ShadowBTUUID(offset: '5123');
 }
 
 class ShadowBTCharacteristics {
-  static final forceMeasurement = ShadowBTUUID(offset: '3000');
-  static final timeSync = ShadowBTUUID(offset: '4000');
-  static final sensorProperties = ShadowBTUUID(offset: '5000');
-  static final sensorSettings = ShadowBTUUID(offset: '6000');
-
-  static final firmwareRevison = CommonBTUUID(offset: '2a26');
-  static final hardwareRevision = CommonBTUUID(offset: '2a27');
-  static final softwareRevision = CommonBTUUID(offset: '2a28');
+  static final tx = ShadowBTUUID(offset: '5125');
+  static final rx = ShadowBTUUID(offset: '5124');
 }
 
 //class CommonBTCharacteristics {}

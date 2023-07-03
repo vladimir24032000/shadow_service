@@ -26,6 +26,7 @@ class ConnectedDeviceBloc
     on<ConnectedDeviceEvent>(
       (event, emit) => event.map<FutureOr<void>>(
         zero: (event) => null,
+        sendTest: (event) => state.device.sendTest(),
       ),
     );
   }

@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bluetooth_package/src/shadow/protocol/constants.dart';
+import 'package:bluetooth_package/src/shadow/service/base_service.dart';
+import 'package:bluetooth_package/src/shadow/service/characteristics/rx_characteristic.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -55,6 +58,9 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
             () => device.isDiscoveringServices,
           );
 
+  @protected
+  ShadowBTService? shadowBTService;
+
   static Future<ShadowBluetoothDevice> create(
     BluetoothDevice device,
   ) async {
@@ -108,8 +114,23 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
     _setCurrentState(DeviceState.disconnecting);
     await device.disconnect();
     _setCurrentState(DeviceState.available);
-    //loadTechBluetoothService = null;
+    shadowBTService = null;
     return const Right(unit);
+  }
+
+  @override
+  Future<Either<Unit, Unit>> sendTest() async {
+    if (currentState != DeviceState.connected) return const Right(unit);
+
+    return ServiceAvailability().check<Either<Unit, Unit>>(
+      onEnabled: () async {
+        final sended = await shadowBTService!.sendTest();
+        if (sended) {
+          return const Right(unit);
+        }
+        return const Left(unit);
+      },
+    ).expandLeft((_) => unit);
   }
 
   Future<Either<BluetoothOperationFailure, void>> initializeMtu(
@@ -239,7 +260,7 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
     if (initServiceOption.isLeft) return const Left(unit);
 
     if (Platform.isIOS) return const Right(unit);
-    return initializeMtu(128)
+    return initializeMtu(180)
         .fold((left) => const Left(unit), (right) => const Right(unit));
   }
 
@@ -247,6 +268,7 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
     final servicesOption = await discoverServices();
     if (servicesOption.isLeft) return const Left(unit);
     final services = servicesOption.right;
+    shadowBTService = ShadowBTService(services.first);
 
     return const Right(unit);
   }

@@ -33,7 +33,7 @@ class LockScreenCubit extends Cubit<LockScreenState> {
     }
   }
 
-  void cleanPin() async {
+  Future<void> cleanPin() async {
     if (Platform.isAndroid) {
       const storage = FlutterSecureStorage(
           aOptions: AndroidOptions(
