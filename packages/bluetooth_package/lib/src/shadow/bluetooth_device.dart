@@ -58,7 +58,6 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
             () => device.isDiscoveringServices,
           );
 
-  @protected
   ShadowBTService? shadowBTService;
 
   static Future<ShadowBluetoothDevice> create(
@@ -116,21 +115,6 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
     _setCurrentState(DeviceState.available);
     shadowBTService = null;
     return const Right(unit);
-  }
-
-  @override
-  Future<Either<Unit, Unit>> sendTest() async {
-    if (currentState != DeviceState.connected) return const Right(unit);
-
-    return ServiceAvailability().check<Either<Unit, Unit>>(
-      onEnabled: () async {
-        final sended = await shadowBTService!.sendTest();
-        if (sended) {
-          return const Right(unit);
-        }
-        return const Left(unit);
-      },
-    ).expandLeft((_) => unit);
   }
 
   Future<Either<BluetoothOperationFailure, void>> initializeMtu(
@@ -275,4 +259,139 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
 
   @override
   List<Object?> get props => [id];
+
+  @override
+  Future<Either<Unit, Unit>> firmwareVersionRequest() async {
+    if (currentState != DeviceState.connected) return const Right(unit);
+
+    return ServiceAvailability().check<Either<Unit, Unit>>(
+      onEnabled: () async {
+        final sended = await shadowBTService!.firmwareVersionRequest();
+        if (sended) {
+          return const Right(unit);
+        }
+        return const Left(unit);
+      },
+    ).expandLeft((_) => unit);
+  }
+
+  @override
+  Future<Either<Unit, Unit>> getBootloaderVersion() async {
+    if (currentState != DeviceState.connected) return const Right(unit);
+
+    return ServiceAvailability().check<Either<Unit, Unit>>(
+      onEnabled: () async {
+        final sended = await shadowBTService!.getBootloaderVersion();
+        if (sended) {
+          return const Right(unit);
+        }
+        return const Left(unit);
+      },
+    ).expandLeft((_) => unit);
+  }
+
+  @override
+  Future<Either<Unit, Unit>> getFrimwareName() async {
+    if (currentState != DeviceState.connected) return const Right(unit);
+
+    return ServiceAvailability().check<Either<Unit, Unit>>(
+      onEnabled: () async {
+        final sended = await shadowBTService!.getFrimwareName();
+        if (sended) {
+          return const Right(unit);
+        }
+        return const Left(unit);
+      },
+    ).expandLeft((_) => unit);
+  }
+
+  @override
+  Future<Either<Unit, Unit>> rewritePin() async {
+    if (currentState != DeviceState.connected) return const Right(unit);
+
+    return ServiceAvailability().check<Either<Unit, Unit>>(
+      onEnabled: () async {
+        final sended = await shadowBTService!.rewritePin();
+        if (sended) {
+          return const Right(unit);
+        }
+        return const Left(unit);
+      },
+    ).expandLeft((_) => unit);
+  }
+
+  @override
+  Future<Either<Unit, Unit>> sendConnectRequest() async {
+    if (currentState != DeviceState.connected) return const Right(unit);
+
+    return ServiceAvailability().check<Either<Unit, Unit>>(
+      onEnabled: () async {
+        final sended = await shadowBTService!.sendConnectRequest();
+        if (sended) {
+          return const Right(unit);
+        }
+        return const Left(unit);
+      },
+    ).expandLeft((_) => unit);
+  }
+
+  @override
+  Future<Either<Unit, Unit>> setConfig() async {
+    if (currentState != DeviceState.connected) return const Right(unit);
+
+    return ServiceAvailability().check<Either<Unit, Unit>>(
+      onEnabled: () async {
+        final sended = await shadowBTService!.setConfig();
+        if (sended) {
+          return const Right(unit);
+        }
+        return const Left(unit);
+      },
+    ).expandLeft((_) => unit);
+  }
+
+  @override
+  Future<Either<Unit, Unit>> setPin() async {
+    if (currentState != DeviceState.connected) return const Right(unit);
+
+    return ServiceAvailability().check<Either<Unit, Unit>>(
+      onEnabled: () async {
+        final sended = await shadowBTService!.setPin();
+        if (sended) {
+          return const Right(unit);
+        }
+        return const Left(unit);
+      },
+    ).expandLeft((_) => unit);
+  }
+
+  @override
+  Future<Either<Unit, Unit>> setSecretCode() async {
+    if (currentState != DeviceState.connected) return const Right(unit);
+
+    return ServiceAvailability().check<Either<Unit, Unit>>(
+      onEnabled: () async {
+        final sended = await shadowBTService!.setSecretCode();
+        if (sended) {
+          return const Right(unit);
+        }
+        return const Left(unit);
+      },
+    ).expandLeft((_) => unit);
+  }
+
+  @override
+  Future<Either<Unit, Unit>> setSerialNumber() async {
+    if (currentState != DeviceState.connected) return const Right(unit);
+
+    return ServiceAvailability().check<Either<Unit, Unit>>(
+      onEnabled: () async {
+        final sended = await shadowBTService!.setSerialNumber();
+        if (sended) {
+          return const Right(unit);
+        }
+        return const Left(unit);
+      },
+    ).expandLeft((_) => unit);
+  }
 }

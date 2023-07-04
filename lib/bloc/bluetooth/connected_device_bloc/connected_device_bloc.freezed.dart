@@ -18,39 +18,82 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ConnectedDeviceEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() zero,
-    required TResult Function() sendTest,
+    required TResult Function() getBootloaderVersion,
+    required TResult Function() getFrimwareName,
+    required TResult Function() rewritePin,
+    required TResult Function() sendConnectRequest,
+    required TResult Function() setConfig,
+    required TResult Function() setPin,
+    required TResult Function() setSecretCode,
+    required TResult Function() setSerialNumber,
+    required TResult Function() firmwareVersionRequest,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? zero,
-    TResult? Function()? sendTest,
+    TResult? Function()? getBootloaderVersion,
+    TResult? Function()? getFrimwareName,
+    TResult? Function()? rewritePin,
+    TResult? Function()? sendConnectRequest,
+    TResult? Function()? setConfig,
+    TResult? Function()? setPin,
+    TResult? Function()? setSecretCode,
+    TResult? Function()? setSerialNumber,
+    TResult? Function()? firmwareVersionRequest,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? zero,
-    TResult Function()? sendTest,
+    TResult Function()? getBootloaderVersion,
+    TResult Function()? getFrimwareName,
+    TResult Function()? rewritePin,
+    TResult Function()? sendConnectRequest,
+    TResult Function()? setConfig,
+    TResult Function()? setPin,
+    TResult Function()? setSecretCode,
+    TResult Function()? setSerialNumber,
+    TResult Function()? firmwareVersionRequest,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Zero value) zero,
-    required TResult Function(_SendTest value) sendTest,
+    required TResult Function(_GetBootloaderVersion value) getBootloaderVersion,
+    required TResult Function(_GetFrimwareName value) getFrimwareName,
+    required TResult Function(_RewritePin value) rewritePin,
+    required TResult Function(_SendConnectRequest value) sendConnectRequest,
+    required TResult Function(_SetConfig value) setConfig,
+    required TResult Function(_SetPin value) setPin,
+    required TResult Function(_SetSecretCode value) setSecretCode,
+    required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_FirmwareVersionRequest value)
+        firmwareVersionRequest,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Zero value)? zero,
-    TResult? Function(_SendTest value)? sendTest,
+    TResult? Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult? Function(_GetFrimwareName value)? getFrimwareName,
+    TResult? Function(_RewritePin value)? rewritePin,
+    TResult? Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult? Function(_SetConfig value)? setConfig,
+    TResult? Function(_SetPin value)? setPin,
+    TResult? Function(_SetSecretCode value)? setSecretCode,
+    TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Zero value)? zero,
-    TResult Function(_SendTest value)? sendTest,
+    TResult Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult Function(_GetFrimwareName value)? getFrimwareName,
+    TResult Function(_RewritePin value)? rewritePin,
+    TResult Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult Function(_SetConfig value)? setConfig,
+    TResult Function(_SetPin value)? setPin,
+    TResult Function(_SetSecretCode value)? setSecretCode,
+    TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -76,39 +119,44 @@ class _$ConnectedDeviceEventCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_ZeroCopyWith<$Res> {
-  factory _$$_ZeroCopyWith(_$_Zero value, $Res Function(_$_Zero) then) =
-      __$$_ZeroCopyWithImpl<$Res>;
+abstract class _$$_GetBootloaderVersionCopyWith<$Res> {
+  factory _$$_GetBootloaderVersionCopyWith(_$_GetBootloaderVersion value,
+          $Res Function(_$_GetBootloaderVersion) then) =
+      __$$_GetBootloaderVersionCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_ZeroCopyWithImpl<$Res>
-    extends _$ConnectedDeviceEventCopyWithImpl<$Res, _$_Zero>
-    implements _$$_ZeroCopyWith<$Res> {
-  __$$_ZeroCopyWithImpl(_$_Zero _value, $Res Function(_$_Zero) _then)
+class __$$_GetBootloaderVersionCopyWithImpl<$Res>
+    extends _$ConnectedDeviceEventCopyWithImpl<$Res, _$_GetBootloaderVersion>
+    implements _$$_GetBootloaderVersionCopyWith<$Res> {
+  __$$_GetBootloaderVersionCopyWithImpl(_$_GetBootloaderVersion _value,
+      $Res Function(_$_GetBootloaderVersion) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Zero with DiagnosticableTreeMixin implements _Zero {
-  const _$_Zero();
+class _$_GetBootloaderVersion
+    with DiagnosticableTreeMixin
+    implements _GetBootloaderVersion {
+  const _$_GetBootloaderVersion();
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ConnectedDeviceEvent.zero()';
+    return 'ConnectedDeviceEvent.getBootloaderVersion()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'ConnectedDeviceEvent.zero'));
+    properties.add(DiagnosticsProperty(
+        'type', 'ConnectedDeviceEvent.getBootloaderVersion'));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Zero);
+        (other.runtimeType == runtimeType && other is _$_GetBootloaderVersion);
   }
 
   @override
@@ -117,30 +165,51 @@ class _$_Zero with DiagnosticableTreeMixin implements _Zero {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() zero,
-    required TResult Function() sendTest,
+    required TResult Function() getBootloaderVersion,
+    required TResult Function() getFrimwareName,
+    required TResult Function() rewritePin,
+    required TResult Function() sendConnectRequest,
+    required TResult Function() setConfig,
+    required TResult Function() setPin,
+    required TResult Function() setSecretCode,
+    required TResult Function() setSerialNumber,
+    required TResult Function() firmwareVersionRequest,
   }) {
-    return zero();
+    return getBootloaderVersion();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? zero,
-    TResult? Function()? sendTest,
+    TResult? Function()? getBootloaderVersion,
+    TResult? Function()? getFrimwareName,
+    TResult? Function()? rewritePin,
+    TResult? Function()? sendConnectRequest,
+    TResult? Function()? setConfig,
+    TResult? Function()? setPin,
+    TResult? Function()? setSecretCode,
+    TResult? Function()? setSerialNumber,
+    TResult? Function()? firmwareVersionRequest,
   }) {
-    return zero?.call();
+    return getBootloaderVersion?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? zero,
-    TResult Function()? sendTest,
+    TResult Function()? getBootloaderVersion,
+    TResult Function()? getFrimwareName,
+    TResult Function()? rewritePin,
+    TResult Function()? sendConnectRequest,
+    TResult Function()? setConfig,
+    TResult Function()? setPin,
+    TResult Function()? setSecretCode,
+    TResult Function()? setSerialNumber,
+    TResult Function()? firmwareVersionRequest,
     required TResult orElse(),
   }) {
-    if (zero != null) {
-      return zero();
+    if (getBootloaderVersion != null) {
+      return getBootloaderVersion();
     }
     return orElse();
   }
@@ -148,76 +217,252 @@ class _$_Zero with DiagnosticableTreeMixin implements _Zero {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Zero value) zero,
-    required TResult Function(_SendTest value) sendTest,
+    required TResult Function(_GetBootloaderVersion value) getBootloaderVersion,
+    required TResult Function(_GetFrimwareName value) getFrimwareName,
+    required TResult Function(_RewritePin value) rewritePin,
+    required TResult Function(_SendConnectRequest value) sendConnectRequest,
+    required TResult Function(_SetConfig value) setConfig,
+    required TResult Function(_SetPin value) setPin,
+    required TResult Function(_SetSecretCode value) setSecretCode,
+    required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_FirmwareVersionRequest value)
+        firmwareVersionRequest,
   }) {
-    return zero(this);
+    return getBootloaderVersion(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Zero value)? zero,
-    TResult? Function(_SendTest value)? sendTest,
+    TResult? Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult? Function(_GetFrimwareName value)? getFrimwareName,
+    TResult? Function(_RewritePin value)? rewritePin,
+    TResult? Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult? Function(_SetConfig value)? setConfig,
+    TResult? Function(_SetPin value)? setPin,
+    TResult? Function(_SetSecretCode value)? setSecretCode,
+    TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
   }) {
-    return zero?.call(this);
+    return getBootloaderVersion?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Zero value)? zero,
-    TResult Function(_SendTest value)? sendTest,
+    TResult Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult Function(_GetFrimwareName value)? getFrimwareName,
+    TResult Function(_RewritePin value)? rewritePin,
+    TResult Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult Function(_SetConfig value)? setConfig,
+    TResult Function(_SetPin value)? setPin,
+    TResult Function(_SetSecretCode value)? setSecretCode,
+    TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
     required TResult orElse(),
   }) {
-    if (zero != null) {
-      return zero(this);
+    if (getBootloaderVersion != null) {
+      return getBootloaderVersion(this);
     }
     return orElse();
   }
 }
 
-abstract class _Zero implements ConnectedDeviceEvent {
-  const factory _Zero() = _$_Zero;
+abstract class _GetBootloaderVersion implements ConnectedDeviceEvent {
+  const factory _GetBootloaderVersion() = _$_GetBootloaderVersion;
 }
 
 /// @nodoc
-abstract class _$$_SendTestCopyWith<$Res> {
-  factory _$$_SendTestCopyWith(
-          _$_SendTest value, $Res Function(_$_SendTest) then) =
-      __$$_SendTestCopyWithImpl<$Res>;
+abstract class _$$_GetFrimwareNameCopyWith<$Res> {
+  factory _$$_GetFrimwareNameCopyWith(
+          _$_GetFrimwareName value, $Res Function(_$_GetFrimwareName) then) =
+      __$$_GetFrimwareNameCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SendTestCopyWithImpl<$Res>
-    extends _$ConnectedDeviceEventCopyWithImpl<$Res, _$_SendTest>
-    implements _$$_SendTestCopyWith<$Res> {
-  __$$_SendTestCopyWithImpl(
-      _$_SendTest _value, $Res Function(_$_SendTest) _then)
+class __$$_GetFrimwareNameCopyWithImpl<$Res>
+    extends _$ConnectedDeviceEventCopyWithImpl<$Res, _$_GetFrimwareName>
+    implements _$$_GetFrimwareNameCopyWith<$Res> {
+  __$$_GetFrimwareNameCopyWithImpl(
+      _$_GetFrimwareName _value, $Res Function(_$_GetFrimwareName) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SendTest with DiagnosticableTreeMixin implements _SendTest {
-  const _$_SendTest();
+class _$_GetFrimwareName
+    with DiagnosticableTreeMixin
+    implements _GetFrimwareName {
+  const _$_GetFrimwareName();
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ConnectedDeviceEvent.sendTest()';
+    return 'ConnectedDeviceEvent.getFrimwareName()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+        DiagnosticsProperty('type', 'ConnectedDeviceEvent.getFrimwareName'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_GetFrimwareName);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getBootloaderVersion,
+    required TResult Function() getFrimwareName,
+    required TResult Function() rewritePin,
+    required TResult Function() sendConnectRequest,
+    required TResult Function() setConfig,
+    required TResult Function() setPin,
+    required TResult Function() setSecretCode,
+    required TResult Function() setSerialNumber,
+    required TResult Function() firmwareVersionRequest,
+  }) {
+    return getFrimwareName();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getBootloaderVersion,
+    TResult? Function()? getFrimwareName,
+    TResult? Function()? rewritePin,
+    TResult? Function()? sendConnectRequest,
+    TResult? Function()? setConfig,
+    TResult? Function()? setPin,
+    TResult? Function()? setSecretCode,
+    TResult? Function()? setSerialNumber,
+    TResult? Function()? firmwareVersionRequest,
+  }) {
+    return getFrimwareName?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getBootloaderVersion,
+    TResult Function()? getFrimwareName,
+    TResult Function()? rewritePin,
+    TResult Function()? sendConnectRequest,
+    TResult Function()? setConfig,
+    TResult Function()? setPin,
+    TResult Function()? setSecretCode,
+    TResult Function()? setSerialNumber,
+    TResult Function()? firmwareVersionRequest,
+    required TResult orElse(),
+  }) {
+    if (getFrimwareName != null) {
+      return getFrimwareName();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetBootloaderVersion value) getBootloaderVersion,
+    required TResult Function(_GetFrimwareName value) getFrimwareName,
+    required TResult Function(_RewritePin value) rewritePin,
+    required TResult Function(_SendConnectRequest value) sendConnectRequest,
+    required TResult Function(_SetConfig value) setConfig,
+    required TResult Function(_SetPin value) setPin,
+    required TResult Function(_SetSecretCode value) setSecretCode,
+    required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_FirmwareVersionRequest value)
+        firmwareVersionRequest,
+  }) {
+    return getFrimwareName(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult? Function(_GetFrimwareName value)? getFrimwareName,
+    TResult? Function(_RewritePin value)? rewritePin,
+    TResult? Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult? Function(_SetConfig value)? setConfig,
+    TResult? Function(_SetPin value)? setPin,
+    TResult? Function(_SetSecretCode value)? setSecretCode,
+    TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
+  }) {
+    return getFrimwareName?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult Function(_GetFrimwareName value)? getFrimwareName,
+    TResult Function(_RewritePin value)? rewritePin,
+    TResult Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult Function(_SetConfig value)? setConfig,
+    TResult Function(_SetPin value)? setPin,
+    TResult Function(_SetSecretCode value)? setSecretCode,
+    TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
+    required TResult orElse(),
+  }) {
+    if (getFrimwareName != null) {
+      return getFrimwareName(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetFrimwareName implements ConnectedDeviceEvent {
+  const factory _GetFrimwareName() = _$_GetFrimwareName;
+}
+
+/// @nodoc
+abstract class _$$_RewritePinCopyWith<$Res> {
+  factory _$$_RewritePinCopyWith(
+          _$_RewritePin value, $Res Function(_$_RewritePin) then) =
+      __$$_RewritePinCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_RewritePinCopyWithImpl<$Res>
+    extends _$ConnectedDeviceEventCopyWithImpl<$Res, _$_RewritePin>
+    implements _$$_RewritePinCopyWith<$Res> {
+  __$$_RewritePinCopyWithImpl(
+      _$_RewritePin _value, $Res Function(_$_RewritePin) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_RewritePin with DiagnosticableTreeMixin implements _RewritePin {
+  const _$_RewritePin();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ConnectedDeviceEvent.rewritePin()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-        .add(DiagnosticsProperty('type', 'ConnectedDeviceEvent.sendTest'));
+        .add(DiagnosticsProperty('type', 'ConnectedDeviceEvent.rewritePin'));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_SendTest);
+        (other.runtimeType == runtimeType && other is _$_RewritePin);
   }
 
   @override
@@ -226,30 +471,51 @@ class _$_SendTest with DiagnosticableTreeMixin implements _SendTest {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() zero,
-    required TResult Function() sendTest,
+    required TResult Function() getBootloaderVersion,
+    required TResult Function() getFrimwareName,
+    required TResult Function() rewritePin,
+    required TResult Function() sendConnectRequest,
+    required TResult Function() setConfig,
+    required TResult Function() setPin,
+    required TResult Function() setSecretCode,
+    required TResult Function() setSerialNumber,
+    required TResult Function() firmwareVersionRequest,
   }) {
-    return sendTest();
+    return rewritePin();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? zero,
-    TResult? Function()? sendTest,
+    TResult? Function()? getBootloaderVersion,
+    TResult? Function()? getFrimwareName,
+    TResult? Function()? rewritePin,
+    TResult? Function()? sendConnectRequest,
+    TResult? Function()? setConfig,
+    TResult? Function()? setPin,
+    TResult? Function()? setSecretCode,
+    TResult? Function()? setSerialNumber,
+    TResult? Function()? firmwareVersionRequest,
   }) {
-    return sendTest?.call();
+    return rewritePin?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? zero,
-    TResult Function()? sendTest,
+    TResult Function()? getBootloaderVersion,
+    TResult Function()? getFrimwareName,
+    TResult Function()? rewritePin,
+    TResult Function()? sendConnectRequest,
+    TResult Function()? setConfig,
+    TResult Function()? setPin,
+    TResult Function()? setSecretCode,
+    TResult Function()? setSerialNumber,
+    TResult Function()? firmwareVersionRequest,
     required TResult orElse(),
   }) {
-    if (sendTest != null) {
-      return sendTest();
+    if (rewritePin != null) {
+      return rewritePin();
     }
     return orElse();
   }
@@ -257,37 +523,975 @@ class _$_SendTest with DiagnosticableTreeMixin implements _SendTest {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Zero value) zero,
-    required TResult Function(_SendTest value) sendTest,
+    required TResult Function(_GetBootloaderVersion value) getBootloaderVersion,
+    required TResult Function(_GetFrimwareName value) getFrimwareName,
+    required TResult Function(_RewritePin value) rewritePin,
+    required TResult Function(_SendConnectRequest value) sendConnectRequest,
+    required TResult Function(_SetConfig value) setConfig,
+    required TResult Function(_SetPin value) setPin,
+    required TResult Function(_SetSecretCode value) setSecretCode,
+    required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_FirmwareVersionRequest value)
+        firmwareVersionRequest,
   }) {
-    return sendTest(this);
+    return rewritePin(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Zero value)? zero,
-    TResult? Function(_SendTest value)? sendTest,
+    TResult? Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult? Function(_GetFrimwareName value)? getFrimwareName,
+    TResult? Function(_RewritePin value)? rewritePin,
+    TResult? Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult? Function(_SetConfig value)? setConfig,
+    TResult? Function(_SetPin value)? setPin,
+    TResult? Function(_SetSecretCode value)? setSecretCode,
+    TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
   }) {
-    return sendTest?.call(this);
+    return rewritePin?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Zero value)? zero,
-    TResult Function(_SendTest value)? sendTest,
+    TResult Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult Function(_GetFrimwareName value)? getFrimwareName,
+    TResult Function(_RewritePin value)? rewritePin,
+    TResult Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult Function(_SetConfig value)? setConfig,
+    TResult Function(_SetPin value)? setPin,
+    TResult Function(_SetSecretCode value)? setSecretCode,
+    TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
     required TResult orElse(),
   }) {
-    if (sendTest != null) {
-      return sendTest(this);
+    if (rewritePin != null) {
+      return rewritePin(this);
     }
     return orElse();
   }
 }
 
-abstract class _SendTest implements ConnectedDeviceEvent {
-  const factory _SendTest() = _$_SendTest;
+abstract class _RewritePin implements ConnectedDeviceEvent {
+  const factory _RewritePin() = _$_RewritePin;
+}
+
+/// @nodoc
+abstract class _$$_SendConnectRequestCopyWith<$Res> {
+  factory _$$_SendConnectRequestCopyWith(_$_SendConnectRequest value,
+          $Res Function(_$_SendConnectRequest) then) =
+      __$$_SendConnectRequestCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SendConnectRequestCopyWithImpl<$Res>
+    extends _$ConnectedDeviceEventCopyWithImpl<$Res, _$_SendConnectRequest>
+    implements _$$_SendConnectRequestCopyWith<$Res> {
+  __$$_SendConnectRequestCopyWithImpl(
+      _$_SendConnectRequest _value, $Res Function(_$_SendConnectRequest) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SendConnectRequest
+    with DiagnosticableTreeMixin
+    implements _SendConnectRequest {
+  const _$_SendConnectRequest();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ConnectedDeviceEvent.sendConnectRequest()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+        DiagnosticsProperty('type', 'ConnectedDeviceEvent.sendConnectRequest'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_SendConnectRequest);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getBootloaderVersion,
+    required TResult Function() getFrimwareName,
+    required TResult Function() rewritePin,
+    required TResult Function() sendConnectRequest,
+    required TResult Function() setConfig,
+    required TResult Function() setPin,
+    required TResult Function() setSecretCode,
+    required TResult Function() setSerialNumber,
+    required TResult Function() firmwareVersionRequest,
+  }) {
+    return sendConnectRequest();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getBootloaderVersion,
+    TResult? Function()? getFrimwareName,
+    TResult? Function()? rewritePin,
+    TResult? Function()? sendConnectRequest,
+    TResult? Function()? setConfig,
+    TResult? Function()? setPin,
+    TResult? Function()? setSecretCode,
+    TResult? Function()? setSerialNumber,
+    TResult? Function()? firmwareVersionRequest,
+  }) {
+    return sendConnectRequest?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getBootloaderVersion,
+    TResult Function()? getFrimwareName,
+    TResult Function()? rewritePin,
+    TResult Function()? sendConnectRequest,
+    TResult Function()? setConfig,
+    TResult Function()? setPin,
+    TResult Function()? setSecretCode,
+    TResult Function()? setSerialNumber,
+    TResult Function()? firmwareVersionRequest,
+    required TResult orElse(),
+  }) {
+    if (sendConnectRequest != null) {
+      return sendConnectRequest();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetBootloaderVersion value) getBootloaderVersion,
+    required TResult Function(_GetFrimwareName value) getFrimwareName,
+    required TResult Function(_RewritePin value) rewritePin,
+    required TResult Function(_SendConnectRequest value) sendConnectRequest,
+    required TResult Function(_SetConfig value) setConfig,
+    required TResult Function(_SetPin value) setPin,
+    required TResult Function(_SetSecretCode value) setSecretCode,
+    required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_FirmwareVersionRequest value)
+        firmwareVersionRequest,
+  }) {
+    return sendConnectRequest(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult? Function(_GetFrimwareName value)? getFrimwareName,
+    TResult? Function(_RewritePin value)? rewritePin,
+    TResult? Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult? Function(_SetConfig value)? setConfig,
+    TResult? Function(_SetPin value)? setPin,
+    TResult? Function(_SetSecretCode value)? setSecretCode,
+    TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
+  }) {
+    return sendConnectRequest?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult Function(_GetFrimwareName value)? getFrimwareName,
+    TResult Function(_RewritePin value)? rewritePin,
+    TResult Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult Function(_SetConfig value)? setConfig,
+    TResult Function(_SetPin value)? setPin,
+    TResult Function(_SetSecretCode value)? setSecretCode,
+    TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
+    required TResult orElse(),
+  }) {
+    if (sendConnectRequest != null) {
+      return sendConnectRequest(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SendConnectRequest implements ConnectedDeviceEvent {
+  const factory _SendConnectRequest() = _$_SendConnectRequest;
+}
+
+/// @nodoc
+abstract class _$$_SetConfigCopyWith<$Res> {
+  factory _$$_SetConfigCopyWith(
+          _$_SetConfig value, $Res Function(_$_SetConfig) then) =
+      __$$_SetConfigCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SetConfigCopyWithImpl<$Res>
+    extends _$ConnectedDeviceEventCopyWithImpl<$Res, _$_SetConfig>
+    implements _$$_SetConfigCopyWith<$Res> {
+  __$$_SetConfigCopyWithImpl(
+      _$_SetConfig _value, $Res Function(_$_SetConfig) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SetConfig with DiagnosticableTreeMixin implements _SetConfig {
+  const _$_SetConfig();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ConnectedDeviceEvent.setConfig()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty('type', 'ConnectedDeviceEvent.setConfig'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_SetConfig);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getBootloaderVersion,
+    required TResult Function() getFrimwareName,
+    required TResult Function() rewritePin,
+    required TResult Function() sendConnectRequest,
+    required TResult Function() setConfig,
+    required TResult Function() setPin,
+    required TResult Function() setSecretCode,
+    required TResult Function() setSerialNumber,
+    required TResult Function() firmwareVersionRequest,
+  }) {
+    return setConfig();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getBootloaderVersion,
+    TResult? Function()? getFrimwareName,
+    TResult? Function()? rewritePin,
+    TResult? Function()? sendConnectRequest,
+    TResult? Function()? setConfig,
+    TResult? Function()? setPin,
+    TResult? Function()? setSecretCode,
+    TResult? Function()? setSerialNumber,
+    TResult? Function()? firmwareVersionRequest,
+  }) {
+    return setConfig?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getBootloaderVersion,
+    TResult Function()? getFrimwareName,
+    TResult Function()? rewritePin,
+    TResult Function()? sendConnectRequest,
+    TResult Function()? setConfig,
+    TResult Function()? setPin,
+    TResult Function()? setSecretCode,
+    TResult Function()? setSerialNumber,
+    TResult Function()? firmwareVersionRequest,
+    required TResult orElse(),
+  }) {
+    if (setConfig != null) {
+      return setConfig();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetBootloaderVersion value) getBootloaderVersion,
+    required TResult Function(_GetFrimwareName value) getFrimwareName,
+    required TResult Function(_RewritePin value) rewritePin,
+    required TResult Function(_SendConnectRequest value) sendConnectRequest,
+    required TResult Function(_SetConfig value) setConfig,
+    required TResult Function(_SetPin value) setPin,
+    required TResult Function(_SetSecretCode value) setSecretCode,
+    required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_FirmwareVersionRequest value)
+        firmwareVersionRequest,
+  }) {
+    return setConfig(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult? Function(_GetFrimwareName value)? getFrimwareName,
+    TResult? Function(_RewritePin value)? rewritePin,
+    TResult? Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult? Function(_SetConfig value)? setConfig,
+    TResult? Function(_SetPin value)? setPin,
+    TResult? Function(_SetSecretCode value)? setSecretCode,
+    TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
+  }) {
+    return setConfig?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult Function(_GetFrimwareName value)? getFrimwareName,
+    TResult Function(_RewritePin value)? rewritePin,
+    TResult Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult Function(_SetConfig value)? setConfig,
+    TResult Function(_SetPin value)? setPin,
+    TResult Function(_SetSecretCode value)? setSecretCode,
+    TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
+    required TResult orElse(),
+  }) {
+    if (setConfig != null) {
+      return setConfig(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetConfig implements ConnectedDeviceEvent {
+  const factory _SetConfig() = _$_SetConfig;
+}
+
+/// @nodoc
+abstract class _$$_SetPinCopyWith<$Res> {
+  factory _$$_SetPinCopyWith(_$_SetPin value, $Res Function(_$_SetPin) then) =
+      __$$_SetPinCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SetPinCopyWithImpl<$Res>
+    extends _$ConnectedDeviceEventCopyWithImpl<$Res, _$_SetPin>
+    implements _$$_SetPinCopyWith<$Res> {
+  __$$_SetPinCopyWithImpl(_$_SetPin _value, $Res Function(_$_SetPin) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SetPin with DiagnosticableTreeMixin implements _SetPin {
+  const _$_SetPin();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ConnectedDeviceEvent.setPin()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'ConnectedDeviceEvent.setPin'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_SetPin);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getBootloaderVersion,
+    required TResult Function() getFrimwareName,
+    required TResult Function() rewritePin,
+    required TResult Function() sendConnectRequest,
+    required TResult Function() setConfig,
+    required TResult Function() setPin,
+    required TResult Function() setSecretCode,
+    required TResult Function() setSerialNumber,
+    required TResult Function() firmwareVersionRequest,
+  }) {
+    return setPin();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getBootloaderVersion,
+    TResult? Function()? getFrimwareName,
+    TResult? Function()? rewritePin,
+    TResult? Function()? sendConnectRequest,
+    TResult? Function()? setConfig,
+    TResult? Function()? setPin,
+    TResult? Function()? setSecretCode,
+    TResult? Function()? setSerialNumber,
+    TResult? Function()? firmwareVersionRequest,
+  }) {
+    return setPin?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getBootloaderVersion,
+    TResult Function()? getFrimwareName,
+    TResult Function()? rewritePin,
+    TResult Function()? sendConnectRequest,
+    TResult Function()? setConfig,
+    TResult Function()? setPin,
+    TResult Function()? setSecretCode,
+    TResult Function()? setSerialNumber,
+    TResult Function()? firmwareVersionRequest,
+    required TResult orElse(),
+  }) {
+    if (setPin != null) {
+      return setPin();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetBootloaderVersion value) getBootloaderVersion,
+    required TResult Function(_GetFrimwareName value) getFrimwareName,
+    required TResult Function(_RewritePin value) rewritePin,
+    required TResult Function(_SendConnectRequest value) sendConnectRequest,
+    required TResult Function(_SetConfig value) setConfig,
+    required TResult Function(_SetPin value) setPin,
+    required TResult Function(_SetSecretCode value) setSecretCode,
+    required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_FirmwareVersionRequest value)
+        firmwareVersionRequest,
+  }) {
+    return setPin(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult? Function(_GetFrimwareName value)? getFrimwareName,
+    TResult? Function(_RewritePin value)? rewritePin,
+    TResult? Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult? Function(_SetConfig value)? setConfig,
+    TResult? Function(_SetPin value)? setPin,
+    TResult? Function(_SetSecretCode value)? setSecretCode,
+    TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
+  }) {
+    return setPin?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult Function(_GetFrimwareName value)? getFrimwareName,
+    TResult Function(_RewritePin value)? rewritePin,
+    TResult Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult Function(_SetConfig value)? setConfig,
+    TResult Function(_SetPin value)? setPin,
+    TResult Function(_SetSecretCode value)? setSecretCode,
+    TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
+    required TResult orElse(),
+  }) {
+    if (setPin != null) {
+      return setPin(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetPin implements ConnectedDeviceEvent {
+  const factory _SetPin() = _$_SetPin;
+}
+
+/// @nodoc
+abstract class _$$_SetSecretCodeCopyWith<$Res> {
+  factory _$$_SetSecretCodeCopyWith(
+          _$_SetSecretCode value, $Res Function(_$_SetSecretCode) then) =
+      __$$_SetSecretCodeCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SetSecretCodeCopyWithImpl<$Res>
+    extends _$ConnectedDeviceEventCopyWithImpl<$Res, _$_SetSecretCode>
+    implements _$$_SetSecretCodeCopyWith<$Res> {
+  __$$_SetSecretCodeCopyWithImpl(
+      _$_SetSecretCode _value, $Res Function(_$_SetSecretCode) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SetSecretCode with DiagnosticableTreeMixin implements _SetSecretCode {
+  const _$_SetSecretCode();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ConnectedDeviceEvent.setSecretCode()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty('type', 'ConnectedDeviceEvent.setSecretCode'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_SetSecretCode);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getBootloaderVersion,
+    required TResult Function() getFrimwareName,
+    required TResult Function() rewritePin,
+    required TResult Function() sendConnectRequest,
+    required TResult Function() setConfig,
+    required TResult Function() setPin,
+    required TResult Function() setSecretCode,
+    required TResult Function() setSerialNumber,
+    required TResult Function() firmwareVersionRequest,
+  }) {
+    return setSecretCode();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getBootloaderVersion,
+    TResult? Function()? getFrimwareName,
+    TResult? Function()? rewritePin,
+    TResult? Function()? sendConnectRequest,
+    TResult? Function()? setConfig,
+    TResult? Function()? setPin,
+    TResult? Function()? setSecretCode,
+    TResult? Function()? setSerialNumber,
+    TResult? Function()? firmwareVersionRequest,
+  }) {
+    return setSecretCode?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getBootloaderVersion,
+    TResult Function()? getFrimwareName,
+    TResult Function()? rewritePin,
+    TResult Function()? sendConnectRequest,
+    TResult Function()? setConfig,
+    TResult Function()? setPin,
+    TResult Function()? setSecretCode,
+    TResult Function()? setSerialNumber,
+    TResult Function()? firmwareVersionRequest,
+    required TResult orElse(),
+  }) {
+    if (setSecretCode != null) {
+      return setSecretCode();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetBootloaderVersion value) getBootloaderVersion,
+    required TResult Function(_GetFrimwareName value) getFrimwareName,
+    required TResult Function(_RewritePin value) rewritePin,
+    required TResult Function(_SendConnectRequest value) sendConnectRequest,
+    required TResult Function(_SetConfig value) setConfig,
+    required TResult Function(_SetPin value) setPin,
+    required TResult Function(_SetSecretCode value) setSecretCode,
+    required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_FirmwareVersionRequest value)
+        firmwareVersionRequest,
+  }) {
+    return setSecretCode(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult? Function(_GetFrimwareName value)? getFrimwareName,
+    TResult? Function(_RewritePin value)? rewritePin,
+    TResult? Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult? Function(_SetConfig value)? setConfig,
+    TResult? Function(_SetPin value)? setPin,
+    TResult? Function(_SetSecretCode value)? setSecretCode,
+    TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
+  }) {
+    return setSecretCode?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult Function(_GetFrimwareName value)? getFrimwareName,
+    TResult Function(_RewritePin value)? rewritePin,
+    TResult Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult Function(_SetConfig value)? setConfig,
+    TResult Function(_SetPin value)? setPin,
+    TResult Function(_SetSecretCode value)? setSecretCode,
+    TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
+    required TResult orElse(),
+  }) {
+    if (setSecretCode != null) {
+      return setSecretCode(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetSecretCode implements ConnectedDeviceEvent {
+  const factory _SetSecretCode() = _$_SetSecretCode;
+}
+
+/// @nodoc
+abstract class _$$_SetSerialNumberCopyWith<$Res> {
+  factory _$$_SetSerialNumberCopyWith(
+          _$_SetSerialNumber value, $Res Function(_$_SetSerialNumber) then) =
+      __$$_SetSerialNumberCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SetSerialNumberCopyWithImpl<$Res>
+    extends _$ConnectedDeviceEventCopyWithImpl<$Res, _$_SetSerialNumber>
+    implements _$$_SetSerialNumberCopyWith<$Res> {
+  __$$_SetSerialNumberCopyWithImpl(
+      _$_SetSerialNumber _value, $Res Function(_$_SetSerialNumber) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SetSerialNumber
+    with DiagnosticableTreeMixin
+    implements _SetSerialNumber {
+  const _$_SetSerialNumber();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ConnectedDeviceEvent.setSerialNumber()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+        DiagnosticsProperty('type', 'ConnectedDeviceEvent.setSerialNumber'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_SetSerialNumber);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getBootloaderVersion,
+    required TResult Function() getFrimwareName,
+    required TResult Function() rewritePin,
+    required TResult Function() sendConnectRequest,
+    required TResult Function() setConfig,
+    required TResult Function() setPin,
+    required TResult Function() setSecretCode,
+    required TResult Function() setSerialNumber,
+    required TResult Function() firmwareVersionRequest,
+  }) {
+    return setSerialNumber();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getBootloaderVersion,
+    TResult? Function()? getFrimwareName,
+    TResult? Function()? rewritePin,
+    TResult? Function()? sendConnectRequest,
+    TResult? Function()? setConfig,
+    TResult? Function()? setPin,
+    TResult? Function()? setSecretCode,
+    TResult? Function()? setSerialNumber,
+    TResult? Function()? firmwareVersionRequest,
+  }) {
+    return setSerialNumber?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getBootloaderVersion,
+    TResult Function()? getFrimwareName,
+    TResult Function()? rewritePin,
+    TResult Function()? sendConnectRequest,
+    TResult Function()? setConfig,
+    TResult Function()? setPin,
+    TResult Function()? setSecretCode,
+    TResult Function()? setSerialNumber,
+    TResult Function()? firmwareVersionRequest,
+    required TResult orElse(),
+  }) {
+    if (setSerialNumber != null) {
+      return setSerialNumber();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetBootloaderVersion value) getBootloaderVersion,
+    required TResult Function(_GetFrimwareName value) getFrimwareName,
+    required TResult Function(_RewritePin value) rewritePin,
+    required TResult Function(_SendConnectRequest value) sendConnectRequest,
+    required TResult Function(_SetConfig value) setConfig,
+    required TResult Function(_SetPin value) setPin,
+    required TResult Function(_SetSecretCode value) setSecretCode,
+    required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_FirmwareVersionRequest value)
+        firmwareVersionRequest,
+  }) {
+    return setSerialNumber(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult? Function(_GetFrimwareName value)? getFrimwareName,
+    TResult? Function(_RewritePin value)? rewritePin,
+    TResult? Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult? Function(_SetConfig value)? setConfig,
+    TResult? Function(_SetPin value)? setPin,
+    TResult? Function(_SetSecretCode value)? setSecretCode,
+    TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
+  }) {
+    return setSerialNumber?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult Function(_GetFrimwareName value)? getFrimwareName,
+    TResult Function(_RewritePin value)? rewritePin,
+    TResult Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult Function(_SetConfig value)? setConfig,
+    TResult Function(_SetPin value)? setPin,
+    TResult Function(_SetSecretCode value)? setSecretCode,
+    TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
+    required TResult orElse(),
+  }) {
+    if (setSerialNumber != null) {
+      return setSerialNumber(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetSerialNumber implements ConnectedDeviceEvent {
+  const factory _SetSerialNumber() = _$_SetSerialNumber;
+}
+
+/// @nodoc
+abstract class _$$_FirmwareVersionRequestCopyWith<$Res> {
+  factory _$$_FirmwareVersionRequestCopyWith(_$_FirmwareVersionRequest value,
+          $Res Function(_$_FirmwareVersionRequest) then) =
+      __$$_FirmwareVersionRequestCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_FirmwareVersionRequestCopyWithImpl<$Res>
+    extends _$ConnectedDeviceEventCopyWithImpl<$Res, _$_FirmwareVersionRequest>
+    implements _$$_FirmwareVersionRequestCopyWith<$Res> {
+  __$$_FirmwareVersionRequestCopyWithImpl(_$_FirmwareVersionRequest _value,
+      $Res Function(_$_FirmwareVersionRequest) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_FirmwareVersionRequest
+    with DiagnosticableTreeMixin
+    implements _FirmwareVersionRequest {
+  const _$_FirmwareVersionRequest();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ConnectedDeviceEvent.firmwareVersionRequest()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty(
+        'type', 'ConnectedDeviceEvent.firmwareVersionRequest'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_FirmwareVersionRequest);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getBootloaderVersion,
+    required TResult Function() getFrimwareName,
+    required TResult Function() rewritePin,
+    required TResult Function() sendConnectRequest,
+    required TResult Function() setConfig,
+    required TResult Function() setPin,
+    required TResult Function() setSecretCode,
+    required TResult Function() setSerialNumber,
+    required TResult Function() firmwareVersionRequest,
+  }) {
+    return firmwareVersionRequest();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getBootloaderVersion,
+    TResult? Function()? getFrimwareName,
+    TResult? Function()? rewritePin,
+    TResult? Function()? sendConnectRequest,
+    TResult? Function()? setConfig,
+    TResult? Function()? setPin,
+    TResult? Function()? setSecretCode,
+    TResult? Function()? setSerialNumber,
+    TResult? Function()? firmwareVersionRequest,
+  }) {
+    return firmwareVersionRequest?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getBootloaderVersion,
+    TResult Function()? getFrimwareName,
+    TResult Function()? rewritePin,
+    TResult Function()? sendConnectRequest,
+    TResult Function()? setConfig,
+    TResult Function()? setPin,
+    TResult Function()? setSecretCode,
+    TResult Function()? setSerialNumber,
+    TResult Function()? firmwareVersionRequest,
+    required TResult orElse(),
+  }) {
+    if (firmwareVersionRequest != null) {
+      return firmwareVersionRequest();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetBootloaderVersion value) getBootloaderVersion,
+    required TResult Function(_GetFrimwareName value) getFrimwareName,
+    required TResult Function(_RewritePin value) rewritePin,
+    required TResult Function(_SendConnectRequest value) sendConnectRequest,
+    required TResult Function(_SetConfig value) setConfig,
+    required TResult Function(_SetPin value) setPin,
+    required TResult Function(_SetSecretCode value) setSecretCode,
+    required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_FirmwareVersionRequest value)
+        firmwareVersionRequest,
+  }) {
+    return firmwareVersionRequest(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult? Function(_GetFrimwareName value)? getFrimwareName,
+    TResult? Function(_RewritePin value)? rewritePin,
+    TResult? Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult? Function(_SetConfig value)? setConfig,
+    TResult? Function(_SetPin value)? setPin,
+    TResult? Function(_SetSecretCode value)? setSecretCode,
+    TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
+  }) {
+    return firmwareVersionRequest?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult Function(_GetFrimwareName value)? getFrimwareName,
+    TResult Function(_RewritePin value)? rewritePin,
+    TResult Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult Function(_SetConfig value)? setConfig,
+    TResult Function(_SetPin value)? setPin,
+    TResult Function(_SetSecretCode value)? setSecretCode,
+    TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
+    required TResult orElse(),
+  }) {
+    if (firmwareVersionRequest != null) {
+      return firmwareVersionRequest(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _FirmwareVersionRequest implements ConnectedDeviceEvent {
+  const factory _FirmwareVersionRequest() = _$_FirmwareVersionRequest;
 }
 
 /// @nodoc

@@ -25,8 +25,16 @@ class ConnectedDeviceBloc
   ConnectedDeviceBloc._(super.initialState) : super() {
     on<ConnectedDeviceEvent>(
       (event, emit) => event.map<FutureOr<void>>(
-        zero: (event) => null,
-        sendTest: (event) => state.device.sendTest(),
+        getBootloaderVersion: (event) => state.device.getBootloaderVersion(),
+        getFrimwareName: (event) => state.device.getFrimwareName(),
+        rewritePin: (event) => state.device.rewritePin(),
+        sendConnectRequest: (event) => state.device.sendConnectRequest(),
+        setConfig: (event) => state.device.setConfig(),
+        setPin: (event) => state.device.setPin(),
+        setSecretCode: (event) => state.device.setSecretCode(),
+        setSerialNumber: (event) => state.device.setSerialNumber(),
+        firmwareVersionRequest: (event) =>
+            state.device.firmwareVersionRequest(),
       ),
     );
   }

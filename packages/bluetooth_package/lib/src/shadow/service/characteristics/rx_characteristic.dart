@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bluetooth_package/src/bluetooth_util/bluetooth_operations.dart';
+import 'package:bluetooth_package/src/shadow/protocol/commands_read/base_command.dart';
 import 'package:bluetooth_package/src/shadow/service/characteristics/base_characteristic.dart';
 import 'package:either_dart/either.dart';
 
@@ -11,6 +12,9 @@ class RxCharacteristic extends ShadowIndicateCharacteristic {
     _startListeningOnCharacteristic();
   }
 
+  final StreamController<BaseReadCommand> streamController =
+      StreamController<BaseReadCommand>();
+
   FutureOr<Either<BluetoothOperationFailure, void>>
       _startListeningOnCharacteristic() async {
     await setNotifyValue(value: true);
@@ -20,7 +24,7 @@ class RxCharacteristic extends ShadowIndicateCharacteristic {
     valueStream.right.listen(
       (event) {
         if (event.isEmpty) return;
-        print("Rx $event");
+        streamController.add(BaseReadCommand.fromBytes(event));
       },
       onError: (Object error) {
         assert(false, 'Error in measurement characteristic stream: $error');

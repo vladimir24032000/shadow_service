@@ -36,7 +36,24 @@ abstract class BaseShadowBluetoothDevice {
   ValueStream<DeviceState> get deviceStateStream;
 
   DeviceState get currentState;
-  Future<Either<Unit, Unit>> sendTest();
+
+  Future<Either<Unit, Unit>> sendConnectRequest();
+
+  Future<Either<Unit, Unit>> firmwareVersionRequest();
+
+  Future<Either<Unit, Unit>> getBootloaderVersion();
+
+  Future<Either<Unit, Unit>> getFrimwareName();
+
+  Future<Either<Unit, Unit>> rewritePin();
+
+  Future<Either<Unit, Unit>> setConfig();
+
+  Future<Either<Unit, Unit>> setPin();
+
+  Future<Either<Unit, Unit>> setSecretCode();
+
+  Future<Either<Unit, Unit>> setSerialNumber();
 
   void dispose();
 

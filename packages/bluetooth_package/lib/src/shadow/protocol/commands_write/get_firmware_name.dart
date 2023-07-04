@@ -1,10 +1,9 @@
-import 'package:bluetooth_package/src/shadow/protocol/commands_write/base_command.dart';
+part of 'base_command.dart';
 
-class GetFirmwareNameCommand extends BaseWriteCommand {
-  GetFirmwareNameCommand({required int packetId})
+class RequestFirmwareNameCommand extends BaseWriteCommand {
+  RequestFirmwareNameCommand()
       : super(
           commandCode: 0x30,
-          packetId: packetId,
         );
 
   @override

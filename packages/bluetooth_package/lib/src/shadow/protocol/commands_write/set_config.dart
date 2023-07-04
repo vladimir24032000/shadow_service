@@ -1,10 +1,9 @@
-import 'package:bluetooth_package/src/shadow/protocol/commands_write/base_command.dart';
+part of 'base_command.dart';
 
 class SetConfigCommand extends BaseWriteCommand {
-  SetConfigCommand({required int packetId})
+  SetConfigCommand()
       : super(
           commandCode: 0x2A,
-          packetId: packetId,
         );
 
   @override

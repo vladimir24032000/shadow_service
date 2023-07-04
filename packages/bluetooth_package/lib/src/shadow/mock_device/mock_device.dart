@@ -50,10 +50,6 @@ class MockDevice extends BaseShadowBluetoothDevice with EquatableMixin {
     _stateSubscription = _mockDeviceStateStream.listen((event) {});
     _id = const DeviceIdentifier("00:00:00:00:00:03");
   }
-  @override
-  Future<Either<Unit, Unit>> sendTest() async {
-    return const Right(unit);
-  }
 
   @override
   Future<Either<Unit, Unit>> connect() async {
@@ -130,4 +126,58 @@ class MockDevice extends BaseShadowBluetoothDevice with EquatableMixin {
 
   @override
   BluetoothDeviceType get type => BluetoothDeviceType.le;
+
+  @override
+  Future<Either<Unit, Unit>> firmwareVersionRequest() {
+    // TODO: implement firmwareVersionRequest
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Unit, Unit>> getBootloaderVersion() {
+    // TODO: implement getBootloaderVersion
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Unit, Unit>> getFrimwareName() {
+    // TODO: implement getFrimwareName
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Unit, Unit>> rewritePin() {
+    // TODO: implement rewritePin
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Unit, Unit>> sendConnectRequest() {
+    // TODO: implement sendConnectRequest
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Unit, Unit>> setConfig() {
+    // TODO: implement setConfig
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Unit, Unit>> setPin() {
+    // TODO: implement setPin
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Unit, Unit>> setSecretCode() {
+    // TODO: implement setSecretCode
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Unit, Unit>> setSerialNumber() {
+    // TODO: implement setSerialNumber
+    throw UnimplementedError();
+  }
 }

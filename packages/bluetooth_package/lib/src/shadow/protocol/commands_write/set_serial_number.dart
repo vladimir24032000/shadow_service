@@ -1,8 +1,10 @@
-import 'package:bluetooth_package/src/shadow/protocol/commands_write/base_command.dart';
+part of 'base_command.dart';
 
 class SetSerialNumberCommand extends BaseWriteCommand {
-  SetSerialNumberCommand({required int packetId})
-      : super(commandCode: 0x22, packetId: packetId);
+  SetSerialNumberCommand()
+      : super(
+          commandCode: 0x22,
+        );
 
   @override
   List<int> toBytes() {

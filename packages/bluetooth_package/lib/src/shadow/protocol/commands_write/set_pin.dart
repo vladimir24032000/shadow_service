@@ -1,10 +1,9 @@
-import 'package:bluetooth_package/src/shadow/protocol/commands_write/base_command.dart';
+part of 'base_command.dart';
 
 class SetPinCommand extends BaseWriteCommand {
-  SetPinCommand({required int packetId})
+  SetPinCommand()
       : super(
           commandCode: 0x26,
-          packetId: packetId,
         );
 
   @override

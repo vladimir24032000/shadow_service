@@ -17,6 +17,7 @@ import 'package:service_app/core/services/get_it.dart';
 import 'package:service_app/firebase_options.dart';
 import 'package:service_app/presentation/lock_screen/splash_screen.dart';
 import 'package:service_app/presentation/theme/theme.dart';
+import 'package:flutter_logs/flutter_logs.dart';
 
 enum _SupportState {
   unknown,
@@ -39,6 +40,10 @@ const _appName = "Shadow-ic";
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await FlutterLogs.initLogs(
+      directoryStructure: DirectoryStructure.FOR_DATE,
+      logFileExtension: LogFileExtension.LOG,
+      timeStampFormat: TimeStampFormat.TIME_FORMAT_24_FULL);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   //app.name;
   configureDependencies();

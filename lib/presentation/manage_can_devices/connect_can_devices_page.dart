@@ -9,6 +9,7 @@ import 'package:injectable/injectable.dart';
 import 'package:service_app/bloc/bluetooth/connection/connection_bloc.dart';
 import 'package:service_app/bloc/bluetooth/device_bloc/device_bloc.dart';
 import 'package:service_app/core/navigator.dart';
+import 'package:service_app/presentation/manage_can_devices/dev_page.dart';
 import 'package:service_app/presentation/manage_can_devices/manage_can_device_page.dart';
 import 'package:service_app/presentation/widgets/devices/grouped_devices.dart';
 import 'package:service_app/presentation/widgets/dialogs/enable_bt_dialog.dart';

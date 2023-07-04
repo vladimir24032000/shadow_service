@@ -1,10 +1,9 @@
-import 'package:bluetooth_package/src/shadow/protocol/commands_write/base_command.dart';
+part of 'base_command.dart';
 
 class GetBootLoaderVersionCommand extends BaseWriteCommand {
-  GetBootLoaderVersionCommand({required int packetId})
+  GetBootLoaderVersionCommand()
       : super(
           commandCode: 0x2C,
-          packetId: packetId,
         );
 
   @override

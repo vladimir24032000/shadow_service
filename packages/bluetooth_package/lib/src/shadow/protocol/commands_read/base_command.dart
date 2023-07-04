@@ -1,16 +1,26 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:bluetooth_package/src/shadow/protocol/commands_read/base_answer.dart';
-import 'package:bluetooth_package/src/shadow/protocol/commands_read/connect_response.dart';
+part 'connect_response.dart';
+part 'base_answer.dart';
+part 'get_bootloader_version.dart';
+part 'get_config.dart';
+part 'get_pin.dart';
+part 'get_secret_code.dart';
+part 'get_serial_number.dart';
+part 'unknown_command.dart';
+part 'get_firmware_name.dart';
 
 abstract class BaseReadCommand {
   final int commandCode;
   final int packetId;
   final protocolVersion = 1;
+  final List<int> bytes;
 
   BaseReadCommand({
     required this.commandCode,
     required this.packetId,
+    required this.bytes,
   });
   factory BaseReadCommand.fromBytes(List<int> bytes) {
     int packetIdFromPayload(List<int> payload) {
@@ -30,6 +40,7 @@ abstract class BaseReadCommand {
     switch (bytes[2]) {
       case 0x02:
         return ConnectResponseCommand(
+            bytes: bytes,
             packetId: packetIdFromPayload(bytes.sublist(0, 2)),
             dateTime: payloadToDateTime(bytes.sublist(5, 11)),
             appId: bytes.sublist(12, 28),
@@ -39,12 +50,64 @@ abstract class BaseReadCommand {
             serialNumber: bytes.sublist(29, 36));
       case 0x04:
         return BaseAnswerCommand(
+            bytes: bytes,
             packetId: packetIdFromPayload(bytes.sublist(0, 2)),
             commandCode: bytes[2],
             result: bytes[4] == 1,
             info: bytes.sublist(5));
+      case 0x23:
+        return GetSerialNumberCommand(
+          bytes: bytes,
+          packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+          commandCode: bytes[2],
+          serialNumber: bytes.sublist(4),
+        );
+      case 0x25:
+        return GetSecretCodeCommand(
+          bytes: bytes,
+          packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+          commandCode: bytes[2],
+          secretCode: bytes.sublist(4),
+        );
+      case 0x27:
+        return GetPinCommand(
+          bytes: bytes,
+          packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+          commandCode: bytes[2],
+          pin: bytes.sublist(4),
+        );
+      case 0x2B:
+        return GetConfigCommand(
+          bytes: bytes,
+          packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+          commandCode: bytes[2],
+          antiRobbery: bytes[4] == 1,
+          locked: bytes[5] == 1,
+          autoExit: bytes[6] == 1,
+        );
+      case 0x2D:
+        return GetBootloaderVersionCommand(
+          bytes: bytes,
+          packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+          commandCode: bytes[2],
+          majorVersion: bytes[4],
+          minorVersion: bytes[5],
+          dateTime: DateTime(bytes[6] + 2000, bytes[7], bytes[8]),
+        );
+      case 0x31:
+        return GetFirmwareNameCommand(
+          bytes: bytes,
+          packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+          commandCode: bytes[2],
+          name: ascii.decode(bytes.sublist(4)),
+        );
+
       default:
-        throw Exception("Command not found");
+        return UnknownCommand(
+          bytes: bytes,
+          packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+          commandCode: bytes[2],
+        );
     }
   }
 }

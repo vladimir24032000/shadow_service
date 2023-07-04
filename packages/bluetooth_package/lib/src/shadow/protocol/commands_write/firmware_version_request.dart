@@ -1,8 +1,10 @@
-import 'package:bluetooth_package/src/shadow/protocol/commands_write/base_command.dart';
+part of 'base_command.dart';
 
-class ConnectRequstCommand extends BaseWriteCommand {
-  ConnectRequstCommand({required int packetId})
-      : super(commandCode: 0x03, packetId: packetId);
+class FirmwareVersionRequestCommand extends BaseWriteCommand {
+  FirmwareVersionRequestCommand()
+      : super(
+          commandCode: 0x03,
+        );
 
   @override
   List<int> toBytes() {

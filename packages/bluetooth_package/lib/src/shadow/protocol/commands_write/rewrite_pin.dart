@@ -1,8 +1,10 @@
-import 'package:bluetooth_package/src/shadow/protocol/commands_write/base_command.dart';
+part of 'base_command.dart';
 
 class RewritePinCommand extends BaseWriteCommand {
-  RewritePinCommand({required int packetId})
-      : super(commandCode: 0x28, packetId: packetId);
+  RewritePinCommand()
+      : super(
+          commandCode: 0x28,
+        );
 
   @override
   List<int> toBytes() {

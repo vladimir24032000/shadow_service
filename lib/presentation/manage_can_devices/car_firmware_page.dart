@@ -402,7 +402,7 @@ class _UploadButton extends StatelessWidget {
           for (var i = 0; i < 10; i++) {
             progressNotifier.value += 0.1;
             await Future.delayed(const Duration(milliseconds: 500));
-            connctedDevice.add(const ConnectedDeviceEvent.sendTest());
+            //connctedDevice.add(const ConnectedDeviceEvent.sendTest());
           }
           if (context.mounted) {
             Navigator.of(context).pop();

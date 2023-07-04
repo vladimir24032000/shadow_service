@@ -1,13 +1,21 @@
 import 'dart:typed_data';
+part 'connect_request.dart';
+part 'firmware_version_request.dart';
+part 'get_bootloader_version.dart';
+part 'set_serial_number.dart';
+part 'set_secret_code.dart';
+part 'set_pin.dart';
+part 'set_config.dart';
+part 'get_firmware_name.dart';
+part 'rewrite_pin.dart';
 
 abstract class BaseWriteCommand {
   final int commandCode;
-  final int packetId;
+  int packetId = 0;
   final protocolVersion = 1;
 
   BaseWriteCommand({
     required this.commandCode,
-    required this.packetId,
   });
   List<int> toBytes();
 

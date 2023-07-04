@@ -1,4 +1,4 @@
-import 'package:bluetooth_package/src/shadow/protocol/commands_read/base_command.dart';
+part of 'base_command.dart';
 
 class ConnectResponseCommand extends BaseReadCommand {
   final DateTime dateTime;
@@ -7,13 +7,14 @@ class ConnectResponseCommand extends BaseReadCommand {
   final bool lastConnectResult;
   final List<int> randomNumber;
 
-  ConnectResponseCommand(
-      {required this.dateTime,
-      required this.appId,
-      required this.serialNumber,
-      required this.lastConnectResult,
-      required this.randomNumber,
-      required int commandCode,
-      required int packetId})
-      : super(commandCode: commandCode, packetId: packetId);
+  ConnectResponseCommand({
+    required this.dateTime,
+    required this.appId,
+    required this.serialNumber,
+    required this.lastConnectResult,
+    required this.randomNumber,
+    required int commandCode,
+    required int packetId,
+    required List<int> bytes,
+  }) : super(commandCode: commandCode, packetId: packetId, bytes: bytes);
 }

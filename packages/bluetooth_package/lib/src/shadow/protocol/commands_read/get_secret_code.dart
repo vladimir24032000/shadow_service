@@ -1,12 +1,11 @@
 part of 'base_command.dart';
 
-class GetSerialNumberCommand extends BaseReadCommand {
-  final List<int> serialNumber;
-
-  GetSerialNumberCommand({
-    required this.serialNumber,
+class GetSecretCodeCommand extends BaseReadCommand {
+  final List<int> secretCode;
+  GetSecretCodeCommand({
     required int commandCode,
     required int packetId,
+    required this.secretCode,
     required List<int> bytes,
   }) : super(commandCode: commandCode, packetId: packetId, bytes: bytes);
 }
