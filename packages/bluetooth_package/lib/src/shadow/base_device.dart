@@ -36,6 +36,7 @@ abstract class BaseShadowBluetoothDevice {
   ValueStream<DeviceState> get deviceStateStream;
 
   DeviceState get currentState;
+  Future<Either<Unit, Unit>> testCommand();
 
   Future<Either<Unit, Unit>> sendConnectRequest();
 

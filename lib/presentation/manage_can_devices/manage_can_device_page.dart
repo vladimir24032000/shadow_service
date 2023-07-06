@@ -35,52 +35,6 @@ class ManageCanDevicePageState extends State<ManageCanDevicePage> {
   @override
   void initState() {
     super.initState();
-    streamSubscriptionWrite = streamController.stream.listen((event) {
-      sendedCommandBytes = "";
-      sendedCommandName = "";
-      sendedCommandName = event.runtimeType.toString();
-      sendedCommandBytes = event.toBytes().toString();
-      FlutterLogs.logThis(
-          tag: 'TX',
-          logMessage: 'Command $sendedCommandName bytes $sendedCommandBytes',
-          level: LogLevel.INFO);
-      setState(() {});
-    });
-    widget.device.state.mapOrNull(connected: (connected) {
-      streamSubscription = (connected.connectedDeviceBloc.state.device
-              as btpckg.ShadowBluetoothDevice)
-          .shadowBTService
-          ?.rxCharacteristicStream
-          .listen((event) {
-        receivedCommandName = "";
-        receivedCommandBytes = "";
-        additionalInfo = "";
-
-        receivedCommandName = event.runtimeType.toString();
-        receivedCommandBytes = event.bytes.toString();
-        if (event is btpckg.ConnectResponseCommand) {
-          additionalInfo += " datetime = ${event.dateTime.toString()}\n";
-          additionalInfo +=
-              " serialNumber = ${event.serialNumber.toString()}\n";
-          additionalInfo +=
-              " lastConnectResult = ${event.lastConnectResult.toString()}\n";
-          additionalInfo +=
-              " randomNumber = ${event.randomNumber.toString()}\n";
-        } else if (event is btpckg.GetConfigCommand) {
-          additionalInfo += " antiRobbery = ${event.antiRobbery}\n";
-          additionalInfo += " locked = ${event.locked}\n";
-          additionalInfo += " autoExit = ${event.autoExit}\n";
-        } else if (event is btpckg.GetFirmwareNameCommand) {
-          additionalInfo += " firmware name = ${event.name}\n";
-        }
-        FlutterLogs.logThis(
-            tag: 'RX',
-            logMessage:
-                'Command $receivedCommandName bytes $receivedCommandBytes',
-            level: LogLevel.INFO);
-        setState(() {});
-      });
-    });
   }
 
   @override
@@ -133,11 +87,62 @@ class ManageCanDevicePageState extends State<ManageCanDevicePage> {
                       });
                 },
                 listener: (context, state) {
-                  state.mapOrNull(
-                    available: (value) {
-                      Navigator.of(context).pop();
-                    },
-                  );
+                  state.mapOrNull(available: (value) {
+                    Navigator.of(context).pop();
+                  }, connected: (connected) {
+                    streamSubscriptionWrite = (connected.connectedDeviceBloc
+                            .state.device as btpckg.ShadowBluetoothDevice)
+                        .shadowBTService
+                        ?.txCharacteristicStream
+                        .listen((event) {
+                      sendedCommandBytes = "";
+                      sendedCommandName = "";
+                      sendedCommandName = event.runtimeType.toString();
+                      sendedCommandBytes = event.toBytes().toString();
+                      FlutterLogs.logThis(
+                          tag: 'TX',
+                          logMessage:
+                              'Command $sendedCommandName bytes $sendedCommandBytes',
+                          level: LogLevel.INFO);
+                      setState(() {});
+                    });
+
+                    streamSubscription = (connected.connectedDeviceBloc.state
+                            .device as btpckg.ShadowBluetoothDevice)
+                        .shadowBTService
+                        ?.rxCharacteristicStream
+                        .listen((event) {
+                      receivedCommandName = "";
+                      receivedCommandBytes = "";
+                      additionalInfo = "";
+
+                      receivedCommandName = event.runtimeType.toString();
+                      receivedCommandBytes = event.bytes.toString();
+                      if (event is btpckg.ConnectResponseCommand) {
+                        additionalInfo +=
+                            " datetime = ${event.dateTime.toString()}\n";
+                        additionalInfo +=
+                            " serialNumber = ${event.serialNumber.toString()}\n";
+                        additionalInfo +=
+                            " lastConnectResult = ${event.lastConnectResult.toString()}\n";
+                        additionalInfo +=
+                            " randomNumber = ${event.randomNumber.toString()}\n";
+                      } else if (event is btpckg.GetConfigCommand) {
+                        additionalInfo +=
+                            " antiRobbery = ${event.antiRobbery}\n";
+                        additionalInfo += " locked = ${event.locked}\n";
+                        additionalInfo += " autoExit = ${event.autoExit}\n";
+                      } else if (event is btpckg.GetFirmwareNameCommand) {
+                        additionalInfo += " firmware name = ${event.name}\n";
+                      }
+                      FlutterLogs.logThis(
+                          tag: 'RX',
+                          logMessage:
+                              'Command $receivedCommandName bytes $receivedCommandBytes',
+                          level: LogLevel.INFO);
+                      setState(() {});
+                    });
+                  });
                 }),
           ),
         ));
@@ -170,6 +175,11 @@ class _ManageDeviceWidget extends StatelessWidget {
         Text(
           logInfo,
           softWrap: true,
+        ),
+        _TestCommandButton(
+          streamController: streamController,
+          device: device,
+          connectedDeviceBloc: connectedDevice,
         ),
         _ConnectRequestButton(
           streamController: streamController,
@@ -220,6 +230,33 @@ class _ManageDeviceWidget extends StatelessWidget {
           device: device,
         ),
       ],
+    );
+  }
+}
+
+class _TestCommandButton extends StatelessWidget {
+  const _TestCommandButton(
+      {required this.device,
+      required this.connectedDeviceBloc,
+      required this.streamController});
+  final DeviceBloc device;
+  final ConnectedDeviceBloc connectedDeviceBloc;
+  final StreamController<btpckg.BaseWriteCommand> streamController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
+      child: CustomElevatedButton(
+        onPressed: () {
+          connectedDeviceBloc.add(const ConnectedDeviceEvent.testCommand());
+          streamController.add(btpckg.TestCommand());
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+        ),
+        child: const Text("testCommand"),
+      ),
     );
   }
 }

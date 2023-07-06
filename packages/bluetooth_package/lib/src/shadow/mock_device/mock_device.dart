@@ -134,6 +134,12 @@ class MockDevice extends BaseShadowBluetoothDevice with EquatableMixin {
   }
 
   @override
+  Future<Either<Unit, Unit>> testCommand() {
+    // TODO: implement getBootloaderVersion
+    throw UnimplementedError();
+  }
+
+  @override
   Future<Either<Unit, Unit>> getBootloaderVersion() {
     // TODO: implement getBootloaderVersion
     throw UnimplementedError();

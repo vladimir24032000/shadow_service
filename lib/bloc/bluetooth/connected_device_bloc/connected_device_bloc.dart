@@ -35,6 +35,7 @@ class ConnectedDeviceBloc
         setSerialNumber: (event) => state.device.setSerialNumber(),
         firmwareVersionRequest: (event) =>
             state.device.firmwareVersionRequest(),
+        testCommand: (event) => state.device.testCommand(),
       ),
     );
   }

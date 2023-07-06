@@ -18,6 +18,7 @@ class ConnectedDeviceEvent with _$ConnectedDeviceEvent {
   const factory ConnectedDeviceEvent.setSecretCode() = _SetSecretCode;
 
   const factory ConnectedDeviceEvent.setSerialNumber() = _SetSerialNumber;
+  const factory ConnectedDeviceEvent.testCommand() = _TestCommand;
   const factory ConnectedDeviceEvent.firmwareVersionRequest() =
       _FirmwareVersionRequest;
 }

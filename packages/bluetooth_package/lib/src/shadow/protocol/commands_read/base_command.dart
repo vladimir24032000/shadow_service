@@ -39,6 +39,13 @@ abstract class BaseReadCommand {
 
     switch (bytes[2]) {
       case 0x02:
+        if (bytes.length < 36) {
+          return UnknownCommand(
+            bytes: bytes,
+            packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+            commandCode: bytes[2],
+          );
+        }
         return ConnectResponseCommand(
             bytes: bytes,
             packetId: packetIdFromPayload(bytes.sublist(0, 2)),
@@ -49,6 +56,13 @@ abstract class BaseReadCommand {
             randomNumber: bytes.sublist(38),
             serialNumber: bytes.sublist(29, 36));
       case 0x04:
+        if (bytes.length < 5) {
+          return UnknownCommand(
+            bytes: bytes,
+            packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+            commandCode: bytes[2],
+          );
+        }
         return BaseAnswerCommand(
             bytes: bytes,
             packetId: packetIdFromPayload(bytes.sublist(0, 2)),
@@ -56,6 +70,13 @@ abstract class BaseReadCommand {
             result: bytes[4] == 1,
             info: bytes.sublist(5));
       case 0x23:
+        if (bytes.length < 4) {
+          return UnknownCommand(
+            bytes: bytes,
+            packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+            commandCode: bytes[2],
+          );
+        }
         return GetSerialNumberCommand(
           bytes: bytes,
           packetId: packetIdFromPayload(bytes.sublist(0, 2)),
@@ -63,6 +84,13 @@ abstract class BaseReadCommand {
           serialNumber: bytes.sublist(4),
         );
       case 0x25:
+        if (bytes.length < 4) {
+          return UnknownCommand(
+            bytes: bytes,
+            packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+            commandCode: bytes[2],
+          );
+        }
         return GetSecretCodeCommand(
           bytes: bytes,
           packetId: packetIdFromPayload(bytes.sublist(0, 2)),
@@ -70,6 +98,13 @@ abstract class BaseReadCommand {
           secretCode: bytes.sublist(4),
         );
       case 0x27:
+        if (bytes.length < 4) {
+          return UnknownCommand(
+            bytes: bytes,
+            packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+            commandCode: bytes[2],
+          );
+        }
         return GetPinCommand(
           bytes: bytes,
           packetId: packetIdFromPayload(bytes.sublist(0, 2)),
@@ -77,6 +112,13 @@ abstract class BaseReadCommand {
           pin: bytes.sublist(4),
         );
       case 0x2B:
+        if (bytes.length < 7) {
+          return UnknownCommand(
+            bytes: bytes,
+            packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+            commandCode: bytes[2],
+          );
+        }
         return GetConfigCommand(
           bytes: bytes,
           packetId: packetIdFromPayload(bytes.sublist(0, 2)),
@@ -86,6 +128,13 @@ abstract class BaseReadCommand {
           autoExit: bytes[6] == 1,
         );
       case 0x2D:
+        if (bytes.length < 9) {
+          return UnknownCommand(
+            bytes: bytes,
+            packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+            commandCode: bytes[2],
+          );
+        }
         return GetBootloaderVersionCommand(
           bytes: bytes,
           packetId: packetIdFromPayload(bytes.sublist(0, 2)),
@@ -95,6 +144,13 @@ abstract class BaseReadCommand {
           dateTime: DateTime(bytes[6] + 2000, bytes[7], bytes[8]),
         );
       case 0x31:
+        if (bytes.length < 4) {
+          return UnknownCommand(
+            bytes: bytes,
+            packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+            commandCode: bytes[2],
+          );
+        }
         return GetFirmwareNameCommand(
           bytes: bytes,
           packetId: packetIdFromPayload(bytes.sublist(0, 2)),

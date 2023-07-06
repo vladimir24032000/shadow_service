@@ -37,6 +37,9 @@ class ShadowBTService {
   Stream<BaseReadCommand> get rxCharacteristicStream =>
       _rxCharacterictic.streamController.stream;
 
+  Stream<BaseWriteCommand> get txCharacteristicStream =>
+      _txCharacterictic.streamController.stream;
+
   Future<bool> sendConnectRequest() async {
     return _txCharacterictic
         .writeTX(ConnectRequstCommand())
@@ -85,6 +88,13 @@ class ShadowBTService {
 
   Future<bool> setPin() async {
     return _txCharacterictic.writeTX(SetPinCommand()).fold((left) => false,
+        (right) {
+      return true;
+    });
+  }
+
+  Future<bool> testCommand() async {
+    return _txCharacterictic.writeTX(TestCommand()).fold((left) => false,
         (right) {
       return true;
     });

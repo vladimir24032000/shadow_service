@@ -276,6 +276,21 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
   }
 
   @override
+  Future<Either<Unit, Unit>> testCommand() async {
+    if (currentState != DeviceState.connected) return const Right(unit);
+
+    return ServiceAvailability().check<Either<Unit, Unit>>(
+      onEnabled: () async {
+        final sended = await shadowBTService!.testCommand();
+        if (sended) {
+          return const Right(unit);
+        }
+        return const Left(unit);
+      },
+    ).expandLeft((_) => unit);
+  }
+
+  @override
   Future<Either<Unit, Unit>> getBootloaderVersion() async {
     if (currentState != DeviceState.connected) return const Right(unit);
 

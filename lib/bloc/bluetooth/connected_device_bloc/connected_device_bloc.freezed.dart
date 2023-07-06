@@ -26,6 +26,7 @@ mixin _$ConnectedDeviceEvent {
     required TResult Function() setPin,
     required TResult Function() setSecretCode,
     required TResult Function() setSerialNumber,
+    required TResult Function() testCommand,
     required TResult Function() firmwareVersionRequest,
   }) =>
       throw _privateConstructorUsedError;
@@ -39,6 +40,7 @@ mixin _$ConnectedDeviceEvent {
     TResult? Function()? setPin,
     TResult? Function()? setSecretCode,
     TResult? Function()? setSerialNumber,
+    TResult? Function()? testCommand,
     TResult? Function()? firmwareVersionRequest,
   }) =>
       throw _privateConstructorUsedError;
@@ -52,6 +54,7 @@ mixin _$ConnectedDeviceEvent {
     TResult Function()? setPin,
     TResult Function()? setSecretCode,
     TResult Function()? setSerialNumber,
+    TResult Function()? testCommand,
     TResult Function()? firmwareVersionRequest,
     required TResult orElse(),
   }) =>
@@ -66,6 +69,7 @@ mixin _$ConnectedDeviceEvent {
     required TResult Function(_SetPin value) setPin,
     required TResult Function(_SetSecretCode value) setSecretCode,
     required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_TestCommand value) testCommand,
     required TResult Function(_FirmwareVersionRequest value)
         firmwareVersionRequest,
   }) =>
@@ -80,6 +84,7 @@ mixin _$ConnectedDeviceEvent {
     TResult? Function(_SetPin value)? setPin,
     TResult? Function(_SetSecretCode value)? setSecretCode,
     TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_TestCommand value)? testCommand,
     TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
   }) =>
       throw _privateConstructorUsedError;
@@ -93,6 +98,7 @@ mixin _$ConnectedDeviceEvent {
     TResult Function(_SetPin value)? setPin,
     TResult Function(_SetSecretCode value)? setSecretCode,
     TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_TestCommand value)? testCommand,
     TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
     required TResult orElse(),
   }) =>
@@ -173,6 +179,7 @@ class _$_GetBootloaderVersion
     required TResult Function() setPin,
     required TResult Function() setSecretCode,
     required TResult Function() setSerialNumber,
+    required TResult Function() testCommand,
     required TResult Function() firmwareVersionRequest,
   }) {
     return getBootloaderVersion();
@@ -189,6 +196,7 @@ class _$_GetBootloaderVersion
     TResult? Function()? setPin,
     TResult? Function()? setSecretCode,
     TResult? Function()? setSerialNumber,
+    TResult? Function()? testCommand,
     TResult? Function()? firmwareVersionRequest,
   }) {
     return getBootloaderVersion?.call();
@@ -205,6 +213,7 @@ class _$_GetBootloaderVersion
     TResult Function()? setPin,
     TResult Function()? setSecretCode,
     TResult Function()? setSerialNumber,
+    TResult Function()? testCommand,
     TResult Function()? firmwareVersionRequest,
     required TResult orElse(),
   }) {
@@ -225,6 +234,7 @@ class _$_GetBootloaderVersion
     required TResult Function(_SetPin value) setPin,
     required TResult Function(_SetSecretCode value) setSecretCode,
     required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_TestCommand value) testCommand,
     required TResult Function(_FirmwareVersionRequest value)
         firmwareVersionRequest,
   }) {
@@ -242,6 +252,7 @@ class _$_GetBootloaderVersion
     TResult? Function(_SetPin value)? setPin,
     TResult? Function(_SetSecretCode value)? setSecretCode,
     TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_TestCommand value)? testCommand,
     TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
   }) {
     return getBootloaderVersion?.call(this);
@@ -258,6 +269,7 @@ class _$_GetBootloaderVersion
     TResult Function(_SetPin value)? setPin,
     TResult Function(_SetSecretCode value)? setSecretCode,
     TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_TestCommand value)? testCommand,
     TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
     required TResult orElse(),
   }) {
@@ -327,6 +339,7 @@ class _$_GetFrimwareName
     required TResult Function() setPin,
     required TResult Function() setSecretCode,
     required TResult Function() setSerialNumber,
+    required TResult Function() testCommand,
     required TResult Function() firmwareVersionRequest,
   }) {
     return getFrimwareName();
@@ -343,6 +356,7 @@ class _$_GetFrimwareName
     TResult? Function()? setPin,
     TResult? Function()? setSecretCode,
     TResult? Function()? setSerialNumber,
+    TResult? Function()? testCommand,
     TResult? Function()? firmwareVersionRequest,
   }) {
     return getFrimwareName?.call();
@@ -359,6 +373,7 @@ class _$_GetFrimwareName
     TResult Function()? setPin,
     TResult Function()? setSecretCode,
     TResult Function()? setSerialNumber,
+    TResult Function()? testCommand,
     TResult Function()? firmwareVersionRequest,
     required TResult orElse(),
   }) {
@@ -379,6 +394,7 @@ class _$_GetFrimwareName
     required TResult Function(_SetPin value) setPin,
     required TResult Function(_SetSecretCode value) setSecretCode,
     required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_TestCommand value) testCommand,
     required TResult Function(_FirmwareVersionRequest value)
         firmwareVersionRequest,
   }) {
@@ -396,6 +412,7 @@ class _$_GetFrimwareName
     TResult? Function(_SetPin value)? setPin,
     TResult? Function(_SetSecretCode value)? setSecretCode,
     TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_TestCommand value)? testCommand,
     TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
   }) {
     return getFrimwareName?.call(this);
@@ -412,6 +429,7 @@ class _$_GetFrimwareName
     TResult Function(_SetPin value)? setPin,
     TResult Function(_SetSecretCode value)? setSecretCode,
     TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_TestCommand value)? testCommand,
     TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
     required TResult orElse(),
   }) {
@@ -479,6 +497,7 @@ class _$_RewritePin with DiagnosticableTreeMixin implements _RewritePin {
     required TResult Function() setPin,
     required TResult Function() setSecretCode,
     required TResult Function() setSerialNumber,
+    required TResult Function() testCommand,
     required TResult Function() firmwareVersionRequest,
   }) {
     return rewritePin();
@@ -495,6 +514,7 @@ class _$_RewritePin with DiagnosticableTreeMixin implements _RewritePin {
     TResult? Function()? setPin,
     TResult? Function()? setSecretCode,
     TResult? Function()? setSerialNumber,
+    TResult? Function()? testCommand,
     TResult? Function()? firmwareVersionRequest,
   }) {
     return rewritePin?.call();
@@ -511,6 +531,7 @@ class _$_RewritePin with DiagnosticableTreeMixin implements _RewritePin {
     TResult Function()? setPin,
     TResult Function()? setSecretCode,
     TResult Function()? setSerialNumber,
+    TResult Function()? testCommand,
     TResult Function()? firmwareVersionRequest,
     required TResult orElse(),
   }) {
@@ -531,6 +552,7 @@ class _$_RewritePin with DiagnosticableTreeMixin implements _RewritePin {
     required TResult Function(_SetPin value) setPin,
     required TResult Function(_SetSecretCode value) setSecretCode,
     required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_TestCommand value) testCommand,
     required TResult Function(_FirmwareVersionRequest value)
         firmwareVersionRequest,
   }) {
@@ -548,6 +570,7 @@ class _$_RewritePin with DiagnosticableTreeMixin implements _RewritePin {
     TResult? Function(_SetPin value)? setPin,
     TResult? Function(_SetSecretCode value)? setSecretCode,
     TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_TestCommand value)? testCommand,
     TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
   }) {
     return rewritePin?.call(this);
@@ -564,6 +587,7 @@ class _$_RewritePin with DiagnosticableTreeMixin implements _RewritePin {
     TResult Function(_SetPin value)? setPin,
     TResult Function(_SetSecretCode value)? setSecretCode,
     TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_TestCommand value)? testCommand,
     TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
     required TResult orElse(),
   }) {
@@ -633,6 +657,7 @@ class _$_SendConnectRequest
     required TResult Function() setPin,
     required TResult Function() setSecretCode,
     required TResult Function() setSerialNumber,
+    required TResult Function() testCommand,
     required TResult Function() firmwareVersionRequest,
   }) {
     return sendConnectRequest();
@@ -649,6 +674,7 @@ class _$_SendConnectRequest
     TResult? Function()? setPin,
     TResult? Function()? setSecretCode,
     TResult? Function()? setSerialNumber,
+    TResult? Function()? testCommand,
     TResult? Function()? firmwareVersionRequest,
   }) {
     return sendConnectRequest?.call();
@@ -665,6 +691,7 @@ class _$_SendConnectRequest
     TResult Function()? setPin,
     TResult Function()? setSecretCode,
     TResult Function()? setSerialNumber,
+    TResult Function()? testCommand,
     TResult Function()? firmwareVersionRequest,
     required TResult orElse(),
   }) {
@@ -685,6 +712,7 @@ class _$_SendConnectRequest
     required TResult Function(_SetPin value) setPin,
     required TResult Function(_SetSecretCode value) setSecretCode,
     required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_TestCommand value) testCommand,
     required TResult Function(_FirmwareVersionRequest value)
         firmwareVersionRequest,
   }) {
@@ -702,6 +730,7 @@ class _$_SendConnectRequest
     TResult? Function(_SetPin value)? setPin,
     TResult? Function(_SetSecretCode value)? setSecretCode,
     TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_TestCommand value)? testCommand,
     TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
   }) {
     return sendConnectRequest?.call(this);
@@ -718,6 +747,7 @@ class _$_SendConnectRequest
     TResult Function(_SetPin value)? setPin,
     TResult Function(_SetSecretCode value)? setSecretCode,
     TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_TestCommand value)? testCommand,
     TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
     required TResult orElse(),
   }) {
@@ -785,6 +815,7 @@ class _$_SetConfig with DiagnosticableTreeMixin implements _SetConfig {
     required TResult Function() setPin,
     required TResult Function() setSecretCode,
     required TResult Function() setSerialNumber,
+    required TResult Function() testCommand,
     required TResult Function() firmwareVersionRequest,
   }) {
     return setConfig();
@@ -801,6 +832,7 @@ class _$_SetConfig with DiagnosticableTreeMixin implements _SetConfig {
     TResult? Function()? setPin,
     TResult? Function()? setSecretCode,
     TResult? Function()? setSerialNumber,
+    TResult? Function()? testCommand,
     TResult? Function()? firmwareVersionRequest,
   }) {
     return setConfig?.call();
@@ -817,6 +849,7 @@ class _$_SetConfig with DiagnosticableTreeMixin implements _SetConfig {
     TResult Function()? setPin,
     TResult Function()? setSecretCode,
     TResult Function()? setSerialNumber,
+    TResult Function()? testCommand,
     TResult Function()? firmwareVersionRequest,
     required TResult orElse(),
   }) {
@@ -837,6 +870,7 @@ class _$_SetConfig with DiagnosticableTreeMixin implements _SetConfig {
     required TResult Function(_SetPin value) setPin,
     required TResult Function(_SetSecretCode value) setSecretCode,
     required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_TestCommand value) testCommand,
     required TResult Function(_FirmwareVersionRequest value)
         firmwareVersionRequest,
   }) {
@@ -854,6 +888,7 @@ class _$_SetConfig with DiagnosticableTreeMixin implements _SetConfig {
     TResult? Function(_SetPin value)? setPin,
     TResult? Function(_SetSecretCode value)? setSecretCode,
     TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_TestCommand value)? testCommand,
     TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
   }) {
     return setConfig?.call(this);
@@ -870,6 +905,7 @@ class _$_SetConfig with DiagnosticableTreeMixin implements _SetConfig {
     TResult Function(_SetPin value)? setPin,
     TResult Function(_SetSecretCode value)? setSecretCode,
     TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_TestCommand value)? testCommand,
     TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
     required TResult orElse(),
   }) {
@@ -934,6 +970,7 @@ class _$_SetPin with DiagnosticableTreeMixin implements _SetPin {
     required TResult Function() setPin,
     required TResult Function() setSecretCode,
     required TResult Function() setSerialNumber,
+    required TResult Function() testCommand,
     required TResult Function() firmwareVersionRequest,
   }) {
     return setPin();
@@ -950,6 +987,7 @@ class _$_SetPin with DiagnosticableTreeMixin implements _SetPin {
     TResult? Function()? setPin,
     TResult? Function()? setSecretCode,
     TResult? Function()? setSerialNumber,
+    TResult? Function()? testCommand,
     TResult? Function()? firmwareVersionRequest,
   }) {
     return setPin?.call();
@@ -966,6 +1004,7 @@ class _$_SetPin with DiagnosticableTreeMixin implements _SetPin {
     TResult Function()? setPin,
     TResult Function()? setSecretCode,
     TResult Function()? setSerialNumber,
+    TResult Function()? testCommand,
     TResult Function()? firmwareVersionRequest,
     required TResult orElse(),
   }) {
@@ -986,6 +1025,7 @@ class _$_SetPin with DiagnosticableTreeMixin implements _SetPin {
     required TResult Function(_SetPin value) setPin,
     required TResult Function(_SetSecretCode value) setSecretCode,
     required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_TestCommand value) testCommand,
     required TResult Function(_FirmwareVersionRequest value)
         firmwareVersionRequest,
   }) {
@@ -1003,6 +1043,7 @@ class _$_SetPin with DiagnosticableTreeMixin implements _SetPin {
     TResult? Function(_SetPin value)? setPin,
     TResult? Function(_SetSecretCode value)? setSecretCode,
     TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_TestCommand value)? testCommand,
     TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
   }) {
     return setPin?.call(this);
@@ -1019,6 +1060,7 @@ class _$_SetPin with DiagnosticableTreeMixin implements _SetPin {
     TResult Function(_SetPin value)? setPin,
     TResult Function(_SetSecretCode value)? setSecretCode,
     TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_TestCommand value)? testCommand,
     TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
     required TResult orElse(),
   }) {
@@ -1086,6 +1128,7 @@ class _$_SetSecretCode with DiagnosticableTreeMixin implements _SetSecretCode {
     required TResult Function() setPin,
     required TResult Function() setSecretCode,
     required TResult Function() setSerialNumber,
+    required TResult Function() testCommand,
     required TResult Function() firmwareVersionRequest,
   }) {
     return setSecretCode();
@@ -1102,6 +1145,7 @@ class _$_SetSecretCode with DiagnosticableTreeMixin implements _SetSecretCode {
     TResult? Function()? setPin,
     TResult? Function()? setSecretCode,
     TResult? Function()? setSerialNumber,
+    TResult? Function()? testCommand,
     TResult? Function()? firmwareVersionRequest,
   }) {
     return setSecretCode?.call();
@@ -1118,6 +1162,7 @@ class _$_SetSecretCode with DiagnosticableTreeMixin implements _SetSecretCode {
     TResult Function()? setPin,
     TResult Function()? setSecretCode,
     TResult Function()? setSerialNumber,
+    TResult Function()? testCommand,
     TResult Function()? firmwareVersionRequest,
     required TResult orElse(),
   }) {
@@ -1138,6 +1183,7 @@ class _$_SetSecretCode with DiagnosticableTreeMixin implements _SetSecretCode {
     required TResult Function(_SetPin value) setPin,
     required TResult Function(_SetSecretCode value) setSecretCode,
     required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_TestCommand value) testCommand,
     required TResult Function(_FirmwareVersionRequest value)
         firmwareVersionRequest,
   }) {
@@ -1155,6 +1201,7 @@ class _$_SetSecretCode with DiagnosticableTreeMixin implements _SetSecretCode {
     TResult? Function(_SetPin value)? setPin,
     TResult? Function(_SetSecretCode value)? setSecretCode,
     TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_TestCommand value)? testCommand,
     TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
   }) {
     return setSecretCode?.call(this);
@@ -1171,6 +1218,7 @@ class _$_SetSecretCode with DiagnosticableTreeMixin implements _SetSecretCode {
     TResult Function(_SetPin value)? setPin,
     TResult Function(_SetSecretCode value)? setSecretCode,
     TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_TestCommand value)? testCommand,
     TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
     required TResult orElse(),
   }) {
@@ -1240,6 +1288,7 @@ class _$_SetSerialNumber
     required TResult Function() setPin,
     required TResult Function() setSecretCode,
     required TResult Function() setSerialNumber,
+    required TResult Function() testCommand,
     required TResult Function() firmwareVersionRequest,
   }) {
     return setSerialNumber();
@@ -1256,6 +1305,7 @@ class _$_SetSerialNumber
     TResult? Function()? setPin,
     TResult? Function()? setSecretCode,
     TResult? Function()? setSerialNumber,
+    TResult? Function()? testCommand,
     TResult? Function()? firmwareVersionRequest,
   }) {
     return setSerialNumber?.call();
@@ -1272,6 +1322,7 @@ class _$_SetSerialNumber
     TResult Function()? setPin,
     TResult Function()? setSecretCode,
     TResult Function()? setSerialNumber,
+    TResult Function()? testCommand,
     TResult Function()? firmwareVersionRequest,
     required TResult orElse(),
   }) {
@@ -1292,6 +1343,7 @@ class _$_SetSerialNumber
     required TResult Function(_SetPin value) setPin,
     required TResult Function(_SetSecretCode value) setSecretCode,
     required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_TestCommand value) testCommand,
     required TResult Function(_FirmwareVersionRequest value)
         firmwareVersionRequest,
   }) {
@@ -1309,6 +1361,7 @@ class _$_SetSerialNumber
     TResult? Function(_SetPin value)? setPin,
     TResult? Function(_SetSecretCode value)? setSecretCode,
     TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_TestCommand value)? testCommand,
     TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
   }) {
     return setSerialNumber?.call(this);
@@ -1325,6 +1378,7 @@ class _$_SetSerialNumber
     TResult Function(_SetPin value)? setPin,
     TResult Function(_SetSecretCode value)? setSecretCode,
     TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_TestCommand value)? testCommand,
     TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
     required TResult orElse(),
   }) {
@@ -1337,6 +1391,164 @@ class _$_SetSerialNumber
 
 abstract class _SetSerialNumber implements ConnectedDeviceEvent {
   const factory _SetSerialNumber() = _$_SetSerialNumber;
+}
+
+/// @nodoc
+abstract class _$$_TestCommandCopyWith<$Res> {
+  factory _$$_TestCommandCopyWith(
+          _$_TestCommand value, $Res Function(_$_TestCommand) then) =
+      __$$_TestCommandCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_TestCommandCopyWithImpl<$Res>
+    extends _$ConnectedDeviceEventCopyWithImpl<$Res, _$_TestCommand>
+    implements _$$_TestCommandCopyWith<$Res> {
+  __$$_TestCommandCopyWithImpl(
+      _$_TestCommand _value, $Res Function(_$_TestCommand) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_TestCommand with DiagnosticableTreeMixin implements _TestCommand {
+  const _$_TestCommand();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ConnectedDeviceEvent.testCommand()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty('type', 'ConnectedDeviceEvent.testCommand'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_TestCommand);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getBootloaderVersion,
+    required TResult Function() getFrimwareName,
+    required TResult Function() rewritePin,
+    required TResult Function() sendConnectRequest,
+    required TResult Function() setConfig,
+    required TResult Function() setPin,
+    required TResult Function() setSecretCode,
+    required TResult Function() setSerialNumber,
+    required TResult Function() testCommand,
+    required TResult Function() firmwareVersionRequest,
+  }) {
+    return testCommand();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getBootloaderVersion,
+    TResult? Function()? getFrimwareName,
+    TResult? Function()? rewritePin,
+    TResult? Function()? sendConnectRequest,
+    TResult? Function()? setConfig,
+    TResult? Function()? setPin,
+    TResult? Function()? setSecretCode,
+    TResult? Function()? setSerialNumber,
+    TResult? Function()? testCommand,
+    TResult? Function()? firmwareVersionRequest,
+  }) {
+    return testCommand?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getBootloaderVersion,
+    TResult Function()? getFrimwareName,
+    TResult Function()? rewritePin,
+    TResult Function()? sendConnectRequest,
+    TResult Function()? setConfig,
+    TResult Function()? setPin,
+    TResult Function()? setSecretCode,
+    TResult Function()? setSerialNumber,
+    TResult Function()? testCommand,
+    TResult Function()? firmwareVersionRequest,
+    required TResult orElse(),
+  }) {
+    if (testCommand != null) {
+      return testCommand();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetBootloaderVersion value) getBootloaderVersion,
+    required TResult Function(_GetFrimwareName value) getFrimwareName,
+    required TResult Function(_RewritePin value) rewritePin,
+    required TResult Function(_SendConnectRequest value) sendConnectRequest,
+    required TResult Function(_SetConfig value) setConfig,
+    required TResult Function(_SetPin value) setPin,
+    required TResult Function(_SetSecretCode value) setSecretCode,
+    required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_TestCommand value) testCommand,
+    required TResult Function(_FirmwareVersionRequest value)
+        firmwareVersionRequest,
+  }) {
+    return testCommand(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult? Function(_GetFrimwareName value)? getFrimwareName,
+    TResult? Function(_RewritePin value)? rewritePin,
+    TResult? Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult? Function(_SetConfig value)? setConfig,
+    TResult? Function(_SetPin value)? setPin,
+    TResult? Function(_SetSecretCode value)? setSecretCode,
+    TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_TestCommand value)? testCommand,
+    TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
+  }) {
+    return testCommand?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetBootloaderVersion value)? getBootloaderVersion,
+    TResult Function(_GetFrimwareName value)? getFrimwareName,
+    TResult Function(_RewritePin value)? rewritePin,
+    TResult Function(_SendConnectRequest value)? sendConnectRequest,
+    TResult Function(_SetConfig value)? setConfig,
+    TResult Function(_SetPin value)? setPin,
+    TResult Function(_SetSecretCode value)? setSecretCode,
+    TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_TestCommand value)? testCommand,
+    TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
+    required TResult orElse(),
+  }) {
+    if (testCommand != null) {
+      return testCommand(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _TestCommand implements ConnectedDeviceEvent {
+  const factory _TestCommand() = _$_TestCommand;
 }
 
 /// @nodoc
@@ -1395,6 +1607,7 @@ class _$_FirmwareVersionRequest
     required TResult Function() setPin,
     required TResult Function() setSecretCode,
     required TResult Function() setSerialNumber,
+    required TResult Function() testCommand,
     required TResult Function() firmwareVersionRequest,
   }) {
     return firmwareVersionRequest();
@@ -1411,6 +1624,7 @@ class _$_FirmwareVersionRequest
     TResult? Function()? setPin,
     TResult? Function()? setSecretCode,
     TResult? Function()? setSerialNumber,
+    TResult? Function()? testCommand,
     TResult? Function()? firmwareVersionRequest,
   }) {
     return firmwareVersionRequest?.call();
@@ -1427,6 +1641,7 @@ class _$_FirmwareVersionRequest
     TResult Function()? setPin,
     TResult Function()? setSecretCode,
     TResult Function()? setSerialNumber,
+    TResult Function()? testCommand,
     TResult Function()? firmwareVersionRequest,
     required TResult orElse(),
   }) {
@@ -1447,6 +1662,7 @@ class _$_FirmwareVersionRequest
     required TResult Function(_SetPin value) setPin,
     required TResult Function(_SetSecretCode value) setSecretCode,
     required TResult Function(_SetSerialNumber value) setSerialNumber,
+    required TResult Function(_TestCommand value) testCommand,
     required TResult Function(_FirmwareVersionRequest value)
         firmwareVersionRequest,
   }) {
@@ -1464,6 +1680,7 @@ class _$_FirmwareVersionRequest
     TResult? Function(_SetPin value)? setPin,
     TResult? Function(_SetSecretCode value)? setSecretCode,
     TResult? Function(_SetSerialNumber value)? setSerialNumber,
+    TResult? Function(_TestCommand value)? testCommand,
     TResult? Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
   }) {
     return firmwareVersionRequest?.call(this);
@@ -1480,6 +1697,7 @@ class _$_FirmwareVersionRequest
     TResult Function(_SetPin value)? setPin,
     TResult Function(_SetSecretCode value)? setSecretCode,
     TResult Function(_SetSerialNumber value)? setSerialNumber,
+    TResult Function(_TestCommand value)? testCommand,
     TResult Function(_FirmwareVersionRequest value)? firmwareVersionRequest,
     required TResult orElse(),
   }) {

@@ -8,6 +8,7 @@ part 'set_pin.dart';
 part 'set_config.dart';
 part 'get_firmware_name.dart';
 part 'rewrite_pin.dart';
+part 'test_command.dart';
 
 abstract class BaseWriteCommand {
   final int commandCode;
