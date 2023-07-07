@@ -226,10 +226,43 @@ class _ManageDeviceWidget extends StatelessWidget {
           device: device,
           connectedDeviceBloc: connectedDevice,
         ),
+        _CarFirmwareButton(
+          device: device,
+          connectedDeviceBloc: connectedDevice,
+        ),
         _DisconnectButton(
           device: device,
         ),
       ],
+    );
+  }
+}
+
+class _CarFirmwareButton extends StatelessWidget {
+  const _CarFirmwareButton(
+      {required this.device, required this.connectedDeviceBloc});
+  final DeviceBloc device;
+  final ConnectedDeviceBloc connectedDeviceBloc;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
+      child: CustomElevatedButton(
+        onPressed: () {
+          navigateTo(
+            context: context,
+            nextPage: CarFirmwarePage(
+              device: device,
+              connctedDevice: connectedDeviceBloc,
+            ),
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+        ),
+        child: const Text("CAR FIRMWARE"),
+      ),
     );
   }
 }

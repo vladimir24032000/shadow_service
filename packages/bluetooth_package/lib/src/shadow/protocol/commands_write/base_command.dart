@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 part 'connect_request.dart';
 part 'firmware_version_request.dart';
@@ -9,6 +10,7 @@ part 'set_config.dart';
 part 'get_firmware_name.dart';
 part 'rewrite_pin.dart';
 part 'test_command.dart';
+part 'update_start.dart';
 
 abstract class BaseWriteCommand {
   final int commandCode;

@@ -252,7 +252,9 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
     final servicesOption = await discoverServices();
     if (servicesOption.isLeft) return const Left(unit);
     final services = servicesOption.right;
-    shadowBTService = ShadowBTService(services.first);
+    final uartService = services
+        .firstWhere((element) => element.uuid == ShadowBTServices.uartService);
+    shadowBTService = ShadowBTService(uartService);
 
     return const Right(unit);
   }
