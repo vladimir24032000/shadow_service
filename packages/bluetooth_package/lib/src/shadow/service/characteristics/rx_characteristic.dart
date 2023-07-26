@@ -13,8 +13,13 @@ class RxCharacteristic extends ShadowIndicateCharacteristic {
   }
 
   final StreamController<BaseReadCommand> streamController =
-      StreamController<BaseReadCommand>();
-
+      StreamController<BaseReadCommand>.broadcast();
+  late final StreamController<BaseReadCommand> confirmationController =
+      StreamController<BaseReadCommand>.broadcast(
+    onListen: () => _commandConfirmationStreamActive = true,
+    onCancel: () => _commandConfirmationStreamActive = false,
+  );
+  bool _commandConfirmationStreamActive = false;
   FutureOr<Either<BluetoothOperationFailure, void>>
       _startListeningOnCharacteristic() async {
     await setNotifyValue(value: true);
@@ -24,7 +29,12 @@ class RxCharacteristic extends ShadowIndicateCharacteristic {
     valueStream.right.listen(
       (event) {
         if (event.isEmpty) return;
-        streamController.add(BaseReadCommand.fromBytes(event));
+        final command = BaseReadCommand.fromBytes(event);
+
+        streamController.add(command);
+        if (_commandConfirmationStreamActive) {
+          confirmationController.add(BaseReadCommand.fromBytes(event));
+        }
       },
       onError: (Object error) {
         assert(false, 'Error in measurement characteristic stream: $error');

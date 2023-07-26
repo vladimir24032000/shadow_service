@@ -19,6 +19,7 @@ abstract class BaseWriteCommand {
   final int commandCode;
   int packetId = 0;
   final protocolVersion = 1;
+  int confiramtionCommandCode = 0;
 
   BaseWriteCommand({
     required this.commandCode,

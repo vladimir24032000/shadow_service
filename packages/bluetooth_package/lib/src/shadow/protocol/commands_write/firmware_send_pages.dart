@@ -4,7 +4,9 @@ class FirmwareSendPagesCommand extends BaseWriteCommand {
   FirmwareSendPagesCommand({required this.data, required this.count})
       : super(
           commandCode: 0x34,
-        );
+        ) {
+    confiramtionCommandCode = 0x04;
+  }
   final Uint8List data;
   final int count;
   @override

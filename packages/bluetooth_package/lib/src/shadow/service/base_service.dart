@@ -117,16 +117,20 @@ class ShadowBTService {
     });
   }
 
-  Future<bool> updateStartCommand(String firmwareName, int pagesCount) async {
-    return _txCharacterictic
-        .writeTX(UpdateStartCommand(
-            firmwareName: firmwareName, pagesCount: pagesCount))
-        .fold((left) => false, (right) {
-      return true;
-    });
+  Future<bool> updateStartCommand(
+      String firmwareName, int pagesCount, List<int> crc) async {
+    return sendConfirmationCommand(UpdateStartCommand(
+        firmwareName: firmwareName, pagesCount: pagesCount, crc: crc));
+    // return _txCharacterictic
+    //     .writeTX(UpdateStartCommand(
+    //         firmwareName: firmwareName, pagesCount: pagesCount))
+    //     .fold((left) => false, (right) {
+    //   return true;
+    // });
   }
 
   Future<bool> firmwareSendKey() async {
+    //return sendConfirmationCommand(FirmwareSendKeyCommand());
     return _txCharacterictic
         .writeTX(FirmwareSendKeyCommand())
         .fold((left) => false, (right) {
@@ -135,44 +139,48 @@ class ShadowBTService {
   }
 
   Future<bool> firmwareSendPage(Uint8List data, int count) async {
-    return _txCharacterictic
-        .writeTX(FirmwareSendPagesCommand(count: count, data: data))
-        .fold((left) => false, (right) {
-      return true;
-    });
+    return sendConfirmationCommand(
+        FirmwareSendPagesCommand(count: count, data: data));
+    // return _txCharacterictic
+    //     .writeTX(FirmwareSendPagesCommand(count: count, data: data))
+    //     .fold((left) => false, (right) {
+    //   return true;
+    // });
   }
 
   Future<bool> firmwareSendStop() async {
-    return _txCharacterictic.writeTX(UpdateStopCommand()).fold((left) => false,
-        (right) {
-      return true;
-    });
+    return sendConfirmationCommand(UpdateStopCommand());
+    // return _txCharacterictic.writeTX(UpdateStopCommand()).fold((left) => false,
+    //     (right) {
+    //   return true;
+    // });
   }
 
-  // Future<bool> sendConfirmationCommand(
-  //   BaseWriteCommand command, {
-  //   Duration timeoutDuration = const Duration(milliseconds: 3002),
-  // }) async {
-  //   final writeResult = await _txCharacterictic.writeTX(command);
-  //   if (writeResult.isLeft) {
-  //     return false;
-  //   }
+  Future<bool> sendConfirmationCommand(
+    BaseWriteCommand command, {
+    Duration timeoutDuration = const Duration(milliseconds: 3002),
+  }) async {
+    final writeResult = await _txCharacterictic.writeTX(command);
+    if (writeResult.isLeft) {
+      return false;
+    }
 
-  //   try {
-  //     final confirmationCode = await _rxCharacterictic
-  //         .confirmationController.stream
-  //         .firstWhere((element) => element.commandCode == 0x04)
-  //         .timeout(
-  //           timeoutDuration,
-  //           onTimeout: () =>
-  //               UnknownCommand(commandCode: -1, packetId: -1, bytes: []),
-  //         );
-  //     return confirmationCode is! UnknownCommand;
-  //   } catch (e) {
-  //     assert(false, 'send confirmation code exception $e');
-  //     return false;
-  //   }
-  // }
+    try {
+      final confirmationCode = await _rxCharacterictic
+          .confirmationController.stream
+          .firstWhere((element) =>
+              element.commandCode == command.confiramtionCommandCode)
+          .timeout(
+            timeoutDuration,
+            onTimeout: () =>
+                UnknownCommand(commandCode: -1, packetId: -1, bytes: []),
+          );
+      return confirmationCode is! UnknownCommand;
+    } catch (e) {
+      assert(false, 'send confirmation code exception $e');
+      return false;
+    }
+  }
 
   /// Returns the battery status in percent.
   ///

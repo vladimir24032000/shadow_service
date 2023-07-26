@@ -4,10 +4,12 @@ class UpdateStartCommand extends BaseWriteCommand {
   UpdateStartCommand({
     required this.firmwareName,
     required this.pagesCount,
-    this.crc = const [0, 0, 0, 0],
+    required this.crc,
   }) : super(
           commandCode: 0x32,
-        );
+        ) {
+    confiramtionCommandCode = 0x04;
+  }
   final String firmwareName;
   final List<int> crc;
   final int pagesCount;

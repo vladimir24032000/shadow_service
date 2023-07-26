@@ -209,7 +209,7 @@ class MockDevice extends BaseShadowBluetoothDevice with EquatableMixin {
 
   @override
   Future<Either<Unit, Unit>> updateStartCommand(
-      String firmwareName, int pagesCount) {
+      String firmwareName, int pagesCount, List<int> crc) {
     // TODO: implement updateStartCommand
     throw UnimplementedError();
   }

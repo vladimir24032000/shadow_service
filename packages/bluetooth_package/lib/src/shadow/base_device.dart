@@ -40,7 +40,7 @@ abstract class BaseShadowBluetoothDevice {
   Future<Either<Unit, Unit>> testCommand();
 
   Future<Either<Unit, Unit>> updateStartCommand(
-      String firmwareName, int pagesCount);
+      String firmwareName, int pagesCount, List<int> crc);
 
   Future<Either<Unit, Unit>> firmwareSendKey();
 

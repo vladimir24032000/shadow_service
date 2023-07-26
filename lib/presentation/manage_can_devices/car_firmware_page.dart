@@ -2,7 +2,10 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:crclib/catalog.dart';
+import 'package:either_dart/either.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:service_app/bloc/bluetooth/connected_device_bloc/connected_device_bloc.dart';
@@ -154,6 +157,8 @@ class _ManageDeviceWidget extends StatelessWidget {
             const Expanded(child: _SaveButton()),
           ],
         ),
+        _StartUploadButton(connectedDevice),
+        _StopUploadButton(connectedDevice),
         _UploadButton(connectedDevice),
         const _InstallationButton(),
       ],
@@ -399,7 +404,7 @@ class _OpenButton extends StatelessWidget {
             connctedDevice.carfirmware = await file.readAsBytes();
             connctedDevice.pagesCount =
                 connctedDevice.carfirmware!.length ~/ 128;
-            if (connctedDevice.pagesCount! * 128 >
+            if (connctedDevice.pagesCount! * 128 <
                 connctedDevice.carfirmware!.length) {
               connctedDevice.pagesCount = connctedDevice.pagesCount! + 1;
             }
@@ -411,6 +416,66 @@ class _OpenButton extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.primary,
         ),
         child: const Text("OPEN"),
+      ),
+    );
+  }
+}
+
+class _StopUploadButton extends StatelessWidget {
+  const _StopUploadButton(this.connctedDevice);
+  final ConnectedDeviceBloc connctedDevice;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: CustomElevatedButton(
+        onPressed: () async {
+          if (connctedDevice.carfirmware == null) {
+            return;
+          }
+          await connctedDevice.state.device.firmwareSendStop();
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+        ),
+        child: const Text("STOP UPLOAD"),
+      ),
+    );
+  }
+}
+
+class _StartUploadButton extends StatelessWidget {
+  const _StartUploadButton(this.connctedDevice);
+  final ConnectedDeviceBloc connctedDevice;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: CustomElevatedButton(
+        onPressed: () async {
+          if (connctedDevice.carfirmware == null) {
+            return;
+          }
+          final crcValue = Crc32Bzip2()
+              .convert(connctedDevice.carfirmware!)
+              .toBigInt()
+              .toInt();
+          final byteData = ByteData(4);
+          byteData.setUint32(
+            0,
+            crcValue,
+          );
+          final crc = byteData.buffer.asUint8List();
+          await connctedDevice.state.device.updateStartCommand(
+            connctedDevice.firmwwareName!,
+            connctedDevice.pagesCount!,
+            crc,
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+        ),
+        child: const Text("START UPLOAD"),
       ),
     );
   }
@@ -428,8 +493,21 @@ class _UploadButton extends StatelessWidget {
           if (connctedDevice.carfirmware == null) {
             return;
           }
+          final crcValue = Crc32Bzip2()
+              .convert(connctedDevice.carfirmware!)
+              .toBigInt()
+              .toInt();
+          final byteData = ByteData(4);
+          byteData.setUint32(
+            0,
+            crcValue,
+          );
+          final crc = byteData.buffer.asUint8List();
           await connctedDevice.state.device.updateStartCommand(
-              connctedDevice.firmwwareName!, connctedDevice.pagesCount!);
+            connctedDevice.firmwwareName!,
+            connctedDevice.pagesCount!,
+            crc,
+          );
           await Future.delayed(const Duration(milliseconds: 300));
           await connctedDevice.state.device.firmwareSendKey();
           await Future.delayed(const Duration(milliseconds: 300));
@@ -439,19 +517,30 @@ class _UploadButton extends StatelessWidget {
           }
           for (var i = 0; i < connctedDevice.pagesCount!; i++) {
             progressNotifier.value = i / connctedDevice.pagesCount!;
-            final data = connctedDevice.carfirmware!.sublist(i * 128,
-                min((i + 1) * 128, connctedDevice.carfirmware!.length));
+            final data = [
+              ...connctedDevice.carfirmware!.sublist(i * 128,
+                  min((i + 1) * 128, connctedDevice.carfirmware!.length))
+            ];
             while (data.length < 128) {
-              data.add(0);
+              data.add(255);
             }
-            await connctedDevice.state.device.firmwareSendPage(data, i);
+            // bool result = false;
+            // int counter = 0;
+            //while (!result || counter < 10) {
+            //await Future.delayed(const Duration(milliseconds: 100));
+            await connctedDevice.state.device
+                .firmwareSendPage(Uint8List.fromList(data), i);
+
+            // .fold((left) => result = false, (right) => result = true);
+            //counter++;
+            //}
+
             if (connctedDevice.delay != null) {
               await Future.delayed(
                   Duration(milliseconds: connctedDevice.delay!));
             }
             //connctedDevice.add(const ConnectedDeviceEvent.sendTest());
           }
-          await Future.delayed(const Duration(milliseconds: 300));
           await connctedDevice.state.device.firmwareSendStop();
           if (context.mounted) {
             Navigator.of(context).pop();

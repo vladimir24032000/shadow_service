@@ -459,13 +459,13 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
 
   @override
   Future<Either<Unit, Unit>> updateStartCommand(
-      String firmwareName, int pagesCount) async {
+      String firmwareName, int pagesCount, List<int> crc) async {
     if (currentState != DeviceState.connected) return const Right(unit);
 
     return ServiceAvailability().check<Either<Unit, Unit>>(
       onEnabled: () async {
-        final sended =
-            await shadowBTService!.updateStartCommand(firmwareName, pagesCount);
+        final sended = await shadowBTService!
+            .updateStartCommand(firmwareName, pagesCount, crc);
         if (sended) {
           return const Right(unit);
         }
