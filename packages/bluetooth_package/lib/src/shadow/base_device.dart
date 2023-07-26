@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:either_dart/either.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -38,6 +39,14 @@ abstract class BaseShadowBluetoothDevice {
   DeviceState get currentState;
   Future<Either<Unit, Unit>> testCommand();
 
+  Future<Either<Unit, Unit>> updateStartCommand(
+      String firmwareName, int pagesCount);
+
+  Future<Either<Unit, Unit>> firmwareSendKey();
+
+  Future<Either<Unit, Unit>> firmwareSendPage(Uint8List data, int count);
+
+  Future<Either<Unit, Unit>> firmwareSendStop();
   Future<Either<Unit, Unit>> sendConnectRequest();
 
   Future<Either<Unit, Unit>> firmwareVersionRequest();

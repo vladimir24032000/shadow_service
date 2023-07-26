@@ -90,6 +90,10 @@ class ManageCanDevicePageState extends State<ManageCanDevicePage> {
                   state.mapOrNull(available: (value) {
                     Navigator.of(context).pop();
                   }, connected: (connected) {
+                    if (connected.connectedDeviceBloc.state.device
+                        is! btpckg.ShadowBluetoothDevice) {
+                      return;
+                    }
                     streamSubscriptionWrite = (connected.connectedDeviceBloc
                             .state.device as btpckg.ShadowBluetoothDevice)
                         .shadowBTService

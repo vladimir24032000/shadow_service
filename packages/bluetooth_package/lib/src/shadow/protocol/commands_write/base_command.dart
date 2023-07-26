@@ -11,6 +11,9 @@ part 'get_firmware_name.dart';
 part 'rewrite_pin.dart';
 part 'test_command.dart';
 part 'update_start.dart';
+part 'firmware_send_key.dart';
+part 'firmware_send_pages.dart';
+part 'update_stop.dart';
 
 abstract class BaseWriteCommand {
   final int commandCode;
@@ -23,8 +26,12 @@ abstract class BaseWriteCommand {
   List<int> toBytes();
 
   List<int> packetIdToPayload() {
+    return uint16ToBytes(packetId);
+  }
+
+  List<int> uint16ToBytes(int value) {
     final byteData = ByteData(2);
-    byteData.setUint16(0, packetId, Endian.little);
+    byteData.setUint16(0, value, Endian.little);
     return byteData.buffer.asUint8List();
   }
 

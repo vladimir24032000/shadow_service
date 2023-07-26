@@ -411,4 +411,66 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
       },
     ).expandLeft((_) => unit);
   }
+
+  @override
+  Future<Either<Unit, Unit>> firmwareSendKey() async {
+    if (currentState != DeviceState.connected) return const Right(unit);
+
+    return ServiceAvailability().check<Either<Unit, Unit>>(
+      onEnabled: () async {
+        final sended = await shadowBTService!.firmwareSendKey();
+        if (sended) {
+          return const Right(unit);
+        }
+        return const Left(unit);
+      },
+    ).expandLeft((_) => unit);
+  }
+
+  @override
+  Future<Either<Unit, Unit>> firmwareSendPage(Uint8List data, int count) async {
+    if (currentState != DeviceState.connected) return const Right(unit);
+
+    return ServiceAvailability().check<Either<Unit, Unit>>(
+      onEnabled: () async {
+        final sended = await shadowBTService!.firmwareSendPage(data, count);
+        if (sended) {
+          return const Right(unit);
+        }
+        return const Left(unit);
+      },
+    ).expandLeft((_) => unit);
+  }
+
+  @override
+  Future<Either<Unit, Unit>> firmwareSendStop() async {
+    if (currentState != DeviceState.connected) return const Right(unit);
+
+    return ServiceAvailability().check<Either<Unit, Unit>>(
+      onEnabled: () async {
+        final sended = await shadowBTService!.firmwareSendStop();
+        if (sended) {
+          return const Right(unit);
+        }
+        return const Left(unit);
+      },
+    ).expandLeft((_) => unit);
+  }
+
+  @override
+  Future<Either<Unit, Unit>> updateStartCommand(
+      String firmwareName, int pagesCount) async {
+    if (currentState != DeviceState.connected) return const Right(unit);
+
+    return ServiceAvailability().check<Either<Unit, Unit>>(
+      onEnabled: () async {
+        final sended =
+            await shadowBTService!.updateStartCommand(firmwareName, pagesCount);
+        if (sended) {
+          return const Right(unit);
+        }
+        return const Left(unit);
+      },
+    ).expandLeft((_) => unit);
+  }
 }

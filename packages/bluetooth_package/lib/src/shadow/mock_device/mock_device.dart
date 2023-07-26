@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:either_dart/src/either.dart';
 import 'dart:async';
 
@@ -184,6 +186,31 @@ class MockDevice extends BaseShadowBluetoothDevice with EquatableMixin {
   @override
   Future<Either<Unit, Unit>> setSerialNumber() {
     // TODO: implement setSerialNumber
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Unit, Unit>> firmwareSendKey() {
+    // TODO: implement firmwareSendKey
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Unit, Unit>> firmwareSendPage(Uint8List data, int count) {
+    // TODO: implement firmwareSendPage
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Unit, Unit>> firmwareSendStop() {
+    // TODO: implement firmwareSendStop
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Unit, Unit>> updateStartCommand(
+      String firmwareName, int pagesCount) {
+    // TODO: implement updateStartCommand
     throw UnimplementedError();
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:file_picker/file_picker.dart';
@@ -10,6 +11,7 @@ import 'package:service_app/bloc/navigation_bar/navigation_bar_bloc.dart';
 import 'package:service_app/core/navigator.dart';
 import 'package:service_app/core/services/get_it.dart';
 import 'package:service_app/presentation/home_tabs/home_tabs.dart';
+import 'package:service_app/presentation/theme/theme.dart';
 import 'package:service_app/presentation/widgets/custom_button/custom_elevated_button.dart';
 import 'package:service_app/presentation/widgets/dialogs/disconnect_dialog.dart';
 import 'package:service_app/presentation/widgets/dialogs/uploading_dialog.dart';
@@ -129,11 +131,27 @@ class _ManageDeviceWidget extends StatelessWidget {
           ),
         ),
         const _FirmwareDropDown(),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+          child: TextFormField(
+            initialValue: connectedDevice.delay!.toString(),
+            style: const TextStyle(color: Colors.black),
+            decoration: loginInputDecorationTheme.copyWith(
+              prefixIcon: const Icon(Icons.timelapse),
+              labelText: "Delay",
+              hintText: "Enter delay",
+            ),
+            onChanged: (value) {
+              connectedDevice.delay = int.tryParse(value);
+            },
+            textInputAction: TextInputAction.next,
+          ),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: const [
-            Expanded(child: _OpenButton()),
-            Expanded(child: _SaveButton()),
+          children: [
+            Expanded(child: _OpenButton(connectedDevice)),
+            const Expanded(child: _SaveButton()),
           ],
         ),
         _UploadButton(connectedDevice),
@@ -362,8 +380,8 @@ class _SaveButton extends StatelessWidget {
 }
 
 class _OpenButton extends StatelessWidget {
-  const _OpenButton();
-
+  const _OpenButton(this.connctedDevice);
+  final ConnectedDeviceBloc connctedDevice;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -375,6 +393,16 @@ class _OpenButton extends StatelessWidget {
 
           if (result != null) {
             File file = File(result.files.single.path!);
+            connctedDevice.firmwwareName =
+                result.files.single.name.split(".")[0];
+
+            connctedDevice.carfirmware = await file.readAsBytes();
+            connctedDevice.pagesCount =
+                connctedDevice.carfirmware!.length ~/ 128;
+            if (connctedDevice.pagesCount! * 128 >
+                connctedDevice.carfirmware!.length) {
+              connctedDevice.pagesCount = connctedDevice.pagesCount! + 1;
+            }
           } else {
             // User canceled the picker
           }
@@ -397,13 +425,34 @@ class _UploadButton extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: CustomElevatedButton(
         onPressed: () async {
+          if (connctedDevice.carfirmware == null) {
+            return;
+          }
+          await connctedDevice.state.device.updateStartCommand(
+              connctedDevice.firmwwareName!, connctedDevice.pagesCount!);
+          await Future.delayed(const Duration(milliseconds: 300));
+          await connctedDevice.state.device.firmwareSendKey();
+          await Future.delayed(const Duration(milliseconds: 300));
           final progressNotifier = ValueNotifier<double>(0);
-          showUploadingDialog(context, progressNotifier);
-          for (var i = 0; i < 10; i++) {
-            progressNotifier.value += 0.1;
-            await Future.delayed(const Duration(milliseconds: 500));
+          if (context.mounted) {
+            showUploadingDialog(context, progressNotifier);
+          }
+          for (var i = 0; i < connctedDevice.pagesCount!; i++) {
+            progressNotifier.value = i / connctedDevice.pagesCount!;
+            final data = connctedDevice.carfirmware!.sublist(i * 128,
+                min((i + 1) * 128, connctedDevice.carfirmware!.length));
+            while (data.length < 128) {
+              data.add(0);
+            }
+            await connctedDevice.state.device.firmwareSendPage(data, i);
+            if (connctedDevice.delay != null) {
+              await Future.delayed(
+                  Duration(milliseconds: connctedDevice.delay!));
+            }
             //connctedDevice.add(const ConnectedDeviceEvent.sendTest());
           }
+          await Future.delayed(const Duration(milliseconds: 300));
+          await connctedDevice.state.device.firmwareSendStop();
           if (context.mounted) {
             Navigator.of(context).pop();
           }
