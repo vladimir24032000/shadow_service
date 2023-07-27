@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:bluetooth_package/bluetooth_package.dart' as btpckg;
 import 'package:crclib/catalog.dart';
 import 'package:either_dart/either.dart';
 import 'package:file_picker/file_picker.dart';
@@ -17,6 +18,7 @@ import 'package:service_app/presentation/home_tabs/home_tabs.dart';
 import 'package:service_app/presentation/theme/theme.dart';
 import 'package:service_app/presentation/widgets/custom_button/custom_elevated_button.dart';
 import 'package:service_app/presentation/widgets/dialogs/disconnect_dialog.dart';
+import 'package:service_app/presentation/widgets/dialogs/firmware_upload_error_dialog.dart';
 import 'package:service_app/presentation/widgets/dialogs/uploading_dialog.dart';
 import 'package:service_app/presentation/widgets/logo_widget/logo_widget.dart';
 
@@ -464,6 +466,7 @@ class _StartUploadButton extends StatelessWidget {
           byteData.setUint32(
             0,
             crcValue,
+            Endian.little,
           );
           final crc = byteData.buffer.asUint8List();
           await connctedDevice.state.device.updateStartCommand(
@@ -484,67 +487,116 @@ class _StartUploadButton extends StatelessWidget {
 class _UploadButton extends StatelessWidget {
   const _UploadButton(this.connctedDevice);
   final ConnectedDeviceBloc connctedDevice;
+
+  Future<void> _uploadFirmware(BuildContext context) async {
+    if (connctedDevice.carfirmware == null) {
+      return;
+    }
+    final crcValue =
+        Crc32Bzip2().convert(connctedDevice.carfirmware!).toBigInt().toInt();
+    final byteData = ByteData(4);
+    byteData.setUint32(
+      0,
+      crcValue,
+      Endian.little,
+    );
+    final crc = byteData.buffer.asUint8List();
+    await connctedDevice.state.device.updateStartCommand(
+      connctedDevice.firmwwareName!,
+      connctedDevice.pagesCount!,
+      crc,
+    );
+    await Future.delayed(const Duration(milliseconds: 300));
+    await connctedDevice.state.device.firmwareSendKey();
+    await Future.delayed(const Duration(milliseconds: 300));
+    final progressNotifier = ValueNotifier<double>(0);
+    if (context.mounted) {
+      showUploadingDialog(context, progressNotifier);
+    }
+    bool failed = false;
+    final subscribtion =
+        (connctedDevice.state.device as btpckg.ShadowBluetoothDevice)
+            .shadowBTService
+            ?.rxCharacteristicStream
+            .listen((event) {
+      if (event is btpckg.BaseAnswerCommand) {
+        if (!event.result) {
+          failed = true;
+        }
+      }
+    });
+
+    for (var i = 0; i < connctedDevice.pagesCount!; i++) {
+      if (failed) {
+        if (context.mounted) {
+          final res = await showFirmwareUploadErrorDialog(context);
+          if (res == 0) {
+            if (context.mounted) {
+              Navigator.of(context).pop();
+            }
+            await subscribtion?.cancel();
+            if (context.mounted) {
+              _uploadFirmware(context);
+            }
+
+            return;
+          } else {
+            if (context.mounted) {
+              Navigator.of(context).pop();
+            }
+            await subscribtion?.cancel();
+            return;
+          }
+        }
+      }
+      progressNotifier.value = i / connctedDevice.pagesCount!;
+      final data = [
+        ...connctedDevice.carfirmware!.sublist(
+            i * 128, min((i + 1) * 128, connctedDevice.carfirmware!.length))
+      ];
+      while (data.length < 128) {
+        data.add(255);
+      }
+      // bool result = false;
+      // int counter = 0;
+      //while (!result || counter < 10) {
+      //await Future.delayed(const Duration(milliseconds: 100));
+      await connctedDevice.state.device
+          .firmwareSendPage(Uint8List.fromList(data), i);
+
+      // .fold((left) => result = false, (right) => result = true);
+      //counter++;
+      //}
+
+      if (connctedDevice.delay != null) {
+        await Future.delayed(Duration(milliseconds: connctedDevice.delay!));
+      }
+      //connctedDevice.add(const ConnectedDeviceEvent.sendTest());
+    }
+    await subscribtion?.cancel();
+    await connctedDevice.state.device.firmwareSendStop().fold((left) async {
+      final res = await showFirmwareUploadErrorDialog(context);
+      if (res == 0) {
+        if (context.mounted) {
+          _uploadFirmware(context);
+        }
+        return;
+      } else {
+        if (context.mounted) {
+          Navigator.of(context).pop();
+        }
+        return;
+      }
+    }, (right) => Navigator.of(context).pop());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: CustomElevatedButton(
         onPressed: () async {
-          if (connctedDevice.carfirmware == null) {
-            return;
-          }
-          final crcValue = Crc32Bzip2()
-              .convert(connctedDevice.carfirmware!)
-              .toBigInt()
-              .toInt();
-          final byteData = ByteData(4);
-          byteData.setUint32(
-            0,
-            crcValue,
-          );
-          final crc = byteData.buffer.asUint8List();
-          await connctedDevice.state.device.updateStartCommand(
-            connctedDevice.firmwwareName!,
-            connctedDevice.pagesCount!,
-            crc,
-          );
-          await Future.delayed(const Duration(milliseconds: 300));
-          await connctedDevice.state.device.firmwareSendKey();
-          await Future.delayed(const Duration(milliseconds: 300));
-          final progressNotifier = ValueNotifier<double>(0);
-          if (context.mounted) {
-            showUploadingDialog(context, progressNotifier);
-          }
-          for (var i = 0; i < connctedDevice.pagesCount!; i++) {
-            progressNotifier.value = i / connctedDevice.pagesCount!;
-            final data = [
-              ...connctedDevice.carfirmware!.sublist(i * 128,
-                  min((i + 1) * 128, connctedDevice.carfirmware!.length))
-            ];
-            while (data.length < 128) {
-              data.add(255);
-            }
-            // bool result = false;
-            // int counter = 0;
-            //while (!result || counter < 10) {
-            //await Future.delayed(const Duration(milliseconds: 100));
-            await connctedDevice.state.device
-                .firmwareSendPage(Uint8List.fromList(data), i);
-
-            // .fold((left) => result = false, (right) => result = true);
-            //counter++;
-            //}
-
-            if (connctedDevice.delay != null) {
-              await Future.delayed(
-                  Duration(milliseconds: connctedDevice.delay!));
-            }
-            //connctedDevice.add(const ConnectedDeviceEvent.sendTest());
-          }
-          await connctedDevice.state.device.firmwareSendStop();
-          if (context.mounted) {
-            Navigator.of(context).pop();
-          }
+          await _uploadFirmware(context);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).colorScheme.primary,

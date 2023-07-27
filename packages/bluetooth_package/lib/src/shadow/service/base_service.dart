@@ -139,13 +139,13 @@ class ShadowBTService {
   }
 
   Future<bool> firmwareSendPage(Uint8List data, int count) async {
-    return sendConfirmationCommand(
-        FirmwareSendPagesCommand(count: count, data: data));
-    // return _txCharacterictic
-    //     .writeTX(FirmwareSendPagesCommand(count: count, data: data))
-    //     .fold((left) => false, (right) {
-    //   return true;
-    // });
+    // return sendConfirmationCommand(
+    //     FirmwareSendPagesCommand(count: count, data: data));
+    return _txCharacterictic
+        .writeTX(FirmwareSendPagesCommand(count: count, data: data))
+        .fold((left) => false, (right) {
+      return true;
+    });
   }
 
   Future<bool> firmwareSendStop() async {
@@ -175,6 +175,9 @@ class ShadowBTService {
             onTimeout: () =>
                 UnknownCommand(commandCode: -1, packetId: -1, bytes: []),
           );
+      if (confirmationCode is BaseAnswerCommand) {
+        return confirmationCode.result;
+      }
       return confirmationCode is! UnknownCommand;
     } catch (e) {
       assert(false, 'send confirmation code exception $e');
