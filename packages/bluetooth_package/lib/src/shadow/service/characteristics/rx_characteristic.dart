@@ -31,10 +31,10 @@ class RxCharacteristic extends ShadowIndicateCharacteristic {
         if (event.isEmpty) return;
         final command = BaseReadCommand.fromBytes(event);
 
-        streamController.add(command);
         if (_commandConfirmationStreamActive) {
-          confirmationController.add(BaseReadCommand.fromBytes(event));
+          confirmationController.add(command);
         }
+        streamController.add(command);
       },
       onError: (Object error) {
         assert(false, 'Error in measurement characteristic stream: $error');

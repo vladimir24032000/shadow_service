@@ -4,9 +4,8 @@ class FirmwareSendPagesCommand extends BaseWriteCommand {
   FirmwareSendPagesCommand({required this.data, required this.count})
       : super(
           commandCode: 0x34,
-        ) {
-    confiramtionCommandCode = 0x04;
-  }
+          confiramtionCommandCode: 0x04,
+        );
   final Uint8List data;
   final int count;
   @override
@@ -21,6 +20,6 @@ class FirmwareSendPagesCommand extends BaseWriteCommand {
     bytes.addAll(data);
 
     bytes[3] = bytes.length;
-    return bytes;
+    return Uint8List.fromList(bytes);
   }
 }

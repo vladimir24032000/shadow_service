@@ -48,10 +48,15 @@ class ManageCanDevicePageState extends State<ManageCanDevicePage> {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async {
-          final result = await showDisconnectDialog(context);
-          if (result == 0) {
-            widget.device.add(const DeviceEvent.disconnect());
-          }
+          widget.device.state.mapOrNull(
+            connected: (connected) async {
+              final result = await showDisconnectDialog(context);
+              if (result == 0) {
+                widget.device.add(const DeviceEvent.disconnect());
+              }
+            },
+          );
+
           return false;
         },
         child: Scaffold(

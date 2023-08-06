@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:passcode_screen/keyboard.dart';
 import 'package:passcode_screen/passcode_screen.dart';
 import 'package:service_app/core/navigator.dart';
 import 'package:service_app/presentation/home_tabs/home_tabs.dart';
@@ -78,6 +79,10 @@ class LockScreenPageState extends State<LockScreenPage> {
                       cancelButton: const SizedBox.shrink(),
                       deleteButton: Text('Delete'),
                       shouldTriggerVerification: _verificationNotifier.stream,
+                      keyboardUIConfig: KeyboardUIConfig(
+                          primaryColor: Colors.black,
+                          digitTextStyle:
+                              TextStyle(color: Colors.black, fontSize: 30)),
                     ));
           },
         ));

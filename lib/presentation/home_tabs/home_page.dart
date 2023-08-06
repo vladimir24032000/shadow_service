@@ -110,7 +110,7 @@ class _ManageImmobilizersPageButton extends StatelessWidget {
         },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(
-            Theme.of(context).colorScheme.primary,
+            Colors.grey,
           ),
         ),
         child: const Text("MANAGE IMMOBILIZERS"),

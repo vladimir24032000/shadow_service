@@ -7,9 +7,8 @@ class UpdateStartCommand extends BaseWriteCommand {
     required this.crc,
   }) : super(
           commandCode: 0x32,
-        ) {
-    confiramtionCommandCode = 0x04;
-  }
+          confiramtionCommandCode: 0x04,
+        ) {}
   final String firmwareName;
   final List<int> crc;
   final int pagesCount;

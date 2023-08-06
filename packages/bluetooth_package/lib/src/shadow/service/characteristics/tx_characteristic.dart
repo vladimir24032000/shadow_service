@@ -14,7 +14,9 @@ class TxCharacteristic extends ShadowWriteCharacteristic {
   Future<Either<TxWriteFailure, void>> writeTX(BaseWriteCommand command) async {
     try {
       command.packetId = count;
-      await write(command.toBytes());
+      final commandBytes = command.toBytes();
+      await write(commandBytes);
+
       streamController.add(command);
       count += 2;
       return const Right(null);

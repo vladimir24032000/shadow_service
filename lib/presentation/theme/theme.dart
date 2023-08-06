@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-const primaryColor = Color(0xFF0894d3);
-const scaffoldBackgroundColor = Color(0xFF04508f);
-const appBarColor = Color(0xFF0664a8);
+const primaryColor = Color(0xFF1a1919);
+const scaffoldBackgroundColor = Color(0xFFFFFFFF);
+const appBarColor = Color(0xFFb9bbb7);
 
 ThemeData mobileThemeData() {
   const double text1Size = 12;
@@ -89,21 +89,21 @@ ThemeData mobileThemeData() {
       ),
       textTheme: theme.textTheme.copyWith(
           titleSmall: theme.textTheme.titleSmall!
-              .copyWith(fontSize: titleSmall, color: Colors.white),
+              .copyWith(fontSize: titleSmall, color: Colors.black),
           titleMedium: theme.textTheme.titleMedium!
-              .copyWith(fontSize: titleMedium, color: Colors.white),
+              .copyWith(fontSize: titleMedium, color: Colors.black),
           titleLarge: theme.textTheme.bodyLarge!
-              .copyWith(fontSize: titleLarge, color: Colors.white),
+              .copyWith(fontSize: titleLarge, color: Colors.black),
           bodySmall: theme.textTheme.bodySmall!
-              .copyWith(fontSize: bodySmall, color: Colors.white),
+              .copyWith(fontSize: bodySmall, color: Colors.black),
           bodyMedium: theme.textTheme.bodyMedium!
-              .copyWith(fontSize: bodyMedium, color: Colors.white),
+              .copyWith(fontSize: bodyMedium, color: Colors.black),
           bodyLarge: theme.textTheme.bodyLarge!
-              .copyWith(fontSize: bodylarge, color: Colors.white),
+              .copyWith(fontSize: bodylarge, color: Colors.black),
           labelSmall: theme.textTheme.labelSmall!
-              .copyWith(fontSize: labelSmall, color: Colors.white),
+              .copyWith(fontSize: labelSmall, color: Colors.black),
           labelMedium: theme.textTheme.labelMedium!
-              .copyWith(fontSize: labelMedium, color: Colors.white),
+              .copyWith(fontSize: labelMedium, color: Colors.black),
           labelLarge: theme.textTheme.labelLarge!
               .copyWith(fontWeight: FontWeight.w500, color: Colors.grey[600])));
 }

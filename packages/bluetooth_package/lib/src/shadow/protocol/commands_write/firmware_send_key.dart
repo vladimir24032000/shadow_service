@@ -4,6 +4,7 @@ class FirmwareSendKeyCommand extends BaseWriteCommand {
   FirmwareSendKeyCommand()
       : super(
           commandCode: 0x33,
+          confiramtionCommandCode: 0x04,
         );
   @override
   List<int> toBytes() {

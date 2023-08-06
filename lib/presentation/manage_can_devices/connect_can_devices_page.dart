@@ -28,6 +28,7 @@ class ConnectCanDevicesPage extends StatefulWidget {
 class _ConnectCanDevicesPageState extends State<ConnectCanDevicesPage> {
   late BTConnectionBloc _btConnectionBloc;
   late StreamSubscription<BTConnectionState> _btConnectionStreamSubscription;
+  //late Timer _scanTimer;
 
   late List<DeviceBloc> _deviceBlocs;
 
@@ -35,6 +36,7 @@ class _ConnectCanDevicesPageState extends State<ConnectCanDevicesPage> {
   @override
   void initState() {
     super.initState();
+
     _deviceBlocs = <DeviceBloc>[];
     _btConnectionBloc = context.read<BTConnectionBloc>();
     _deviceBlocs = _btConnectionBloc.state.devices.values.toList();
@@ -42,6 +44,8 @@ class _ConnectCanDevicesPageState extends State<ConnectCanDevicesPage> {
     setupSubsribitions();
 
     _requestLocationAndBT();
+    // _scanTimer =
+    //     Timer.periodic(const Duration(seconds: 20), (timer) => _startScan());
   }
 
   Future _requestLocationAndBT() async {
@@ -54,17 +58,17 @@ class _ConnectCanDevicesPageState extends State<ConnectCanDevicesPage> {
         }
       }
 
-      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      if (!serviceEnabled) {
-        if (context.mounted) {
-          var result = await enableLocationDialog(context);
-          var res = result != null && result;
-          if (res) {
-            await Geolocator.openLocationSettings();
-          }
-        }
-        return;
-      }
+      // bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      // if (!serviceEnabled) {
+      //   if (context.mounted) {
+      //     var result = await enableLocationDialog(context);
+      //     var res = result != null && result;
+      //     if (res) {
+      //       await Geolocator.openLocationSettings();
+      //     }
+      //   }
+      //   return;
+      // }
     }
 
     final btEnabled = await _btConnectionBloc.isBluetoothEnabled;
@@ -83,10 +87,10 @@ class _ConnectCanDevicesPageState extends State<ConnectCanDevicesPage> {
       }
       // BT could be switched on Android only
       else {
-        if (context.mounted) {
-          await showModalMessage(context, "Warning",
-              "Bluetooth is disabled.\nAll functions will be disabled.");
-        }
+        // if (context.mounted) {
+        //   await showModalMessage(context, "Warning",
+        //       "Bluetooth is disabled.\nAll functions will be disabled.");
+        // }
       }
     } else {
       _startScan();
@@ -111,6 +115,7 @@ class _ConnectCanDevicesPageState extends State<ConnectCanDevicesPage> {
   @override
   void dispose() async {
     super.dispose();
+    //_scanTimer.cancel();
     await _btConnectionStreamSubscription.cancel();
   }
 

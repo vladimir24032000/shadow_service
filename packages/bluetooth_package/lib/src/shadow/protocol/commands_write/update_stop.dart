@@ -4,9 +4,8 @@ class UpdateStopCommand extends BaseWriteCommand {
   UpdateStopCommand()
       : super(
           commandCode: 0x35,
-        ) {
-    confiramtionCommandCode = 0x04;
-  }
+          confiramtionCommandCode: 0x04,
+        );
   @override
   List<int> toBytes() {
     final bytes = <int>[];

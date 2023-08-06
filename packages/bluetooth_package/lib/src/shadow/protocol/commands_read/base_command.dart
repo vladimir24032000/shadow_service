@@ -10,6 +10,7 @@ part 'get_secret_code.dart';
 part 'get_serial_number.dart';
 part 'unknown_command.dart';
 part 'get_firmware_name.dart';
+part 'firmware_update_result.dart';
 
 abstract class BaseReadCommand {
   final int commandCode;
@@ -38,6 +39,21 @@ abstract class BaseReadCommand {
     }
 
     switch (bytes[2]) {
+      case 0x36:
+        if (bytes.length < 5) {
+          return UnknownCommand(
+            bytes: bytes,
+            packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+            commandCode: bytes[2],
+          );
+        }
+        return FirmwareUpdateResultCommand(
+            bytes: bytes,
+            packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+            commandCode: bytes[2],
+            result: bytes[4] == 1,
+            info: bytes.sublist(5));
+
       case 0x02:
         if (bytes.length < 36) {
           return UnknownCommand(

@@ -19,6 +19,7 @@ import 'package:service_app/presentation/theme/theme.dart';
 import 'package:service_app/presentation/widgets/custom_button/custom_elevated_button.dart';
 import 'package:service_app/presentation/widgets/dialogs/disconnect_dialog.dart';
 import 'package:service_app/presentation/widgets/dialogs/firmware_upload_error_dialog.dart';
+import 'package:service_app/presentation/widgets/dialogs/simpleDialog.dart';
 import 'package:service_app/presentation/widgets/dialogs/uploading_dialog.dart';
 import 'package:service_app/presentation/widgets/logo_widget/logo_widget.dart';
 
@@ -136,22 +137,22 @@ class _ManageDeviceWidget extends StatelessWidget {
           ),
         ),
         const _FirmwareDropDown(),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-          child: TextFormField(
-            initialValue: connectedDevice.delay!.toString(),
-            style: const TextStyle(color: Colors.black),
-            decoration: loginInputDecorationTheme.copyWith(
-              prefixIcon: const Icon(Icons.timelapse),
-              labelText: "Delay",
-              hintText: "Enter delay",
-            ),
-            onChanged: (value) {
-              connectedDevice.delay = int.tryParse(value);
-            },
-            textInputAction: TextInputAction.next,
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+        //   child: TextFormField(
+        //     initialValue: connectedDevice.delay!.toString(),
+        //     style: const TextStyle(color: Colors.black),
+        //     decoration: loginInputDecorationTheme.copyWith(
+        //       prefixIcon: const Icon(Icons.timelapse),
+        //       labelText: "Delay",
+        //       hintText: "Enter delay",
+        //     ),
+        //     onChanged: (value) {
+        //       connectedDevice.delay = int.tryParse(value);
+        //     },
+        //     textInputAction: TextInputAction.next,
+        //   ),
+        // ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -181,7 +182,7 @@ class _MarkDropDown extends StatelessWidget {
         isDense: true,
         hint: Text(
           "Select car brand...",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
         ),
         items: [
           DropdownMenuItem(
@@ -220,7 +221,7 @@ class _ModelDropDown extends StatelessWidget {
         isDense: true,
         hint: Text(
           "Select a model...",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
         ),
         items: [
           DropdownMenuItem(
@@ -259,7 +260,7 @@ class _EquipmentDropDown extends StatelessWidget {
         isDense: true,
         hint: Text(
           "Select an equipment...",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
         ),
         items: [
           DropdownMenuItem(
@@ -298,7 +299,7 @@ class _FirmwareDropDown extends StatelessWidget {
         isDense: true,
         hint: Text(
           "Select a firmware...",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
         ),
         items: [
           DropdownMenuItem(
@@ -337,7 +338,7 @@ class _YearDropDown extends StatelessWidget {
         isDense: true,
         hint: Text(
           "Select an year...",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
         ),
         items: [
           DropdownMenuItem(
@@ -378,7 +379,7 @@ class _SaveButton extends StatelessWidget {
           // );
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          backgroundColor: Colors.grey,
         ),
         child: const Text("SAVE"),
       ),
@@ -409,6 +410,14 @@ class _OpenButton extends StatelessWidget {
             if (connctedDevice.pagesCount! * 128 <
                 connctedDevice.carfirmware!.length) {
               connctedDevice.pagesCount = connctedDevice.pagesCount! + 1;
+            }
+            final realSize = connctedDevice.pagesCount! * 128;
+            if (realSize > connctedDevice.carfirmware!.length) {
+              final bytesToAdd = realSize - connctedDevice.carfirmware!.length;
+              connctedDevice.carfirmware = Uint8List.fromList([
+                ...connctedDevice.carfirmware!,
+                ...List.generate(bytesToAdd, (index) => 255)
+              ]);
             }
           } else {
             // User canceled the picker
@@ -458,7 +467,8 @@ class _StartUploadButton extends StatelessWidget {
           if (connctedDevice.carfirmware == null) {
             return;
           }
-          final crcValue = Crc32Bzip2()
+
+          final crcValue = Crc32Mpeg2()
               .convert(connctedDevice.carfirmware!)
               .toBigInt()
               .toInt();
@@ -474,6 +484,9 @@ class _StartUploadButton extends StatelessWidget {
             connctedDevice.pagesCount!,
             crc,
           );
+          await Future.delayed(const Duration(milliseconds: 300));
+          await connctedDevice.state.device.firmwareSendKey();
+          await Future.delayed(const Duration(milliseconds: 300));
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).colorScheme.primary,
@@ -493,7 +506,7 @@ class _UploadButton extends StatelessWidget {
       return;
     }
     final crcValue =
-        Crc32Bzip2().convert(connctedDevice.carfirmware!).toBigInt().toInt();
+        Crc32Mpeg2().convert(connctedDevice.carfirmware!).toBigInt().toInt();
     final byteData = ByteData(4);
     byteData.setUint32(
       0,
@@ -507,14 +520,15 @@ class _UploadButton extends StatelessWidget {
       crc,
     );
     await Future.delayed(const Duration(milliseconds: 300));
-    await connctedDevice.state.device.firmwareSendKey();
-    await Future.delayed(const Duration(milliseconds: 300));
+    // await connctedDevice.state.device.firmwareSendKey();
+    // await Future.delayed(const Duration(milliseconds: 300));
     final progressNotifier = ValueNotifier<double>(0);
     if (context.mounted) {
       showUploadingDialog(context, progressNotifier);
     }
     bool failed = false;
-    final subscribtion =
+
+    final transmittionSubscribtion =
         (connctedDevice.state.device as btpckg.ShadowBluetoothDevice)
             .shadowBTService
             ?.rxCharacteristicStream
@@ -534,7 +548,7 @@ class _UploadButton extends StatelessWidget {
             if (context.mounted) {
               Navigator.of(context).pop();
             }
-            await subscribtion?.cancel();
+            await transmittionSubscribtion?.cancel();
             if (context.mounted) {
               _uploadFirmware(context);
             }
@@ -544,7 +558,7 @@ class _UploadButton extends StatelessWidget {
             if (context.mounted) {
               Navigator.of(context).pop();
             }
-            await subscribtion?.cancel();
+            await transmittionSubscribtion?.cancel();
             return;
           }
         }
@@ -554,26 +568,15 @@ class _UploadButton extends StatelessWidget {
         ...connctedDevice.carfirmware!.sublist(
             i * 128, min((i + 1) * 128, connctedDevice.carfirmware!.length))
       ];
-      while (data.length < 128) {
-        data.add(255);
-      }
-      // bool result = false;
-      // int counter = 0;
-      //while (!result || counter < 10) {
-      //await Future.delayed(const Duration(milliseconds: 100));
       await connctedDevice.state.device
           .firmwareSendPage(Uint8List.fromList(data), i);
-
-      // .fold((left) => result = false, (right) => result = true);
-      //counter++;
-      //}
 
       if (connctedDevice.delay != null) {
         await Future.delayed(Duration(milliseconds: connctedDevice.delay!));
       }
-      //connctedDevice.add(const ConnectedDeviceEvent.sendTest());
     }
-    await subscribtion?.cancel();
+    await transmittionSubscribtion?.cancel();
+    await Future.delayed(const Duration(milliseconds: 500));
     await connctedDevice.state.device.firmwareSendStop().fold((left) async {
       final res = await showFirmwareUploadErrorDialog(context);
       if (res == 0) {
@@ -587,7 +590,37 @@ class _UploadButton extends StatelessWidget {
         }
         return;
       }
-    }, (right) => Navigator.of(context).pop());
+    }, (right) async {
+      bool? success;
+      int counter = 0;
+      final reaultSubscribtion =
+          (connctedDevice.state.device as btpckg.ShadowBluetoothDevice)
+              .shadowBTService
+              ?.rxCharacteristicStream
+              .listen((event) {
+        if (event is btpckg.FirmwareUpdateResultCommand) {
+          success = event.result;
+        }
+      });
+      while (success == null && counter < 700) {
+        counter++;
+        await Future.delayed(const Duration(milliseconds: 10));
+      }
+
+      reaultSubscribtion?.cancel();
+      if (context.mounted && success == true) {
+        Navigator.of(context).pop();
+      }
+      if (success == null && context.mounted) {
+        Navigator.of(context).pop();
+        await showModalMessage(context, "Error", "Timeout error");
+      }
+      if (success == false && context.mounted) {
+        Navigator.of(context).pop();
+        await showModalMessage(
+            context, "Error", "Error while writing into device");
+      }
+    });
   }
 
   @override
@@ -622,7 +655,7 @@ class _InstallationButton extends StatelessWidget {
           // );
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          backgroundColor: Colors.grey,
         ),
         child: const Text("INSTALLATION MAP"),
       ),

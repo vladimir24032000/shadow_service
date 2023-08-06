@@ -19,10 +19,11 @@ abstract class BaseWriteCommand {
   final int commandCode;
   int packetId = 0;
   final protocolVersion = 1;
-  int confiramtionCommandCode = 0;
+  final int confiramtionCommandCode;
 
   BaseWriteCommand({
     required this.commandCode,
+    this.confiramtionCommandCode = 0,
   });
   List<int> toBytes();
 

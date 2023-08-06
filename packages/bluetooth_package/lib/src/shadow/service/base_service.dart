@@ -130,12 +130,12 @@ class ShadowBTService {
   }
 
   Future<bool> firmwareSendKey() async {
-    //return sendConfirmationCommand(FirmwareSendKeyCommand());
-    return _txCharacterictic
-        .writeTX(FirmwareSendKeyCommand())
-        .fold((left) => false, (right) {
-      return true;
-    });
+    return sendConfirmationCommand(FirmwareSendKeyCommand());
+    // return _txCharacterictic
+    //     .writeTX(FirmwareSendKeyCommand())
+    //     .fold((left) => false, (right) {
+    //   return true;
+    // });
   }
 
   Future<bool> firmwareSendPage(Uint8List data, int count) async {
@@ -160,29 +160,48 @@ class ShadowBTService {
     BaseWriteCommand command, {
     Duration timeoutDuration = const Duration(milliseconds: 3002),
   }) async {
+    final Completer<BaseReadCommand> completer = Completer<BaseReadCommand>();
+
+    final subscription =
+        _rxCharacterictic.confirmationController.stream.listen((event) {
+      if (event.commandCode == command.confiramtionCommandCode) {
+        completer.complete(event);
+      }
+    });
     final writeResult = await _txCharacterictic.writeTX(command);
     if (writeResult.isLeft) {
+      subscription.cancel();
+
       return false;
     }
 
-    try {
-      final confirmationCode = await _rxCharacterictic
-          .confirmationController.stream
-          .firstWhere((element) =>
-              element.commandCode == command.confiramtionCommandCode)
-          .timeout(
-            timeoutDuration,
-            onTimeout: () =>
-                UnknownCommand(commandCode: -1, packetId: -1, bytes: []),
-          );
-      if (confirmationCode is BaseAnswerCommand) {
-        return confirmationCode.result;
-      }
-      return confirmationCode is! UnknownCommand;
-    } catch (e) {
-      assert(false, 'send confirmation code exception $e');
-      return false;
+    final result = await completer.future.timeout(timeoutDuration,
+        onTimeout: () =>
+            UnknownCommand(commandCode: -1, packetId: -1, bytes: []));
+    subscription.cancel();
+    if (result is BaseAnswerCommand) {
+      return result.result;
     }
+    return result is! UnknownCommand;
+
+    // try {
+    //   final confirmationCode = await _rxCharacterictic
+    //       .confirmationController.stream
+    //       .firstWhere((element) =>
+    //           element.commandCode == command.confiramtionCommandCode)
+    //       .timeout(
+    //         timeoutDuration,
+    //         onTimeout: () =>
+    //             UnknownCommand(commandCode: -1, packetId: -1, bytes: []),
+    //       );
+    //   if (confirmationCode is BaseAnswerCommand) {
+    //     return confirmationCode.result;
+    //   }
+    //   return confirmationCode is! UnknownCommand;
+    // } catch (e) {
+    //   assert(false, 'send confirmation code exception $e');
+    //   return false;
+    // }
   }
 
   /// Returns the battery status in percent.
