@@ -63,7 +63,7 @@ class _PinInputFieldState extends State<PinInputField> {
       height: size.height,
       width: size.width,
       textStyle: const TextStyle(
-          fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+          fontSize: 25, fontWeight: FontWeight.bold, color: Colors.black),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(7.5),

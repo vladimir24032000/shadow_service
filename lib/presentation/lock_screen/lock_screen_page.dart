@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:passcode_screen/circle.dart';
 import 'package:passcode_screen/keyboard.dart';
 import 'package:passcode_screen/passcode_screen.dart';
 import 'package:service_app/core/navigator.dart';
@@ -53,19 +54,23 @@ class LockScreenPageState extends State<LockScreenPage> {
             return state.map(
                 preparing: (_) => const SizedBox.shrink(),
                 hasPin: (value) => PasscodeScreen(
-                      isValidCallback: () => navigateTo(
-                          context: context,
-                          nextPage: const HomeTabs(),
-                          newRoot: true),
-                      backgroundColor:
-                          mobileThemeData().scaffoldBackgroundColor,
-                      passwordDigits: 4,
-                      title: Text("Enter pin code"),
-                      passwordEnteredCallback: _onPasscodeEntered,
-                      cancelButton: const SizedBox.shrink(),
-                      deleteButton: Text('Delete'),
-                      shouldTriggerVerification: _verificationNotifier.stream,
-                    ),
+                    isValidCallback: () => navigateTo(
+                        context: context,
+                        nextPage: const HomeTabs(),
+                        newRoot: true),
+                    backgroundColor: mobileThemeData().scaffoldBackgroundColor,
+                    passwordDigits: 4,
+                    title: Text("Enter pin code"),
+                    passwordEnteredCallback: _onPasscodeEntered,
+                    cancelButton: const SizedBox.shrink(),
+                    deleteButton: Text('Delete'),
+                    shouldTriggerVerification: _verificationNotifier.stream,
+                    circleUIConfig: CircleUIConfig(
+                        fillColor: Colors.black, borderColor: Colors.black),
+                    keyboardUIConfig: KeyboardUIConfig(
+                        primaryColor: Colors.black,
+                        digitTextStyle:
+                            TextStyle(color: Colors.black, fontSize: 30))),
                 createPin: (value) => PasscodeScreen(
                       isValidCallback: () => navigateTo(
                           context: context,
@@ -79,6 +84,8 @@ class LockScreenPageState extends State<LockScreenPage> {
                       cancelButton: const SizedBox.shrink(),
                       deleteButton: Text('Delete'),
                       shouldTriggerVerification: _verificationNotifier.stream,
+                      circleUIConfig: CircleUIConfig(
+                          fillColor: Colors.black, borderColor: Colors.black),
                       keyboardUIConfig: KeyboardUIConfig(
                           primaryColor: Colors.black,
                           digitTextStyle:

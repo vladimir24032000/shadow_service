@@ -72,29 +72,29 @@ class _ConnectCanDevicesPageState extends State<ConnectCanDevicesPage> {
     }
 
     final btEnabled = await _btConnectionBloc.isBluetoothEnabled;
-    if (!btEnabled) {
-      if (Platform.isAndroid) {
-        if (context.mounted) {
-          var result = await enableBluetoothDialog(context);
-          var res = result != null && result;
-          if (res) {
-            await _btConnectionBloc.turnBluetoothOn();
-            await Future.delayed(const Duration(milliseconds: 600));
+    //if (!btEnabled) {
+    //if (Platform.isAndroid) {
+    //   if (context.mounted) {
+    //     var result = await enableBluetoothDialog(context);
+    //     var res = result != null && result;
+    //     if (res) {
+    //       await _btConnectionBloc.turnBluetoothOn();
+    //       await Future.delayed(const Duration(milliseconds: 600));
 
-            _startScan();
-          }
-        }
-      }
-      // BT could be switched on Android only
-      else {
-        // if (context.mounted) {
-        //   await showModalMessage(context, "Warning",
-        //       "Bluetooth is disabled.\nAll functions will be disabled.");
-        // }
-      }
-    } else {
-      _startScan();
-    }
+    //       _startScan();
+    //     }
+    //   }
+    // }
+    // // BT could be switched on Android only
+    // else {
+    //   // if (context.mounted) {
+    //   //   await showModalMessage(context, "Warning",
+    //   //       "Bluetooth is disabled.\nAll functions will be disabled.");
+    //   // }
+    // }
+    // } else {
+    _startScan();
+    //}
   }
 
   void setupSubsribitions() {
