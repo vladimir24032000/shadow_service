@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
@@ -22,6 +23,8 @@ import 'package:service_app/presentation/widgets/dialogs/firmware_upload_error_d
 import 'package:service_app/presentation/widgets/dialogs/simpleDialog.dart';
 import 'package:service_app/presentation/widgets/dialogs/uploading_dialog.dart';
 import 'package:service_app/presentation/widgets/logo_widget/logo_widget.dart';
+
+import '../widgets/dialogs/show_cancel_upload_dialog.dart';
 
 class CarFirmwarePage extends StatefulWidget {
   const CarFirmwarePage(
@@ -177,7 +180,7 @@ class _MarkDropDown extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: DropdownButtonFormField<int>(
-        dropdownColor: Theme.of(context).primaryColor,
+        dropdownColor: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
         isDense: true,
         hint: Text(
@@ -216,7 +219,7 @@ class _ModelDropDown extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: DropdownButtonFormField<int>(
-        dropdownColor: Theme.of(context).primaryColor,
+        dropdownColor: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
         isDense: true,
         hint: Text(
@@ -255,7 +258,7 @@ class _EquipmentDropDown extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: DropdownButtonFormField<int>(
-        dropdownColor: Theme.of(context).primaryColor,
+        dropdownColor: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
         isDense: true,
         hint: Text(
@@ -294,7 +297,7 @@ class _FirmwareDropDown extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: DropdownButtonFormField<int>(
-        dropdownColor: Theme.of(context).primaryColor,
+        dropdownColor: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
         isDense: true,
         hint: Text(
@@ -333,7 +336,7 @@ class _YearDropDown extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: DropdownButtonFormField<int>(
-        dropdownColor: Theme.of(context).primaryColor,
+        dropdownColor: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
         isDense: true,
         hint: Text(
@@ -523,8 +526,14 @@ class _UploadButton extends StatelessWidget {
     // await connctedDevice.state.device.firmwareSendKey();
     // await Future.delayed(const Duration(milliseconds: 300));
     final progressNotifier = ValueNotifier<double>(0);
+    var wasCancelled = false;
+    final cancelStreamController = StreamController<bool>();
+    final cancelStreamSubscribtion =
+        cancelStreamController.stream.listen((event) {
+      wasCancelled = event;
+    });
     if (context.mounted) {
-      showUploadingDialog(context, progressNotifier);
+      showUploadingDialog(context, progressNotifier, cancelStreamController);
     }
     bool failed = false;
 
@@ -541,6 +550,22 @@ class _UploadButton extends StatelessWidget {
     });
 
     for (var i = 0; i < connctedDevice.pagesCount!; i++) {
+      if (wasCancelled) {
+        if (context.mounted) {
+          final res = await showFirmwareUploadCancelDialog(context);
+          if (res == 0) {
+            if (context.mounted) {
+              Navigator.of(context).pop();
+            }
+            await transmittionSubscribtion?.cancel();
+            await cancelStreamSubscribtion.cancel();
+
+            return;
+          } else {
+            wasCancelled = false;
+          }
+        }
+      }
       if (failed) {
         if (context.mounted) {
           final res = await showFirmwareUploadErrorDialog(context);
@@ -549,6 +574,7 @@ class _UploadButton extends StatelessWidget {
               Navigator.of(context).pop();
             }
             await transmittionSubscribtion?.cancel();
+            await cancelStreamSubscribtion.cancel();
             if (context.mounted) {
               _uploadFirmware(context);
             }
@@ -559,6 +585,7 @@ class _UploadButton extends StatelessWidget {
               Navigator.of(context).pop();
             }
             await transmittionSubscribtion?.cancel();
+            await cancelStreamSubscribtion.cancel();
             return;
           }
         }
@@ -576,6 +603,7 @@ class _UploadButton extends StatelessWidget {
       }
     }
     await transmittionSubscribtion?.cancel();
+    await cancelStreamSubscribtion.cancel();
     await Future.delayed(const Duration(milliseconds: 500));
     await connctedDevice.state.device.firmwareSendStop().fold((left) async {
       final res = await showFirmwareUploadErrorDialog(context);
@@ -610,6 +638,8 @@ class _UploadButton extends StatelessWidget {
       reaultSubscribtion?.cancel();
       if (context.mounted && success == true) {
         Navigator.of(context).pop();
+        await showModalMessage(
+            context, "Info", "Firmware was uploaded successufully");
       }
       if (success == null && context.mounted) {
         Navigator.of(context).pop();

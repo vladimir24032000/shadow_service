@@ -11,6 +11,7 @@ import 'package:service_app/bloc/bluetooth/device_bloc/device_bloc.dart';
 import 'package:service_app/core/navigator.dart';
 import 'package:service_app/presentation/manage_can_devices/dev_page.dart';
 import 'package:service_app/presentation/manage_can_devices/manage_can_device_page.dart';
+import 'package:service_app/presentation/widgets/custom_button/custom_elevated_button.dart';
 import 'package:service_app/presentation/widgets/devices/grouped_devices.dart';
 import 'package:service_app/presentation/widgets/dialogs/enable_bt_dialog.dart';
 import 'package:service_app/presentation/widgets/dialogs/enable_location_dialog.dart';
@@ -49,30 +50,50 @@ class _ConnectCanDevicesPageState extends State<ConnectCanDevicesPage> {
   }
 
   Future _requestLocationAndBT() async {
-    if (Platform.isAndroid) {
-      var permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-        if (permission == LocationPermission.denied) {
-          return;
-        }
-      }
+    // if (Platform.isAndroid) {
+    //   var permission = await Geolocator.checkPermission();
+    //   if (permission == LocationPermission.denied) {
+    //     permission = await Geolocator.requestPermission();
+    //     if (permission == LocationPermission.denied) {
+    //       return;
+    //     }
+    //   }
 
-      // bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      // if (!serviceEnabled) {
-      //   if (context.mounted) {
-      //     var result = await enableLocationDialog(context);
-      //     var res = result != null && result;
-      //     if (res) {
-      //       await Geolocator.openLocationSettings();
-      //     }
-      //   }
-      //   return;
-      // }
-    }
+    // bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    // if (!serviceEnabled) {
+    //   if (context.mounted) {
+    //     var result = await enableLocationDialog(context);
+    //     var res = result != null && result;
+    //     if (res) {
+    //       await Geolocator.openLocationSettings();
+    //     }
+    //   }
+    //   return;
+    // }
+    //}
 
     final btEnabled = await _btConnectionBloc.isBluetoothEnabled;
-    //if (!btEnabled) {
+    if (!btEnabled) {
+      if (Platform.isAndroid) {
+        if (context.mounted) {
+          var result = await enableBluetoothDialog(context);
+          var res = result != null && result;
+          if (res) {
+            await _btConnectionBloc.turnBluetoothOn();
+            await Future.delayed(const Duration(milliseconds: 3000));
+
+            _startScan();
+          }
+        }
+      } else {
+        if (context.mounted) {
+          await showModalMessage(context, "Warning",
+              "Bluetooth is disabled.\nAll functions will be disabled.");
+        }
+      }
+    } else {
+      _startScan();
+    }
     //if (Platform.isAndroid) {
     //   if (context.mounted) {
     //     var result = await enableBluetoothDialog(context);
@@ -93,7 +114,7 @@ class _ConnectCanDevicesPageState extends State<ConnectCanDevicesPage> {
     //   // }
     // }
     // } else {
-    _startScan();
+    //_startScan();
     //}
   }
 
@@ -126,48 +147,83 @@ class _ConnectCanDevicesPageState extends State<ConnectCanDevicesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onVerticalDragEnd: (details) {
-        if (!_isScanning && details.primaryVelocity! > 0) {
-          _startScan();
-        }
-      },
-      child: Scaffold(
-          appBar: AppBar(
-            title: Text("Manage CAN devices"),
-            bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(5),
-                child: Visibility(
-                  visible: _isScanning,
-                  child: LinearProgressIndicator(
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    color: Theme.of(context).colorScheme.primary,
-                    minHeight: 5,
-                  ),
-                )),
-          ),
-          body: _deviceBlocs.isEmpty
-              ? const Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      'Devices not found',
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
+    return
+        //  GestureDetector(
+        //   onVerticalDragEnd: (details) {
+        //     if (!_isScanning && details.primaryVelocity! > 0) {
+        //       _startScan();
+        //     }
+        //   },
+        //   child:
+        Scaffold(
+            appBar: AppBar(
+              title: Text("Manage Bluetooth devices"),
+              bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(5),
+                  child: Visibility(
+                    visible: _isScanning,
+                    child: LinearProgressIndicator(
+                      backgroundColor:
+                          Theme.of(context).scaffoldBackgroundColor,
+                      color: Theme.of(context).colorScheme.primary,
+                      minHeight: 5,
                     ),
-                  ),
-                )
-              : Stack(
-                  children: const [
-                    SingleChildScrollView(
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 30.0),
-                        child: _Devices(),
+                  )),
+            ),
+            body: _deviceBlocs.isEmpty
+                ? const Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        'Devices not found',
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
                       ),
                     ),
-                  ],
-                )),
-    );
+                  )
+                : Stack(
+                    children: [
+                      const SingleChildScrollView(
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 30.0),
+                          child: _Devices(),
+                        ),
+                      ),
+                      BlocBuilder<BTConnectionBloc, BTConnectionState>(
+                          bloc: _btConnectionBloc,
+                          builder: (context, state) => !state.isScanning
+                              ? Padding(
+                                  padding: const EdgeInsetsDirectional.only(
+                                      bottom: 32),
+                                  child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          CustomElevatedButton(
+                                            onPressed: () {
+                                              _startScan();
+                                            },
+                                            child: const Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  32, 0, 32, 0),
+                                              child: Text("Scan"),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 32,
+                                          ),
+                                          Text(
+                                            "Scanning complete. \n To repeat the scan, click the Scan button.",
+                                            textAlign: TextAlign.center,
+                                          )
+                                        ],
+                                      )),
+                                )
+                              : Container())
+                    ],
+                  ));
   }
 }
 

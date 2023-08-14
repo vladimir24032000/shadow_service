@@ -1,16 +1,19 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 Future<bool?> showUploadingDialog(
   BuildContext context,
   ValueNotifier<double> progressNotifier,
+  StreamController<bool> cancelStream,
 ) {
   return showCupertinoDialog<bool>(
     context: context,
     builder: (context) {
       return WillPopScope(
           child: Dialog(
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -24,10 +27,6 @@ Future<bool?> showUploadingDialog(
                   padding: const EdgeInsets.symmetric(vertical: 32),
                   child: Text(
                     "Uploading firmware in progress",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -40,7 +39,16 @@ Future<bool?> showUploadingDialog(
                   builder: (context, value, child) => _UploadProgressIndicator(
                     progress: value,
                   ),
-                )
+                ),
+                const Divider(
+                  color: Colors.white,
+                  height: 20,
+                ),
+                CupertinoActionSheetAction(
+                    onPressed: () {
+                      cancelStream.add(true);
+                    },
+                    child: Text("Cancel")),
               ],
             ),
           ),

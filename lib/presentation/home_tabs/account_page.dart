@@ -22,6 +22,12 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   late FirebaseDbCubit _firebaseDbCubit;
+  final TextEditingController _workEditController = TextEditingController();
+  final TextEditingController _cityCountryEditController =
+      TextEditingController();
+  final TextEditingController _addressEditController = TextEditingController();
+  final TextEditingController _companyEditController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -79,13 +85,13 @@ class _AccountPageState extends State<AccountPage> {
                     ? Text(_firebaseDbCubit.user!.post)
                     : const Text(""),
                 leadingIcon: Icons.work,
-                // trailingInput: IconButton(
-                //   icon: Icon(
-                //     Icons.edit,
-                //     color: Colors.white70,
-                //   ),
-                //   onPressed: () {},
-                // ),
+                trailingInput: IconButton(
+                  icon: Icon(
+                    Icons.edit,
+                    color: Colors.white70,
+                  ),
+                  onPressed: () {},
+                ),
               ),
               CustomListTile(
                 height: 70,
@@ -93,13 +99,13 @@ class _AccountPageState extends State<AccountPage> {
                     ? Text(_firebaseDbCubit.user!.cityCountry)
                     : const Text(""),
                 leadingIcon: Icons.map,
-                // trailingInput: IconButton(
-                //   icon: Icon(
-                //     Icons.edit,
-                //     color: Colors.white70,
-                //   ),
-                //   onPressed: () {},
-                // ),
+                trailingInput: IconButton(
+                  icon: Icon(
+                    Icons.edit,
+                    color: Colors.white70,
+                  ),
+                  onPressed: () {},
+                ),
               ),
               CustomListTile(
                 title: _firebaseDbCubit.user != null
@@ -107,13 +113,13 @@ class _AccountPageState extends State<AccountPage> {
                     : const Text(""),
                 height: 70,
                 leadingIcon: Icons.maps_home_work,
-                // trailingInput: IconButton(
-                //   icon: Icon(
-                //     Icons.edit,
-                //     color: Colors.white70,
-                //   ),
-                //   onPressed: () {},
-                // ),
+                trailingInput: IconButton(
+                  icon: Icon(
+                    Icons.edit,
+                    color: Colors.white70,
+                  ),
+                  onPressed: () {},
+                ),
               ),
               CustomListTile(
                 title: _firebaseDbCubit.user != null
@@ -121,13 +127,13 @@ class _AccountPageState extends State<AccountPage> {
                     : const Text(""),
                 height: 70,
                 leadingIcon: Icons.business,
-                // trailingInput: IconButton(
-                //   icon: Icon(
-                //     Icons.edit,
-                //     color: Colors.white70,
-                //   ),
-                //   onPressed: () {},
-                // ),
+                trailingInput: IconButton(
+                  icon: Icon(
+                    Icons.edit,
+                    color: Colors.white70,
+                  ),
+                  onPressed: () {},
+                ),
               ),
             ],
           ),
@@ -190,13 +196,9 @@ class _AccountPageState extends State<AccountPage> {
           //     onPressed: () {},
           //   ),
           // ]),
-          CustomGroupTiles(children: [
-            CustomListTile(
-              height: 70,
-              leadingIconColor: Colors.red,
-              title: Text("Delete account"),
-              leadingIcon: Icons.delete,
-              showArrow: true,
+          // CustomGroupTiles(
+          //   children: [
+          TextButton(
               onPressed: () async {
                 final result = await showDeleteAccountDialog(context);
                 if (result == 0) {
@@ -213,8 +215,10 @@ class _AccountPageState extends State<AccountPage> {
                   }
                 }
               },
-            ),
-          ]),
+              child: Text(
+                "Delete account",
+                style: TextStyle(color: Colors.red),
+              ))
         ],
       ),
       bottomNavigationBar: const ServiceAppBottomNavigationBar(),

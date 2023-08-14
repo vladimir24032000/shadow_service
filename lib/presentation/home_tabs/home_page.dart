@@ -68,8 +68,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-          if ((FirebaseRepo.firebaseUser!.email != null &&
-                  !FirebaseRepo.firebaseUser!.emailVerified) ||
+          if (((FirebaseRepo.firebaseUser!.email == null ||
+                      !FirebaseRepo.firebaseUser!.emailVerified) &&
+                  FirebaseRepo.firebaseUser!.phoneNumber == null) ||
               !context.read<FirebaseDbCubit>().user!.enabled)
             SafeArea(
               child: Padding(
@@ -81,7 +82,10 @@ class _HomePageState extends State<HomePage> {
                         const BoxConstraints(maxWidth: 320, minWidth: 300),
                     child: TextButton(
                       onPressed: () {},
-                      child: const Text("Demo mode"),
+                      child: const Text(
+                        "Wait Activation by the administrator to continue running.\n Restart the application after activation.",
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ),
@@ -138,7 +142,7 @@ class _ManageCanDevicesPageButton extends StatelessWidget {
             Theme.of(context).colorScheme.primary,
           ),
         ),
-        child: const Text("MANAGE CAN DEVICES"),
+        child: const Text("MANAGE BLUETOOTH DEVICES"),
       ),
     );
   }
