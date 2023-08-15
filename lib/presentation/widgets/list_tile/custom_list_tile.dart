@@ -90,7 +90,7 @@ class CustomListTile extends StatelessWidget {
                     padding: const EdgeInsets.all(1),
                     decoration: BoxDecoration(
                         color: leadingIconColor ??
-                            Theme.of(context).colorScheme.onPrimary,
+                            theme.appBarTheme.backgroundColor,
                         borderRadius: BorderRadius.circular(8)),
                     child: leadingText != null
                         ? FittedBox(
@@ -104,7 +104,8 @@ class CustomListTile extends StatelessWidget {
                           )
                         : progressIndicator ??
                             Icon(leadingIcon as IconData,
-                                color: Colors.white, size: 32)),
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                size: 32)),
             trailing: dense
                 ? null
                 : trailingInput ??

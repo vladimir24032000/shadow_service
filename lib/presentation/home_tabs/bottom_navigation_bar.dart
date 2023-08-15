@@ -35,8 +35,8 @@ class ServiceAppBottomNavigationBar extends StatelessWidget {
             ),
           ],
           currentIndex: state.navigationBarItem.index,
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.black38,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white70,
           onTap: (index) => navigateToIndex(index, context),
           backgroundColor: theme.appBarTheme.backgroundColor,
         );

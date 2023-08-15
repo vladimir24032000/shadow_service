@@ -15,72 +15,74 @@ Future<String?> showEditDialog(
     builder: (context) {
       return WillPopScope(
           child: Dialog(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 32),
-                  child: Text(
-                    "Update $title information",
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                const Divider(
-                  color: Colors.white,
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: TextField(
-                    decoration: loginInputDecorationTheme,
-                    controller: controller,
-                  ),
-                ),
-                const Divider(
-                  color: Colors.white,
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CupertinoActionSheetAction(
-                      onPressed: () {
-                        if (controller.text.isNotEmpty) {
-                          Navigator.of(context).pop(controller.text);
-                        }
-                      },
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 32),
                       child: Text(
-                        "Apply",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
+                        "Update $title information",
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                    CupertinoActionSheetAction(
-                      onPressed: () {
-                        if (controller.text.isNotEmpty) {
-                          Navigator.of(context).pop(null);
-                        }
-                      },
-                      child: Text(
-                        "Cancel",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
+                    const Divider(
+                      color: Colors.white,
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      child: TextField(
+                        decoration: loginInputDecorationTheme,
+                        controller: controller,
                       ),
                     ),
+                    const Divider(
+                      color: Colors.white,
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CupertinoActionSheetAction(
+                          onPressed: () {
+                            if (controller.text.isNotEmpty) {
+                              Navigator.of(context).pop(controller.text);
+                            }
+                          },
+                          child: Text(
+                            "Apply",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
+                          ),
+                        ),
+                        CupertinoActionSheetAction(
+                          onPressed: () {
+                            if (controller.text.isNotEmpty) {
+                              Navigator.of(context).pop(null);
+                            }
+                          },
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
                   ],
-                )
-              ],
-            ),
-          ),
+                ),
+              )),
           onWillPop: () async => false);
     },
   );

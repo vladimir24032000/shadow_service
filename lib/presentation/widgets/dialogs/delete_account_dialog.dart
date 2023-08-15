@@ -17,7 +17,6 @@ Future showDeleteAccountDialog(
           CupertinoActionSheetAction(
             child: Text(
               "OK",
-              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
             ),
             onPressed: () {
               Navigator.of(context).pop(0);
@@ -26,7 +25,6 @@ Future showDeleteAccountDialog(
           CupertinoActionSheetAction(
             child: Text(
               "Cancel",
-              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
             ),
             onPressed: () {
               Navigator.of(context).pop(1);

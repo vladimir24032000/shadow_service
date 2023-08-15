@@ -66,11 +66,11 @@ class LockScreenPageState extends State<LockScreenPage> {
                     deleteButton: Text('Delete'),
                     shouldTriggerVerification: _verificationNotifier.stream,
                     circleUIConfig: CircleUIConfig(
-                        fillColor: Colors.black, borderColor: Colors.black),
+                        fillColor: Colors.white, borderColor: Colors.white),
                     keyboardUIConfig: KeyboardUIConfig(
-                        primaryColor: Colors.black,
+                        primaryColor: Colors.white,
                         digitTextStyle:
-                            TextStyle(color: Colors.black, fontSize: 30))),
+                            TextStyle(color: Colors.white, fontSize: 30))),
                 createPin: (value) => PasscodeScreen(
                       isValidCallback: () => navigateTo(
                           context: context,
@@ -82,14 +82,17 @@ class LockScreenPageState extends State<LockScreenPage> {
                       title: Text("Create pin code"),
                       passwordEnteredCallback: _onPasscodeCreated,
                       cancelButton: const SizedBox.shrink(),
-                      deleteButton: Text('Delete'),
+                      deleteButton: Text(
+                        'Delete',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       shouldTriggerVerification: _verificationNotifier.stream,
                       circleUIConfig: CircleUIConfig(
-                          fillColor: Colors.black, borderColor: Colors.black),
+                          fillColor: Colors.white, borderColor: Colors.white),
                       keyboardUIConfig: KeyboardUIConfig(
-                          primaryColor: Colors.black,
+                          primaryColor: Colors.white,
                           digitTextStyle:
-                              TextStyle(color: Colors.black, fontSize: 30)),
+                              TextStyle(color: Colors.white, fontSize: 30)),
                     ));
           },
         ));

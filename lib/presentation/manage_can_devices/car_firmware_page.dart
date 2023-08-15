@@ -185,7 +185,6 @@ class _MarkDropDown extends StatelessWidget {
         isDense: true,
         hint: Text(
           "Select car brand...",
-          style: TextStyle(color: Colors.black),
         ),
         items: [
           DropdownMenuItem(
@@ -224,7 +223,6 @@ class _ModelDropDown extends StatelessWidget {
         isDense: true,
         hint: Text(
           "Select a model...",
-          style: TextStyle(color: Colors.black),
         ),
         items: [
           DropdownMenuItem(
@@ -263,7 +261,6 @@ class _EquipmentDropDown extends StatelessWidget {
         isDense: true,
         hint: Text(
           "Select an equipment...",
-          style: TextStyle(color: Colors.black),
         ),
         items: [
           DropdownMenuItem(
@@ -302,7 +299,6 @@ class _FirmwareDropDown extends StatelessWidget {
         isDense: true,
         hint: Text(
           "Select a firmware...",
-          style: TextStyle(color: Colors.black),
         ),
         items: [
           DropdownMenuItem(
@@ -341,7 +337,6 @@ class _YearDropDown extends StatelessWidget {
         isDense: true,
         hint: Text(
           "Select an year...",
-          style: TextStyle(color: Colors.black),
         ),
         items: [
           DropdownMenuItem(

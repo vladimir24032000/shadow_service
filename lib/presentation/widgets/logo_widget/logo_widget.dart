@@ -6,11 +6,10 @@ class LogoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 300,
-      width: 350,
-      child:
-          SvgPicture.asset('assets/shadow_title.svg', semanticsLabel: 'Title'),
+    return const SizedBox(
+      height: 100,
+      width: 250,
+      child: Image(image: AssetImage('assets/logo_white.png')),
     );
     // Row(
     //   mainAxisSize: MainAxisSize.min,

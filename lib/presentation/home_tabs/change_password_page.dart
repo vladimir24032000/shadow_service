@@ -188,7 +188,7 @@ class _SignUpWidget extends StatelessWidget {
               child: ValueListenableBuilder<String?>(
                 valueListenable: oldPassNotifier,
                 builder: (context, value, child) => TextField(
-                  style: const TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.white),
                   focusNode: oldPassFocusNode,
                   controller: oldPassController,
                   decoration: loginInputDecorationTheme.copyWith(
@@ -207,7 +207,7 @@ class _SignUpWidget extends StatelessWidget {
               child: ValueListenableBuilder<String?>(
                 valueListenable: newPass1Notifier,
                 builder: (context, value, child) => TextField(
-                  style: const TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.white),
                   controller: newPass1Controller,
                   focusNode: newPass1FocusNode,
                   decoration: loginInputDecorationTheme.copyWith(
@@ -226,7 +226,7 @@ class _SignUpWidget extends StatelessWidget {
               child: ValueListenableBuilder<String?>(
                 valueListenable: newPass2Notifier,
                 builder: (context, value, child) => TextField(
-                  style: const TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.white),
                   controller: newPass2Controller,
                   focusNode: newPass2FocusNode,
                   decoration: loginInputDecorationTheme.copyWith(

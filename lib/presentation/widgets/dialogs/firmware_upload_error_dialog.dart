@@ -17,7 +17,6 @@ Future showFirmwareUploadErrorDialog(
           CupertinoActionSheetAction(
             child: Text(
               "Yes",
-              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
             ),
             onPressed: () {
               Navigator.of(context).pop(0);
@@ -26,7 +25,6 @@ Future showFirmwareUploadErrorDialog(
           CupertinoActionSheetAction(
             child: Text(
               "No",
-              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
             ),
             onPressed: () {
               Navigator.of(context).pop(1);

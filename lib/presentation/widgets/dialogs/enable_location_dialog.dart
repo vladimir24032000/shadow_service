@@ -15,7 +15,6 @@ Future<bool?> enableLocationDialog(BuildContext context) {
           CupertinoActionSheetAction(
             child: Text(
               "Yes",
-              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
             ),
             onPressed: () {
               Navigator.of(context).pop(true);
@@ -24,7 +23,6 @@ Future<bool?> enableLocationDialog(BuildContext context) {
           CupertinoActionSheetAction(
             child: Text(
               "No",
-              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
             ),
             onPressed: () {
               Navigator.of(context).pop(false);

@@ -162,7 +162,7 @@ class _VerifyPhoneNumberScreenState extends State<VerifyPhoneNumberScreen>
                           controller.isOtpExpired
                               ? 'Resend'
                               : '${controller.otpExpirationTimeLeft.inSeconds}s',
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                   ],

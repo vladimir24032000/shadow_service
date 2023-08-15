@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-const primaryColor = Color(0xffe7e4e5);
-const scaffoldBackgroundColor = Color(0xFFf2f1f1);
-const appBarColor = Color(0xffe7e4e5);
+const primaryColor = Color(0xff1160d8);
+const scaffoldBackgroundColor = Color(0xff1975ff); //0xFFdff1ff
+const appBarColor = Color(0xff1160d8);
 
 ThemeData mobileThemeData() {
   const double text1Size = 12;
@@ -26,7 +26,7 @@ ThemeData mobileThemeData() {
   final ThemeData theme = ThemeData().copyWith(
     colorScheme: ThemeData().colorScheme.copyWith(
         primary: primaryColor,
-        onPrimary: const Color(0xFF2c2c71),
+        onPrimary: const Color(0xFFdff1ff),
         onSurfaceVariant: Colors.grey[700]),
   );
   return theme.copyWith(
@@ -62,7 +62,7 @@ ThemeData mobileThemeData() {
           ),
           textStyle: MaterialStateProperty.all(
             TextStyle(
-              color: theme.colorScheme.onPrimary,
+              color: scaffoldBackgroundColor,
               fontWeight: FontWeight.bold,
               fontSize: labelLarge,
             ),
@@ -73,7 +73,7 @@ ThemeData mobileThemeData() {
             }
             return theme.colorScheme.primary;
           }),
-          overlayColor: MaterialStateProperty.all(Colors.black12),
+          overlayColor: MaterialStateProperty.all(scaffoldBackgroundColor),
           foregroundColor:
               MaterialStateProperty.all<Color>(theme.colorScheme.onPrimary),
         ),
@@ -89,28 +89,28 @@ ThemeData mobileThemeData() {
       ),
       textTheme: theme.textTheme.copyWith(
           titleSmall: theme.textTheme.titleSmall!
-              .copyWith(fontSize: titleSmall, color: Colors.black),
+              .copyWith(fontSize: titleSmall, color: const Color(0xFFdff1ff)),
           titleMedium: theme.textTheme.titleMedium!
-              .copyWith(fontSize: titleMedium, color: Colors.black),
+              .copyWith(fontSize: titleMedium, color: const Color(0xFFdff1ff)),
           titleLarge: theme.textTheme.bodyLarge!
-              .copyWith(fontSize: titleLarge, color: Colors.black),
+              .copyWith(fontSize: titleLarge, color: const Color(0xFFdff1ff)),
           bodySmall: theme.textTheme.bodySmall!
-              .copyWith(fontSize: bodySmall, color: Colors.black),
+              .copyWith(fontSize: bodySmall, color: const Color(0xFFdff1ff)),
           bodyMedium: theme.textTheme.bodyMedium!
-              .copyWith(fontSize: bodyMedium, color: Colors.black),
+              .copyWith(fontSize: bodyMedium, color: const Color(0xFFdff1ff)),
           bodyLarge: theme.textTheme.bodyLarge!
-              .copyWith(fontSize: bodylarge, color: Colors.black),
+              .copyWith(fontSize: bodylarge, color: const Color(0xFFdff1ff)),
           labelSmall: theme.textTheme.labelSmall!
-              .copyWith(fontSize: labelSmall, color: Colors.black),
+              .copyWith(fontSize: labelSmall, color: const Color(0xFFdff1ff)),
           labelMedium: theme.textTheme.labelMedium!
-              .copyWith(fontSize: labelMedium, color: Colors.black),
+              .copyWith(fontSize: labelMedium, color: const Color(0xFFdff1ff)),
           labelLarge: theme.textTheme.labelLarge!
               .copyWith(fontWeight: FontWeight.w500, color: Colors.grey[600])));
 }
 
 InputDecoration get loginInputDecorationTheme {
   return InputDecoration(
-    fillColor: Colors.grey[200],
+    fillColor: Colors.white24,
     filled: true,
     iconColor: primaryColor,
     prefixIconColor: primaryColor,
@@ -123,12 +123,13 @@ InputDecoration get loginInputDecorationTheme {
       minHeight: 80,
     ),
     border: OutlineInputBorder(
+      borderSide: const BorderSide(width: 0, style: BorderStyle.none),
       borderRadius: BorderRadius.circular(10),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
       gapPadding: 10,
-      borderSide: const BorderSide(width: 3, color: primaryColor),
+      borderSide: const BorderSide(width: 0, style: BorderStyle.none),
     ),
   );
 }
