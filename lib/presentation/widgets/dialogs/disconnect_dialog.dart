@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 Future showDisconnectDialog(
   BuildContext context,
@@ -14,13 +15,19 @@ Future showDisconnectDialog(
         ),
         actions: [
           CupertinoActionSheetAction(
-            child: const Text("OK"),
+            child: Text(
+              "OK",
+              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+            ),
             onPressed: () {
               Navigator.of(context).pop(0);
             },
           ),
           CupertinoActionSheetAction(
-            child: const Text("Cancel"),
+            child: Text(
+              "Cancel",
+              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+            ),
             onPressed: () {
               Navigator.of(context).pop(1);
             },

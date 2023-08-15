@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 Future showFirmwareUploadCancelDialog(
   BuildContext context,
@@ -14,13 +15,19 @@ Future showFirmwareUploadCancelDialog(
         ),
         actions: [
           CupertinoActionSheetAction(
-            child: const Text("Yes"),
+            child: Text(
+              "Yes",
+              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+            ),
             onPressed: () {
               Navigator.of(context).pop(0);
             },
           ),
           CupertinoActionSheetAction(
-            child: const Text("No"),
+            child: Text(
+              "No",
+              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+            ),
             onPressed: () {
               Navigator.of(context).pop(1);
             },

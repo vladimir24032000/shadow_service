@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 Future<bool?> enableLocationDialog(BuildContext context) {
   return showCupertinoModalPopup<bool>(
@@ -12,13 +13,19 @@ Future<bool?> enableLocationDialog(BuildContext context) {
         ),
         actions: [
           CupertinoActionSheetAction(
-            child: const Text("Yes"),
+            child: Text(
+              "Yes",
+              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+            ),
             onPressed: () {
               Navigator.of(context).pop(true);
             },
           ),
           CupertinoActionSheetAction(
-            child: const Text("No"),
+            child: Text(
+              "No",
+              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+            ),
             onPressed: () {
               Navigator.of(context).pop(false);
             },

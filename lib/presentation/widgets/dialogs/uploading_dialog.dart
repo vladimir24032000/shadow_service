@@ -48,7 +48,11 @@ Future<bool?> showUploadingDialog(
                     onPressed: () {
                       cancelStream.add(true);
                     },
-                    child: Text("Cancel")),
+                    child: Text(
+                      "Cancel",
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary),
+                    )),
               ],
             ),
           ),

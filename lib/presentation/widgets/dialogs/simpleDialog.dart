@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 Future showModalMessage(BuildContext context, String title, String message) {
   return showCupertinoModalPopup(
@@ -12,7 +13,10 @@ Future showModalMessage(BuildContext context, String title, String message) {
         ),
         actions: [
           CupertinoActionSheetAction(
-            child: const Text("Ok"),
+            child: Text(
+              "Ok",
+              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+            ),
             onPressed: () {
               Navigator.pop(context);
             },

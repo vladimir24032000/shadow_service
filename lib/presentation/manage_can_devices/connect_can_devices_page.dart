@@ -80,7 +80,7 @@ class _ConnectCanDevicesPageState extends State<ConnectCanDevicesPage> {
           var res = result != null && result;
           if (res) {
             await _btConnectionBloc.turnBluetoothOn();
-            await Future.delayed(const Duration(milliseconds: 3000));
+            await Future.delayed(const Duration(milliseconds: 5000));
 
             _startScan();
           }

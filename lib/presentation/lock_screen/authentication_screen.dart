@@ -27,7 +27,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(15),
@@ -51,12 +51,14 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                   child: IntlPhoneField(
                     decoration: InputDecoration(
                         helperStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.primary),
+                            color: Theme.of(context).colorScheme.onPrimary),
                         errorStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.primary)),
+                            color: Theme.of(context).colorScheme.onPrimary)),
                     pickerDialogStyle: PickerDialogStyle(
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                        searchFieldCursorColor: Colors.white),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onPrimary,
+                        searchFieldCursorColor:
+                            Theme.of(context).colorScheme.onPrimary),
                     autofocus: false,
                     invalidNumberMessage: 'Invalid phone number',
                     textAlignVertical: TextAlignVertical.center,
@@ -96,7 +98,12 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                 onPressed: () {
                   navigateTo(context: context, nextPage: const EmailAuthPage());
                 },
-                child: Text("Use Email"),
+                child: Text(
+                  "Use Email",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
               ),
             ],
           ),
