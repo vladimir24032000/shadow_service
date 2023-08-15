@@ -62,7 +62,7 @@ class ServiceAvailability {
 
 class _Initializing extends ServiceAvailability {
   _Initializing._() : super._forInitializationOnly() {
-    Bluetooth().isOn.then(_bluetoothInitialized.complete);
+    Bluetooth().isOnStream.first.then(_bluetoothInitialized.complete);
 
     if (Platform.isIOS) {
       _gpsInitialized.complete(true);

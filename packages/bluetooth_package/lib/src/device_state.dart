@@ -7,15 +7,15 @@ enum DeviceState {
   connected,
   disconnecting;
 
-  static DeviceState fromFlutterBluePlus(BluetoothDeviceState state) {
+  static DeviceState fromFlutterBluePlus(BluetoothConnectionState state) {
     switch (state) {
-      case BluetoothDeviceState.disconnected:
+      case BluetoothConnectionState.disconnected:
         return DeviceState.available;
-      case BluetoothDeviceState.connecting:
+      case BluetoothConnectionState.connecting:
         return DeviceState.connecting;
-      case BluetoothDeviceState.connected:
+      case BluetoothConnectionState.connected:
         return DeviceState.connected;
-      case BluetoothDeviceState.disconnecting:
+      case BluetoothConnectionState.disconnecting:
         return DeviceState.disconnecting;
     }
   }

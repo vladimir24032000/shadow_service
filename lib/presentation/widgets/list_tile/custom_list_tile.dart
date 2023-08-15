@@ -90,7 +90,7 @@ class CustomListTile extends StatelessWidget {
                     padding: const EdgeInsets.all(1),
                     decoration: BoxDecoration(
                         color: leadingIconColor ??
-                            Theme.of(context).colorScheme.primary,
+                            Theme.of(context).colorScheme.onPrimary,
                         borderRadius: BorderRadius.circular(8)),
                     child: leadingText != null
                         ? FittedBox(
@@ -114,14 +114,14 @@ class CustomListTile extends StatelessWidget {
                         child: Text(
                           trailingValue ?? "",
                           style: TextStyle(
-                            color: Colors.white70,
+                            color: Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                       ),
                       showArrow
                           ? Icon(
                               Icons.arrow_forward_ios,
-                              color: Colors.white70,
+                              color: Theme.of(context).colorScheme.onPrimary,
                             )
                           : Container(),
                     ]),

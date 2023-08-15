@@ -15,9 +15,7 @@ dependencies:
   equatable: ^2.0.3
   flutter:
     sdk: flutter
-  flutter_blue_plus:
-    git:
-      url: https://github.com/crazy-rodney/flutter_blue_plus
+  flutter_blue_plus: ^1.12.13
   freezed_annotation: ^2.0.3
   geolocator: ^9.0.2
   get_it: ^7.2.0

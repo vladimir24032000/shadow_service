@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-const primaryColor = Color(0xFF1a1919);
-const scaffoldBackgroundColor = Color(0xFFFFFFFF);
-const appBarColor = Color(0xFFb9bbb7);
+const primaryColor = Color(0xffe7e4e5);
+const scaffoldBackgroundColor = Color(0xFFf2f1f1);
+const appBarColor = Color(0xffe7e4e5);
 
 ThemeData mobileThemeData() {
   const double text1Size = 12;
@@ -26,7 +26,7 @@ ThemeData mobileThemeData() {
   final ThemeData theme = ThemeData().copyWith(
     colorScheme: ThemeData().colorScheme.copyWith(
         primary: primaryColor,
-        onPrimary: Colors.white,
+        onPrimary: const Color(0xFF2c2c71),
         onSurfaceVariant: Colors.grey[700]),
   );
   return theme.copyWith(

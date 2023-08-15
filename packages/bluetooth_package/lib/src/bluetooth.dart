@@ -7,11 +7,11 @@ class Bluetooth {
   factory Bluetooth() => instance;
   static const instance = Bluetooth._();
 
-  Future<void> turnOn() => FlutterBluePlus.instance.turnOn();
+  Future<void> turnOn() => FlutterBluePlus.turnOn();
 
-  Future<bool> get isOn => FlutterBluePlus.instance.isOn;
+  // Future<bool> get isOn => FlutterBluePlus.isOn;
 
-  Stream<bool> get isOnStream => FlutterBluePlus.instance.state
-      .map((state) => state == BluetoothState.on)
+  Stream<bool> get isOnStream => FlutterBluePlus.adapterState
+      .map((state) => state == BluetoothAdapterState.on)
       .distinct();
 }

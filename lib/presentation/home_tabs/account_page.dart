@@ -90,7 +90,7 @@ class _AccountPageState extends State<AccountPage> {
                 trailingInput: IconButton(
                   icon: Icon(
                     Icons.edit,
-                    color: Colors.white70,
+                    color: theme.colorScheme.onPrimary,
                   ),
                   onPressed: () async {
                     final result = await showEditDialog(
@@ -120,7 +120,7 @@ class _AccountPageState extends State<AccountPage> {
                 trailingInput: IconButton(
                   icon: Icon(
                     Icons.edit,
-                    color: Colors.white70,
+                    color: theme.colorScheme.onPrimary,
                   ),
                   onPressed: () async {
                     final result = await showEditDialog(context,
@@ -150,7 +150,7 @@ class _AccountPageState extends State<AccountPage> {
                 trailingInput: IconButton(
                   icon: Icon(
                     Icons.edit,
-                    color: Colors.white70,
+                    color: theme.colorScheme.onPrimary,
                   ),
                   onPressed: () async {
                     final result = await showEditDialog(
@@ -180,7 +180,7 @@ class _AccountPageState extends State<AccountPage> {
                 trailingInput: IconButton(
                   icon: Icon(
                     Icons.edit,
-                    color: Colors.white70,
+                    color: theme.colorScheme.onPrimary,
                   ),
                   onPressed: () async {
                     final result = await showEditDialog(
@@ -217,7 +217,7 @@ class _AccountPageState extends State<AccountPage> {
                   trailingInput: IconButton(
                     icon: Icon(
                       Icons.edit,
-                      color: Colors.white70,
+                      color: theme.colorScheme.onPrimary,
                     ),
                     onPressed: () {
                       navigateTo(

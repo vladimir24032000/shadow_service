@@ -102,7 +102,7 @@ class ShadowBluetoothImplementation extends ShadowBluetooth {
       _devicesStreamController = BehaviorSubject.seeded(
     [],
     onListen: () async {
-      final devices = await FlutterBluePlus.instance.connectedDevices;
+      final devices = await FlutterBluePlus.connectedSystemDevices;
       await Stream.fromIterable(devices)
           .asyncMap(ShadowBluetoothDevice.createInitialized)
           .forEach(instance._onNewDevice);

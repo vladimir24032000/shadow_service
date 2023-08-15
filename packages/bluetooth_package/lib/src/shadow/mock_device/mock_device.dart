@@ -14,8 +14,8 @@ import 'package:rxdart/rxdart.dart';
 class MockDevice extends BaseShadowBluetoothDevice with EquatableMixin {
   late String _deviceName;
   late DeviceState _currentState;
-  late Stream<BluetoothDeviceState> _mockDeviceStateStream;
-  late final StreamSubscription<BluetoothDeviceState>? _stateSubscription;
+  late Stream<BluetoothConnectionState> _mockDeviceStateStream;
+  late final StreamSubscription<BluetoothConnectionState>? _stateSubscription;
   late final BehaviorSubject<DeviceState> _deviceStateStreamController =
       BehaviorSubject.seeded(_currentState);
 
@@ -123,7 +123,7 @@ class MockDevice extends BaseShadowBluetoothDevice with EquatableMixin {
   }
 
   @override
-  FutureOr<Either<BluetoothOperationFailure, Stream<BluetoothDeviceState>>>
+  FutureOr<Either<BluetoothOperationFailure, Stream<BluetoothConnectionState>>>
       get state => Right(_mockDeviceStateStream);
 
   @override

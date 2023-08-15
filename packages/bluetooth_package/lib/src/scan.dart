@@ -65,8 +65,7 @@ class Scan {
     Duration scanDuration,
     void Function(BaseShadowBluetoothDevice) onNewScanResult,
   ) =>
-      FlutterBluePlus.instance
-          .scan(scanMode: scanMode, timeout: scanDuration)
+      FlutterBluePlus.scan(scanMode: scanMode, timeout: scanDuration)
           .where((e) => e.advertisementData.serviceUuids
               .where((e) => e.length == 36)
               .any(_isAdvertisingId))
@@ -83,7 +82,7 @@ class Scan {
     if (!isScanning) return const Right(null);
     _scanStreamController.add(false);
     await BluetoothOperationsProvider.call.stopScan<void>(
-      () => FlutterBluePlus.instance.stopScan(),
+      () => FlutterBluePlus.stopScan(),
     );
     return const Right(null);
   }

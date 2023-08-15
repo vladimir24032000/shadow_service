@@ -19,7 +19,7 @@ abstract class BaseShadowBluetoothDevice {
 
   Future<Either<String, Unit>> disconnect();
 
-  FutureOr<Either<BluetoothOperationFailure, Stream<BluetoothDeviceState>>>
+  FutureOr<Either<BluetoothOperationFailure, Stream<BluetoothConnectionState>>>
       get state;
 
   FutureOr<Either<BluetoothOperationFailure, Stream<int>>> get mtu;

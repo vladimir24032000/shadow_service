@@ -30,22 +30,23 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
   @protected
   final BluetoothDevice device;
   @override
-  String get name => device.name;
+  String get name => device.localName;
   @override
-  DeviceIdentifier get id => device.id;
+  DeviceIdentifier get id => device.remoteId;
   @override
   BluetoothDeviceType get type => device.type;
 
   @override
-  FutureOr<Either<BluetoothOperationFailure, Stream<BluetoothDeviceState>>>
-      get state => BluetoothOperationsProvider.call.state(() => device.state);
+  FutureOr<Either<BluetoothOperationFailure, Stream<BluetoothConnectionState>>>
+      get state =>
+          BluetoothOperationsProvider.call.state(() => device.connectionState);
   @override
   FutureOr<Either<BluetoothOperationFailure, Stream<int>>> get mtu =>
-      BluetoothOperationsProvider.call.mtu(device.id, () => device.mtu);
+      BluetoothOperationsProvider.call.mtu(device.remoteId, () => device.mtu);
   @override
   FutureOr<Either<BluetoothOperationFailure, int>> requestMtu(int desiredMtu) =>
       BluetoothOperationsProvider.call
-          .requestMtu(device.id, () => device.requestMtu(desiredMtu));
+          .requestMtu(device.remoteId, () => device.requestMtu(desiredMtu));
   @override
   FutureOr<Either<BluetoothOperationFailure, List<BluetoothService>>>
       discoverServices() => BluetoothOperationsProvider.call
@@ -54,7 +55,7 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
   FutureOr<Either<BluetoothOperationFailure, Stream<bool>>>
       get isDiscoveringServices =>
           BluetoothOperationsProvider.call.isDiscoveringServices(
-            device.id,
+            device.remoteId,
             () => device.isDiscoveringServices,
           );
 
@@ -63,7 +64,7 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
   static Future<ShadowBluetoothDevice> create(
     BluetoothDevice device,
   ) async {
-    final state = await device.state.first;
+    final state = await device.connectionState.first;
     return ShadowBluetoothDevice(
       device: device,
       currentState: DeviceState.fromFlutterBluePlus(state),
@@ -73,7 +74,7 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
   static Future<ShadowBluetoothDevice> createInitialized(
     BluetoothDevice device,
   ) async {
-    final state = await device.state.first;
+    final state = await device.connectionState.first;
     final deviceState = DeviceState.fromFlutterBluePlus(state);
     if (deviceState == DeviceState.connected) {
       return ShadowBluetoothDevice(
@@ -95,7 +96,7 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
   @override
   DeviceState get currentState => _currentState;
 
-  late final StreamSubscription<BluetoothDeviceState>? _stateSubscription;
+  late final StreamSubscription<BluetoothConnectionState>? _stateSubscription;
   late final BehaviorSubject<DeviceState> _deviceStateStreamController =
       BehaviorSubject.seeded(_currentState);
 
@@ -139,8 +140,8 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
   }
 
   void _setupStateSubscription(BluetoothDevice device) =>
-      _stateSubscription = device.state
-          .where((event) => event == BluetoothDeviceState.disconnected)
+      _stateSubscription = device.connectionState
+          .where((event) => event == BluetoothConnectionState.disconnected)
           .listen((_) => disconnect());
 
   void _setCurrentState(DeviceState value) {

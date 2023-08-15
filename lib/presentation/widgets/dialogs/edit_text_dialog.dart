@@ -56,7 +56,12 @@ Future<String?> showEditDialog(
                           Navigator.of(context).pop(controller.text);
                         }
                       },
-                      child: Text("Apply"),
+                      child: Text(
+                        "Apply",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                      ),
                     ),
                     CupertinoActionSheetAction(
                       onPressed: () {
@@ -64,7 +69,12 @@ Future<String?> showEditDialog(
                           Navigator.of(context).pop(null);
                         }
                       },
-                      child: Text("Cancel"),
+                      child: Text(
+                        "Cancel",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                      ),
                     ),
                   ],
                 )
