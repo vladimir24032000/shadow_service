@@ -22,7 +22,7 @@ xmlns:tools="http://schemas.android.com/tools"
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
    <application
-        android:label="service_app"
+        android:label="Shadow service"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -50,7 +50,14 @@ class FirebaseDbCubit extends Cubit<FirebaseDBState> {
 
   Future<void> deleteUser() async {
     emit(const FirebaseDBState.requestInProgress());
-    _firebaseRepo.deleteUser();
+    await _firebaseRepo.deleteUser();
+    user = null;
+    emit(const FirebaseDBState.userNotExists());
+  }
+
+  Future<void> updateUser(ShadowUser updatedUser) async {
+    emit(const FirebaseDBState.requestInProgress());
+    await _firebaseRepo.updateUser(updatedUser);
     user = null;
     emit(const FirebaseDBState.userNotExists());
   }

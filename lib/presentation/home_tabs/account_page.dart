@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:service_app/bloc/firebase/firebase_db_cubit.dart';
 import 'package:service_app/core/firebase/firebase_repo.dart';
+import 'package:service_app/core/firebase/model/user.dart';
 import 'package:service_app/core/navigator.dart';
 import 'package:service_app/presentation/home_tabs/bottom_navigation_bar.dart';
 import 'package:service_app/presentation/home_tabs/change_password_page.dart';
@@ -10,6 +11,7 @@ import 'package:service_app/presentation/lock_screen/lock_screen_cubit/lock_scre
 import 'package:service_app/presentation/lock_screen/splash_screen.dart';
 import 'package:service_app/presentation/widgets/custom_button/custom_elevated_button.dart';
 import 'package:service_app/presentation/widgets/dialogs/delete_account_dialog.dart';
+import 'package:service_app/presentation/widgets/dialogs/edit_text_dialog.dart';
 import 'package:service_app/presentation/widgets/list_tile/custom_group_tiles.dart';
 import 'package:service_app/presentation/widgets/list_tile/custom_list_tile.dart';
 
@@ -90,7 +92,23 @@ class _AccountPageState extends State<AccountPage> {
                     Icons.edit,
                     color: Colors.white70,
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    final result = await showEditDialog(
+                        context, "company post", _firebaseDbCubit.user!.post);
+                    if (result != null) {
+                      final updatedUser = ShadowUser(
+                          name: _firebaseDbCubit.user!.name,
+                          post: result,
+                          cityCountry: _firebaseDbCubit.user!.cityCountry,
+                          address: _firebaseDbCubit.user!.address,
+                          company: _firebaseDbCubit.user!.company,
+                          enabled: _firebaseDbCubit.user!.enabled);
+                      await _firebaseDbCubit.updateUser(updatedUser);
+                      _firebaseDbCubit.user =
+                          await _firebaseDbCubit.getUserIfExists();
+                      setState(() {});
+                    }
+                  },
                 ),
               ),
               CustomListTile(
@@ -104,7 +122,23 @@ class _AccountPageState extends State<AccountPage> {
                     Icons.edit,
                     color: Colors.white70,
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    final result = await showEditDialog(context,
+                        "city, country", _firebaseDbCubit.user!.cityCountry);
+                    if (result != null) {
+                      final updatedUser = ShadowUser(
+                          name: _firebaseDbCubit.user!.name,
+                          post: _firebaseDbCubit.user!.post,
+                          cityCountry: result,
+                          address: _firebaseDbCubit.user!.address,
+                          company: _firebaseDbCubit.user!.company,
+                          enabled: _firebaseDbCubit.user!.enabled);
+                      await _firebaseDbCubit.updateUser(updatedUser);
+                      _firebaseDbCubit.user =
+                          await _firebaseDbCubit.getUserIfExists();
+                      setState(() {});
+                    }
+                  },
                 ),
               ),
               CustomListTile(
@@ -118,7 +152,23 @@ class _AccountPageState extends State<AccountPage> {
                     Icons.edit,
                     color: Colors.white70,
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    final result = await showEditDialog(
+                        context, "address", _firebaseDbCubit.user!.address);
+                    if (result != null) {
+                      final updatedUser = ShadowUser(
+                          name: _firebaseDbCubit.user!.name,
+                          post: _firebaseDbCubit.user!.post,
+                          cityCountry: _firebaseDbCubit.user!.cityCountry,
+                          address: result,
+                          company: _firebaseDbCubit.user!.company,
+                          enabled: _firebaseDbCubit.user!.enabled);
+                      await _firebaseDbCubit.updateUser(updatedUser);
+                      _firebaseDbCubit.user =
+                          await _firebaseDbCubit.getUserIfExists();
+                      setState(() {});
+                    }
+                  },
                 ),
               ),
               CustomListTile(
@@ -132,7 +182,23 @@ class _AccountPageState extends State<AccountPage> {
                     Icons.edit,
                     color: Colors.white70,
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    final result = await showEditDialog(
+                        context, "company", _firebaseDbCubit.user!.company);
+                    if (result != null) {
+                      final updatedUser = ShadowUser(
+                          name: _firebaseDbCubit.user!.name,
+                          post: _firebaseDbCubit.user!.post,
+                          cityCountry: _firebaseDbCubit.user!.cityCountry,
+                          address: _firebaseDbCubit.user!.address,
+                          company: result,
+                          enabled: _firebaseDbCubit.user!.enabled);
+                      await _firebaseDbCubit.updateUser(updatedUser);
+                      _firebaseDbCubit.user =
+                          await _firebaseDbCubit.getUserIfExists();
+                      setState(() {});
+                    }
+                  },
                 ),
               ),
             ],
