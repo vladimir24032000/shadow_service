@@ -13,9 +13,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:service_app/bloc/bluetooth/connected_device_bloc/connected_device_bloc.dart';
 import 'package:service_app/bloc/bluetooth/device_bloc/device_bloc.dart';
 import 'package:service_app/bloc/navigation_bar/navigation_bar_bloc.dart';
+import 'package:service_app/core/firebase/firmware_model/firmware_model.dart';
 import 'package:service_app/core/navigator.dart';
 import 'package:service_app/core/services/get_it.dart';
 import 'package:service_app/presentation/home_tabs/home_tabs.dart';
+import 'package:service_app/presentation/manage_can_devices/car_frimware_page/car_firmware_page_cubit.dart';
+import 'package:service_app/presentation/manage_can_devices/car_frimware_page/car_firmware_page_state.dart';
 import 'package:service_app/presentation/theme/theme.dart';
 import 'package:service_app/presentation/widgets/custom_button/custom_elevated_button.dart';
 import 'package:service_app/presentation/widgets/dialogs/disconnect_dialog.dart';
@@ -24,7 +27,7 @@ import 'package:service_app/presentation/widgets/dialogs/simpleDialog.dart';
 import 'package:service_app/presentation/widgets/dialogs/uploading_dialog.dart';
 import 'package:service_app/presentation/widgets/logo_widget/logo_widget.dart';
 
-import '../widgets/dialogs/show_cancel_upload_dialog.dart';
+import '../../widgets/dialogs/show_cancel_upload_dialog.dart';
 
 class CarFirmwarePage extends StatefulWidget {
   const CarFirmwarePage(
@@ -32,10 +35,23 @@ class CarFirmwarePage extends StatefulWidget {
   final ConnectedDeviceBloc connctedDevice;
   final DeviceBloc device;
   @override
-  State<StatefulWidget> createState() => CarFirmwarePageState();
+  State<StatefulWidget> createState() => _CarFirmwarePageState();
 }
 
-class CarFirmwarePageState extends State<CarFirmwarePage> {
+class _CarFirmwarePageState extends State<CarFirmwarePage> {
+  late CarFirmwarePageCubit _carFirmwarePageCubit;
+  @override
+  void initState() {
+    super.initState();
+    _carFirmwarePageCubit = CarFirmwarePageCubit();
+  }
+
+  @override
+  void dispose() {
+    _carFirmwarePageCubit.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -67,6 +83,7 @@ class CarFirmwarePageState extends State<CarFirmwarePage> {
                         return _ManageDeviceWidget(
                           connectedDevice: widget.connctedDevice,
                           device: widget.device,
+                          carFirmwarePageCubit: _carFirmwarePageCubit,
                         );
                       },
                       listener: (context, state) {}),
@@ -79,286 +96,240 @@ class CarFirmwarePageState extends State<CarFirmwarePage> {
 class _ManageDeviceWidget extends StatelessWidget {
   final ConnectedDeviceBloc connectedDevice;
   final DeviceBloc device;
+  final CarFirmwarePageCubit carFirmwarePageCubit;
 
   const _ManageDeviceWidget({
     required this.connectedDevice,
     required this.device,
+    required this.carFirmwarePageCubit,
   });
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: Text(
-            "Overview",
-            style: Theme.of(context).textTheme.titleLarge,
+    return BlocBuilder<CarFirmwarePageCubit, CarFirmwarePageState>(
+      bloc: carFirmwarePageCubit,
+      builder: (context, state) => ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text(
+              "Overview",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
           ),
-        ),
-        Table(
-          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-          children: const [
-            TableRow(children: [
-              Text("Firmware"),
-              Text(
-                "toyota_123",
-                textAlign: TextAlign.end,
-              ),
-            ]),
-            TableRow(children: [
-              Text("Internal frimware ML"),
-              Text(
-                "toyota_123",
-                textAlign: TextAlign.end,
-              ),
-            ]),
-            TableRow(children: [
-              Text("Internal frimware BT"),
-              Text(
-                "toyota_123",
-                textAlign: TextAlign.end,
-              ),
-            ]),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: Text(
-            "Choose a car",
-            style: Theme.of(context).textTheme.titleLarge,
+          Table(
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+            children: const [
+              TableRow(children: [
+                Text("Firmware"),
+                Text(
+                  "toyota_123",
+                  textAlign: TextAlign.end,
+                ),
+              ]),
+              TableRow(children: [
+                Text("Internal frimware ML"),
+                Text(
+                  "toyota_123",
+                  textAlign: TextAlign.end,
+                ),
+              ]),
+              TableRow(children: [
+                Text("Internal frimware BT"),
+                Text(
+                  "toyota_123",
+                  textAlign: TextAlign.end,
+                ),
+              ]),
+            ],
           ),
-        ),
-        const _MarkDropDown(),
-        const _ModelDropDown(),
-        const _YearDropDown(),
-        const _EquipmentDropDown(),
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: Text(
-            "Car firmware",
-            style: Theme.of(context).textTheme.titleLarge,
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text(
+              "Choose a car",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
           ),
-        ),
-        const _FirmwareDropDown(),
-        // Padding(
-        //   padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-        //   child: TextFormField(
-        //     initialValue: connectedDevice.delay!.toString(),
-        //     style: const TextStyle(color: Colors.black),
-        //     decoration: loginInputDecorationTheme.copyWith(
-        //       prefixIcon: const Icon(Icons.timelapse),
-        //       labelText: "Delay",
-        //       hintText: "Enter delay",
-        //     ),
-        //     onChanged: (value) {
-        //       connectedDevice.delay = int.tryParse(value);
-        //     },
-        //     textInputAction: TextInputAction.next,
-        //   ),
-        // ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Expanded(child: _OpenButton(connectedDevice)),
-            const Expanded(child: _SaveButton()),
-          ],
-        ),
-        _StartUploadButton(connectedDevice),
-        _StopUploadButton(connectedDevice),
-        _UploadButton(connectedDevice),
-        const _InstallationButton(),
-      ],
+          _MarkDropDown(carFirmwarePageCubit),
+          Visibility(
+            visible: state is InitCarFirmwarePageState &&
+                state.selectedBrand != null,
+            child: _ModelDropDown(carFirmwarePageCubit),
+          ),
+          Visibility(
+            visible: state is InitCarFirmwarePageState &&
+                state.selectedModel != null,
+            child: _YearDropDown(carFirmwarePageCubit),
+          ),
+          Visibility(
+            visible:
+                state is InitCarFirmwarePageState && state.selectedYear != null,
+            child: _EquipmentDropDown(carFirmwarePageCubit),
+          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(16),
+          //   child: Text(
+          //     "Car firmware",
+          //     style: Theme.of(context).textTheme.titleLarge,
+          //   ),
+          // ),
+          //const _FirmwareDropDown(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                  child: _OpenButton(connectedDevice, carFirmwarePageCubit)),
+              const Expanded(child: _SaveButton()),
+            ],
+          ),
+          _StartUploadButton(connectedDevice, carFirmwarePageCubit),
+          _StopUploadButton(connectedDevice, carFirmwarePageCubit),
+          _UploadButton(connectedDevice, carFirmwarePageCubit),
+          const _InstallationButton(),
+        ],
+      ),
     );
   }
 }
 
 class _MarkDropDown extends StatelessWidget {
-  const _MarkDropDown();
+  const _MarkDropDown(this.carFirmwarePageCubit);
+
+  final CarFirmwarePageCubit carFirmwarePageCubit;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: DropdownButtonFormField<int>(
+      child: DropdownButtonFormField<BrandModel>(
         dropdownColor: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
         isDense: true,
         hint: Text(
           "Select car brand...",
         ),
-        items: [
-          DropdownMenuItem(
-            child: Text("Toyota"),
-            value: 0,
-          ),
-          DropdownMenuItem(
-            child: Text("Mitsubishi"),
-            value: 1,
-          ),
-          DropdownMenuItem(
-            child: Text("Mersedes"),
-            value: 2,
-          ),
-          DropdownMenuItem(
-            child: Text("Mitsubishi"),
-            value: 3,
-          ),
-        ],
-        onChanged: (value) {},
+        items: carFirmwarePageCubit.firmwareModel.brands == null
+            ? <DropdownMenuItem<BrandModel>>[]
+            : carFirmwarePageCubit.firmwareModel.brands!
+                .map((e) => DropdownMenuItem(
+                      value: e,
+                      child: Text(e.name),
+                    ))
+                .toList(),
+        onChanged: (value) {
+          carFirmwarePageCubit.selectBrand(value);
+        },
       ),
     );
   }
 }
 
 class _ModelDropDown extends StatelessWidget {
-  const _ModelDropDown();
+  const _ModelDropDown(this.carFirmwarePageCubit);
+  final CarFirmwarePageCubit carFirmwarePageCubit;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: DropdownButtonFormField<int>(
-        dropdownColor: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        isDense: true,
-        hint: Text(
-          "Select a model...",
+    final state = carFirmwarePageCubit.state;
+    if (state is InitCarFirmwarePageState && state.selectedBrand != null) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: DropdownButtonFormField<ModelModel>(
+          dropdownColor: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          isDense: true,
+          hint: Text(
+            "Select car model...",
+          ),
+          value: state.selectedModel,
+          items: state.selectedBrand == null
+              ? <DropdownMenuItem<ModelModel>>[]
+              : state.selectedBrand!.models
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(e.name),
+                      ))
+                  .toList(),
+          onChanged: (value) {
+            carFirmwarePageCubit.selectModel(value);
+          },
         ),
-        items: [
-          DropdownMenuItem(
-            child: Text("Toyota"),
-            value: 0,
-          ),
-          DropdownMenuItem(
-            child: Text("Mitsubishi"),
-            value: 1,
-          ),
-          DropdownMenuItem(
-            child: Text("Mersedes"),
-            value: 2,
-          ),
-          DropdownMenuItem(
-            child: Text("Mitsubishi"),
-            value: 3,
-          ),
-        ],
-        onChanged: (value) {},
-      ),
-    );
+      );
+    } else {
+      return Container();
+    }
   }
 }
 
 class _EquipmentDropDown extends StatelessWidget {
-  const _EquipmentDropDown();
-
+  const _EquipmentDropDown(this.carFirmwarePageCubit);
+  final CarFirmwarePageCubit carFirmwarePageCubit;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: DropdownButtonFormField<int>(
-        dropdownColor: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        isDense: true,
-        hint: Text(
-          "Select an equipment...",
+    final state = carFirmwarePageCubit.state;
+    if (state is InitCarFirmwarePageState && state.selectedYear != null) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: DropdownButtonFormField<EquipmentModel>(
+          dropdownColor: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          isDense: true,
+          hint: Text(
+            "Select car equipment...",
+          ),
+          value: state.selectedEquipment,
+          items: state.selectedYear == null
+              ? <DropdownMenuItem<EquipmentModel>>[]
+              : state.selectedYear!.equipments
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(e.name),
+                      ))
+                  .toList(),
+          onChanged: (value) {
+            carFirmwarePageCubit.selectEquipment(value);
+          },
         ),
-        items: [
-          DropdownMenuItem(
-            child: Text("Toyota"),
-            value: 0,
-          ),
-          DropdownMenuItem(
-            child: Text("Mitsubishi"),
-            value: 1,
-          ),
-          DropdownMenuItem(
-            child: Text("Mersedes"),
-            value: 2,
-          ),
-          DropdownMenuItem(
-            child: Text("Mitsubishi"),
-            value: 3,
-          ),
-        ],
-        onChanged: (value) {},
-      ),
-    );
-  }
-}
-
-class _FirmwareDropDown extends StatelessWidget {
-  const _FirmwareDropDown();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: DropdownButtonFormField<int>(
-        dropdownColor: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        isDense: true,
-        hint: Text(
-          "Select a firmware...",
-        ),
-        items: [
-          DropdownMenuItem(
-            child: Text("Toyota"),
-            value: 0,
-          ),
-          DropdownMenuItem(
-            child: Text("Mitsubishi"),
-            value: 1,
-          ),
-          DropdownMenuItem(
-            child: Text("Mersedes"),
-            value: 2,
-          ),
-          DropdownMenuItem(
-            child: Text("Mitsubishi"),
-            value: 3,
-          ),
-        ],
-        onChanged: (value) {},
-      ),
-    );
+      );
+    } else {
+      return Container();
+    }
   }
 }
 
 class _YearDropDown extends StatelessWidget {
-  const _YearDropDown();
+  const _YearDropDown(this.carFirmwarePageCubit);
+  final CarFirmwarePageCubit carFirmwarePageCubit;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: DropdownButtonFormField<int>(
-        dropdownColor: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        isDense: true,
-        hint: Text(
-          "Select an year...",
+    final state = carFirmwarePageCubit.state;
+    if (state is InitCarFirmwarePageState && state.selectedModel != null) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: DropdownButtonFormField<YearModel>(
+          dropdownColor: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          isDense: true,
+          value: state.selectedYear,
+          hint: Text(
+            "Select car equipment...",
+          ),
+          items: state.selectedModel == null
+              ? <DropdownMenuItem<YearModel>>[]
+              : state.selectedModel!.years
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(e.name),
+                      ))
+                  .toList(),
+          onChanged: (value) {
+            carFirmwarePageCubit.selectYear(value);
+          },
         ),
-        items: [
-          DropdownMenuItem(
-            child: Text("Toyota"),
-            value: 0,
-          ),
-          DropdownMenuItem(
-            child: Text("Mitsubishi"),
-            value: 1,
-          ),
-          DropdownMenuItem(
-            child: Text("Mersedes"),
-            value: 2,
-          ),
-          DropdownMenuItem(
-            child: Text("Mitsubishi"),
-            value: 3,
-          ),
-        ],
-        onChanged: (value) {},
-      ),
-    );
+      );
+    } else {
+      return Container();
+    }
   }
 }
 
@@ -386,40 +357,16 @@ class _SaveButton extends StatelessWidget {
 }
 
 class _OpenButton extends StatelessWidget {
-  const _OpenButton(this.connctedDevice);
+  const _OpenButton(this.connctedDevice, this._carFirmwarePageCubit);
   final ConnectedDeviceBloc connctedDevice;
+  final CarFirmwarePageCubit _carFirmwarePageCubit;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: CustomElevatedButton(
         onPressed: () async {
-          FilePickerResult? result = await FilePicker.platform.pickFiles(
-              dialogTitle: "Select a firmaware file", type: FileType.any);
-
-          if (result != null) {
-            File file = File(result.files.single.path!);
-            connctedDevice.firmwwareName =
-                result.files.single.name.split(".")[0];
-
-            connctedDevice.carfirmware = await file.readAsBytes();
-            connctedDevice.pagesCount =
-                connctedDevice.carfirmware!.length ~/ 128;
-            if (connctedDevice.pagesCount! * 128 <
-                connctedDevice.carfirmware!.length) {
-              connctedDevice.pagesCount = connctedDevice.pagesCount! + 1;
-            }
-            final realSize = connctedDevice.pagesCount! * 128;
-            if (realSize > connctedDevice.carfirmware!.length) {
-              final bytesToAdd = realSize - connctedDevice.carfirmware!.length;
-              connctedDevice.carfirmware = Uint8List.fromList([
-                ...connctedDevice.carfirmware!,
-                ...List.generate(bytesToAdd, (index) => 255)
-              ]);
-            }
-          } else {
-            // User canceled the picker
-          }
+          await _carFirmwarePageCubit.pickFirmware();
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).colorScheme.primary,
@@ -431,15 +378,16 @@ class _OpenButton extends StatelessWidget {
 }
 
 class _StopUploadButton extends StatelessWidget {
-  const _StopUploadButton(this.connctedDevice);
+  const _StopUploadButton(this.connctedDevice, this._carFirmwarePageCubit);
   final ConnectedDeviceBloc connctedDevice;
+  final CarFirmwarePageCubit _carFirmwarePageCubit;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: CustomElevatedButton(
         onPressed: () async {
-          if (connctedDevice.carfirmware == null) {
+          if (_carFirmwarePageCubit.carfirmware == null) {
             return;
           }
           await connctedDevice.state.device.firmwareSendStop();
@@ -454,20 +402,21 @@ class _StopUploadButton extends StatelessWidget {
 }
 
 class _StartUploadButton extends StatelessWidget {
-  const _StartUploadButton(this.connctedDevice);
+  const _StartUploadButton(this.connctedDevice, this._carFirmwarePageCubit);
   final ConnectedDeviceBloc connctedDevice;
+  final CarFirmwarePageCubit _carFirmwarePageCubit;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: CustomElevatedButton(
         onPressed: () async {
-          if (connctedDevice.carfirmware == null) {
+          if (_carFirmwarePageCubit.carfirmware == null) {
             return;
           }
 
           final crcValue = Crc32Mpeg2()
-              .convert(connctedDevice.carfirmware!)
+              .convert(_carFirmwarePageCubit.carfirmware!)
               .toBigInt()
               .toInt();
           final byteData = ByteData(4);
@@ -478,8 +427,8 @@ class _StartUploadButton extends StatelessWidget {
           );
           final crc = byteData.buffer.asUint8List();
           await connctedDevice.state.device.updateStartCommand(
-            connctedDevice.firmwwareName!,
-            connctedDevice.pagesCount!,
+            _carFirmwarePageCubit.firmwwareName!,
+            _carFirmwarePageCubit.pagesCount!,
             crc,
           );
           await Future.delayed(const Duration(milliseconds: 300));
@@ -496,15 +445,29 @@ class _StartUploadButton extends StatelessWidget {
 }
 
 class _UploadButton extends StatelessWidget {
-  const _UploadButton(this.connctedDevice);
+  const _UploadButton(this.connctedDevice, this._carFirmwarePageCubit);
   final ConnectedDeviceBloc connctedDevice;
+  final CarFirmwarePageCubit _carFirmwarePageCubit;
 
   Future<void> _uploadFirmware(BuildContext context) async {
-    if (connctedDevice.carfirmware == null) {
+    if (_carFirmwarePageCubit.carfirmware == null &&
+        _carFirmwarePageCubit.downloadLink == "") {
+      await showModalMessage(context, "Error", "Frimware doesnt selected");
       return;
     }
-    final crcValue =
-        Crc32Mpeg2().convert(connctedDevice.carfirmware!).toBigInt().toInt();
+    if (_carFirmwarePageCubit.downloadLink != null) {
+      await _carFirmwarePageCubit.downloadFirmware();
+      if (_carFirmwarePageCubit.carfirmware == null) {
+        await showModalMessage(
+            context, "Error", "Frimware cannot be downloaded");
+        return;
+      }
+    }
+
+    final crcValue = Crc32Mpeg2()
+        .convert(_carFirmwarePageCubit.carfirmware!)
+        .toBigInt()
+        .toInt();
     final byteData = ByteData(4);
     byteData.setUint32(
       0,
@@ -513,8 +476,8 @@ class _UploadButton extends StatelessWidget {
     );
     final crc = byteData.buffer.asUint8List();
     await connctedDevice.state.device.updateStartCommand(
-      connctedDevice.firmwwareName!,
-      connctedDevice.pagesCount!,
+      _carFirmwarePageCubit.firmwwareName!,
+      _carFirmwarePageCubit.pagesCount!,
       crc,
     );
     await Future.delayed(const Duration(milliseconds: 300));
@@ -544,7 +507,7 @@ class _UploadButton extends StatelessWidget {
       }
     });
 
-    for (var i = 0; i < connctedDevice.pagesCount!; i++) {
+    for (var i = 0; i < _carFirmwarePageCubit.pagesCount!; i++) {
       if (wasCancelled) {
         if (context.mounted) {
           final res = await showFirmwareUploadCancelDialog(context);
@@ -585,17 +548,13 @@ class _UploadButton extends StatelessWidget {
           }
         }
       }
-      progressNotifier.value = i / connctedDevice.pagesCount!;
+      progressNotifier.value = i / _carFirmwarePageCubit.pagesCount!;
       final data = [
-        ...connctedDevice.carfirmware!.sublist(
-            i * 128, min((i + 1) * 128, connctedDevice.carfirmware!.length))
+        ..._carFirmwarePageCubit.carfirmware!.sublist(i * 128,
+            min((i + 1) * 128, _carFirmwarePageCubit.carfirmware!.length))
       ];
       await connctedDevice.state.device
           .firmwareSendPage(Uint8List.fromList(data), i);
-
-      if (connctedDevice.delay != null) {
-        await Future.delayed(Duration(milliseconds: connctedDevice.delay!));
-      }
     }
     await transmittionSubscribtion?.cancel();
     await cancelStreamSubscribtion.cancel();

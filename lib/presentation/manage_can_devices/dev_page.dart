@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:service_app/bloc/bluetooth/connected_device_bloc/connected_device_bloc.dart';
 import 'package:service_app/bloc/bluetooth/device_bloc/device_bloc.dart';
 import 'package:service_app/core/navigator.dart';
-import 'package:service_app/presentation/manage_can_devices/car_firmware_page.dart';
+import 'package:service_app/presentation/manage_can_devices/car_frimware_page/car_firmware_page.dart';
 import 'package:service_app/presentation/widgets/custom_button/custom_elevated_button.dart';
 import 'package:service_app/presentation/widgets/dialogs/disconnect_dialog.dart';
 import 'package:service_app/presentation/widgets/loading_screen/loading_screen.dart';

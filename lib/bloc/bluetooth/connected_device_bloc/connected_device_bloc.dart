@@ -40,11 +40,6 @@ class ConnectedDeviceBloc
     );
   }
 
-  Uint8List? carfirmware;
-  int? pagesCount;
-  String? firmwwareName;
-  int? delay = 0;
-
   FutureOr<bool> _withSubsequentPropertiesRefresh({
     required FutureOr<bool> Function() fn,
     required ConnectedDeviceBlocState state,
