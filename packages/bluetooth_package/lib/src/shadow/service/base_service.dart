@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:bluetooth_package/src/shadow/protocol/commands_read/base_command.dart';
 import 'package:bluetooth_package/src/shadow/protocol/commands_write/base_command.dart';
 import 'package:bluetooth_package/src/shadow/protocol/constants.dart';
+import 'package:bluetooth_package/src/shadow/protocol/enums/log_levels.dart';
 import 'package:bluetooth_package/src/shadow/service/characteristics/rx_characteristic.dart';
 import 'package:bluetooth_package/src/shadow/service/characteristics/tx_characteristic.dart';
 import 'package:either_dart/either.dart';
@@ -117,6 +118,11 @@ class ShadowBTService {
     });
   }
 
+  Future<bool> setLogLevel(DeviceLogLevel logLevel) async {
+    return sendConfirmationCommand(
+        SetLogLevelCommand(logLevel: logLevel.index));
+  }
+
   Future<bool> updateStartCommand(
       String firmwareName, int pagesCount, List<int> crc) async {
     return sendConfirmationCommand(UpdateStartCommand(
@@ -143,6 +149,16 @@ class ShadowBTService {
     //     FirmwareSendPagesCommand(count: count, data: data));
     return _txCharacterictic
         .writeTX(FirmwareSendPagesCommand(count: count, data: data))
+        .fold((left) => false, (right) {
+      return true;
+    });
+  }
+
+  Future<bool> sendIsLogHistoryCommand(bool logSubscribe) async {
+    return _txCharacterictic
+        .writeTX(IsLogHistoryCommand(
+      logSubscribe: logSubscribe,
+    ))
         .fold((left) => false, (right) {
       return true;
     });

@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:bluetooth_package/src/shadow/protocol/enums/log_levels.dart';
+
 part 'connect_response.dart';
 part 'base_answer.dart';
 part 'get_bootloader_version.dart';
@@ -11,6 +13,8 @@ part 'get_serial_number.dart';
 part 'unknown_command.dart';
 part 'get_firmware_name.dart';
 part 'firmware_update_result.dart';
+part 'is_log_history_answer.dart';
+part 'log_history.dart';
 
 abstract class BaseReadCommand {
   final int commandCode;
@@ -39,6 +43,44 @@ abstract class BaseReadCommand {
     }
 
     switch (bytes[2]) {
+      case 0x12:
+        if (bytes.length < 38) {
+          return UnknownCommand(
+            bytes: bytes,
+            packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+            commandCode: bytes[2],
+          );
+        }
+        return LogHistoryCommand(
+            bytes: bytes,
+            packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+            commandCode: bytes[2],
+            isLog: bytes[4] == 1,
+            logPackageCount: bytes[5],
+            logPacakge: bytes.sublist(6, 38));
+      case 0x10:
+        if (bytes.length < 12 && bytes[4] < 4) {
+          return UnknownCommand(
+            bytes: bytes,
+            packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+            commandCode: bytes[2],
+          );
+        }
+        return IsLogHistoryAnswerCommand(
+          bytes: bytes,
+          packetId: packetIdFromPayload(bytes.sublist(0, 2)),
+          commandCode: bytes[2],
+          logLevel: DeviceLogLevel.values[bytes[4]],
+          logSubscribe: bytes[5] == 1,
+          isLog: bytes[6] == 1,
+          logsLength: packetIdFromPayload(
+            bytes.sublist(7, 9),
+          ),
+          isErrors: bytes[9] == 1,
+          errorsLength: packetIdFromPayload(
+            bytes.sublist(10, 12),
+          ),
+        );
       case 0x36:
         if (bytes.length < 5) {
           return UnknownCommand(
