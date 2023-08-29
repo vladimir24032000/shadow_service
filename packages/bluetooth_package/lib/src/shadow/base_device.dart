@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:bluetooth_package/src/shadow/protocol/enums/log_levels.dart';
 import 'package:either_dart/either.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:bluetooth_package/bluetooth_package.dart';

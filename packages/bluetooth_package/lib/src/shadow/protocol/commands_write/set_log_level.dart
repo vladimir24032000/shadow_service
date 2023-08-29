@@ -1,5 +1,7 @@
 part of 'base_command.dart';
 
+enum DeviceLogLevel { zero, one, two, three }
+
 class SetLogLevelCommand extends BaseWriteCommand {
   SetLogLevelCommand({required this.logLevel})
       : super(

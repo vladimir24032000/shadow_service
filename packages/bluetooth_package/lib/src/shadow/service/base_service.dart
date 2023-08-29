@@ -4,7 +4,6 @@ import 'dart:typed_data';
 import 'package:bluetooth_package/src/shadow/protocol/commands_read/base_command.dart';
 import 'package:bluetooth_package/src/shadow/protocol/commands_write/base_command.dart';
 import 'package:bluetooth_package/src/shadow/protocol/constants.dart';
-import 'package:bluetooth_package/src/shadow/protocol/enums/log_levels.dart';
 import 'package:bluetooth_package/src/shadow/service/characteristics/rx_characteristic.dart';
 import 'package:bluetooth_package/src/shadow/service/characteristics/tx_characteristic.dart';
 import 'package:either_dart/either.dart';

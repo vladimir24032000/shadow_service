@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:bluetooth_package/src/shadow/protocol/enums/log_levels.dart';
+import 'package:bluetooth_package/src/shadow/protocol/commands_write/base_command.dart';
 
 part 'connect_response.dart';
 part 'base_answer.dart';
