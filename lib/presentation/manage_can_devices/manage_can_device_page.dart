@@ -9,6 +9,7 @@ import 'package:service_app/bloc/bluetooth/connected_device_bloc/connected_devic
 import 'package:service_app/bloc/bluetooth/device_bloc/device_bloc.dart';
 import 'package:service_app/core/navigator.dart';
 import 'package:service_app/presentation/manage_can_devices/car_frimware_page/car_firmware_page.dart';
+import 'package:service_app/presentation/manage_can_devices/log_page/log_page.dart';
 import 'package:service_app/presentation/widgets/custom_button/custom_elevated_button.dart';
 import 'package:service_app/presentation/widgets/dialogs/disconnect_dialog.dart';
 import 'package:service_app/presentation/widgets/loading_screen/loading_screen.dart';
@@ -235,6 +236,10 @@ class _ManageDeviceWidget extends StatelessWidget {
           device: device,
           connectedDeviceBloc: connectedDevice,
         ),
+        _LogPageButton(
+          connectedDeviceBloc: connectedDevice,
+          device: device,
+        ),
         _CarFirmwareButton(
           device: device,
           connectedDeviceBloc: connectedDevice,
@@ -243,6 +248,35 @@ class _ManageDeviceWidget extends StatelessWidget {
           device: device,
         ),
       ],
+    );
+  }
+}
+
+class _LogPageButton extends StatelessWidget {
+  const _LogPageButton(
+      {required this.device, required this.connectedDeviceBloc});
+  final DeviceBloc device;
+  final ConnectedDeviceBloc connectedDeviceBloc;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
+      child: CustomElevatedButton(
+        onPressed: () {
+          navigateTo(
+            context: context,
+            nextPage: LogPage(
+              device: device,
+              connctedDevice: connectedDeviceBloc,
+            ),
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+        ),
+        child: const Text("GET LOGs"),
+      ),
     );
   }
 }

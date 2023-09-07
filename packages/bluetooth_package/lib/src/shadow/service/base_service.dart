@@ -163,6 +163,17 @@ class ShadowBTService {
     });
   }
 
+  Future<bool> sendGetLogHistoryCommand(int minLog, int maxLog) async {
+    return _txCharacterictic
+        .writeTX(GetLogHistoryCommand(
+      logMin: minLog,
+      logMax: maxLog,
+    ))
+        .fold((left) => false, (right) {
+      return true;
+    });
+  }
+
   Future<bool> firmwareSendStop() async {
     return sendConfirmationCommand(UpdateStopCommand());
     // return _txCharacterictic.writeTX(UpdateStopCommand()).fold((left) => false,

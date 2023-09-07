@@ -16,6 +16,7 @@ part 'firmware_send_pages.dart';
 part 'update_stop.dart';
 part 'set_log_level.dart';
 part 'is_log_history.dart';
+part 'get_log_history.dart';
 
 abstract class BaseWriteCommand {
   final int commandCode;

@@ -1,0 +1,125 @@
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:service_app/presentation/theme/theme.dart';
+
+Future<(int?, int?)?> showLogRangeDialog(
+  BuildContext context,
+  int minLog,
+  int maxLog,
+) {
+  final minController = TextEditingController.fromValue(
+      TextEditingValue(text: minLog.toString()));
+  final maxController = TextEditingController.fromValue(
+      TextEditingValue(text: maxLog.toString()));
+  return showCupertinoDialog<(int?, int?)>(
+    context: context,
+    builder: (context) {
+      return WillPopScope(
+          child: Dialog(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 32),
+                    child: Text(
+                      "Select logs range",
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const Divider(
+                    color: Colors.white,
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("From "),
+                      SizedBox(
+                        width: 60,
+                        height: 50,
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          decoration: loginInputDecorationTheme,
+                          controller: minController,
+                        ),
+                      ),
+                      const Text(" To "),
+                      SizedBox(
+                          width: 60,
+                          height: 50,
+                          child: TextField(
+                            keyboardType: TextInputType.number,
+                            decoration: loginInputDecorationTheme,
+                            controller: maxController,
+                          )),
+                    ],
+                  ),
+                  const Divider(
+                    color: Colors.white,
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CupertinoActionSheetAction(
+                        onPressed: () {
+                          Navigator.of(context).pop((
+                            int.tryParse(minController.text),
+                            int.tryParse(maxController.text)
+                          ));
+                        },
+                        child: Text(
+                          "OK",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.onPrimary),
+                        ),
+                      ),
+                      CupertinoActionSheetAction(
+                        onPressed: () {
+                          Navigator.of(context).pop(null);
+                        },
+                        child: Text(
+                          "Cancel",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.onPrimary),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          onWillPop: () async => false);
+    },
+  );
+}
+
+class _UploadProgressIndicator extends StatelessWidget {
+  const _UploadProgressIndicator({
+    required this.progress,
+  });
+  final double? progress;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
+      child: LinearProgressIndicator(
+        color: Colors.white70,
+        value: progress,
+      ),
+    );
+  }
+}

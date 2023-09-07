@@ -1,12 +1,10 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
 
 import 'package:bluetooth_package/bluetooth_package.dart' as btpckg;
 import 'package:crclib/catalog.dart';
 import 'package:either_dart/either.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,13 +17,10 @@ import 'package:service_app/core/services/get_it.dart';
 import 'package:service_app/presentation/home_tabs/home_tabs.dart';
 import 'package:service_app/presentation/manage_can_devices/car_frimware_page/car_firmware_page_cubit.dart';
 import 'package:service_app/presentation/manage_can_devices/car_frimware_page/car_firmware_page_state.dart';
-import 'package:service_app/presentation/theme/theme.dart';
 import 'package:service_app/presentation/widgets/custom_button/custom_elevated_button.dart';
-import 'package:service_app/presentation/widgets/dialogs/disconnect_dialog.dart';
 import 'package:service_app/presentation/widgets/dialogs/firmware_upload_error_dialog.dart';
 import 'package:service_app/presentation/widgets/dialogs/simpleDialog.dart';
 import 'package:service_app/presentation/widgets/dialogs/uploading_dialog.dart';
-import 'package:service_app/presentation/widgets/logo_widget/logo_widget.dart';
 
 import '../../widgets/dialogs/show_cancel_upload_dialog.dart';
 

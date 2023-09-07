@@ -57,7 +57,12 @@ abstract class BaseReadCommand {
             commandCode: bytes[2],
             isLog: bytes[4] == 1,
             logPackageCount: bytes[5],
-            logPacakge: bytes.sublist(6, 38));
+            logPacakge: [
+              bytes.sublist(6, 38),
+              bytes.sublist(38, 70),
+              bytes.sublist(70, 102),
+              bytes.sublist(102, 134)
+            ]);
       case 0x10:
         if (bytes.length < 12 && bytes[4] < 4) {
           return UnknownCommand(

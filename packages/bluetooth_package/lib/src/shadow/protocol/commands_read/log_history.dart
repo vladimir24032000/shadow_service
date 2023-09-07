@@ -3,7 +3,7 @@ part of 'base_command.dart';
 class LogHistoryCommand extends BaseReadCommand {
   final bool isLog;
   final int logPackageCount;
-  final List<int> logPacakge;
+  final List<List<int>> logPacakge;
 
   LogHistoryCommand({
     required this.logPacakge,

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bluetooth_package/src/shadow/protocol/constants.dart';
-import 'package:bluetooth_package/src/shadow/protocol/enums/log_levels.dart';
 import 'package:bluetooth_package/src/shadow/service/base_service.dart';
 import 'package:bluetooth_package/src/shadow/service/characteristics/rx_characteristic.dart';
 import 'package:equatable/equatable.dart';
@@ -499,6 +498,23 @@ class ShadowBluetoothDevice extends BaseShadowBluetoothDevice
       onEnabled: () async {
         final sended =
             await shadowBTService!.sendIsLogHistoryCommand(logSubscribe);
+        if (sended) {
+          return const Right(unit);
+        }
+        return const Left(unit);
+      },
+    ).expandLeft((_) => unit);
+  }
+
+  @override
+  Future<Either<Unit, Unit>> sendGetLogHistoryCommand(
+      int minLog, int maxLog) async {
+    if (currentState != DeviceState.connected) return const Right(unit);
+
+    return ServiceAvailability().check<Either<Unit, Unit>>(
+      onEnabled: () async {
+        final sended =
+            await shadowBTService!.sendGetLogHistoryCommand(minLog, maxLog);
         if (sended) {
           return const Right(unit);
         }

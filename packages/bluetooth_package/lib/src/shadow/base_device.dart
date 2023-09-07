@@ -46,6 +46,8 @@ abstract class BaseShadowBluetoothDevice {
 
   Future<Either<Unit, Unit>> sendIsLogHistoryCommand(bool logSubscribe);
 
+  Future<Either<Unit, Unit>> sendGetLogHistoryCommand(int minLog, int maxLog);
+
   Future<Either<Unit, Unit>> firmwareSendKey();
 
   Future<Either<Unit, Unit>> firmwareSendPage(Uint8List data, int count);

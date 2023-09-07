@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:bluetooth_package/src/shadow/protocol/enums/log_levels.dart';
+import 'package:bluetooth_package/src/shadow/protocol/commands_write/base_command.dart';
 import 'package:either_dart/src/either.dart';
 import 'dart:async';
 
@@ -224,6 +224,12 @@ class MockDevice extends BaseShadowBluetoothDevice with EquatableMixin {
   @override
   Future<Either<Unit, Unit>> sendIsLogHistoryCommand(bool logSubscribe) {
     // TODO: implement sendIsLogHistoryCommand
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Unit, Unit>> sendGetLogHistoryCommand(int minLog, int maxLog) {
+    // TODO: implement sendGetLogHistoryCommand
     throw UnimplementedError();
   }
 }
