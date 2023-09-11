@@ -3,11 +3,14 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:service_app/bloc/api/api_cubit.dart';
+import 'package:service_app/bloc/api/api_state.dart';
 import 'package:service_app/bloc/firebase/firebase_db_cubit.dart';
 import 'package:service_app/bloc/firebase/firebase_email_auth_cubit.dart';
 import 'package:service_app/core/firebase/model/user.dart';
 import 'package:service_app/core/navigator.dart';
 import 'package:service_app/presentation/home_tabs/home_tabs.dart';
+import 'package:service_app/presentation/lock_screen/email_auth_page.dart';
 import 'package:service_app/presentation/lock_screen/forgot_password_page.dart';
 import 'package:service_app/presentation/lock_screen/lock_screen_page.dart';
 import 'package:service_app/presentation/lock_screen/signup_page.dart';
@@ -23,7 +26,7 @@ class EmailSignPage extends StatefulWidget {
 }
 
 class EmailSignPageState extends State<EmailSignPage> {
-  late FirebaseEmailAuthCubit _firebaseEmailAuthCubit;
+  late ApiCubit _apiCubit;
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
@@ -31,66 +34,64 @@ class EmailSignPageState extends State<EmailSignPage> {
   @override
   void initState() {
     super.initState();
-    _firebaseEmailAuthCubit = FirebaseEmailAuthCubit();
+    _apiCubit = context.read<ApiCubit>();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _firebaseEmailAuthCubit.close();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Sign In")),
-      body: BlocConsumer<FirebaseEmailAuthCubit, FirebaseEmailAuthState>(
-        bloc: _firebaseEmailAuthCubit,
-        builder: (context, state) {
-          return state.map(
-              failure: (value) => _SignUpWidget(
-                    emailController: _emailController,
-                    passController: _passController,
-                    firebaseEmailAuthCubit: _firebaseEmailAuthCubit,
+      body: BlocConsumer<ApiCubit, ApiState>(
+        bloc: _apiCubit,
+        builder: (context, state) => switch (state) {
+          LoggedInApiState() => _SignUpWidget(
+              emailController: _emailController,
+              passController: _passController,
+              apiCubit: _apiCubit,
+            ),
+          LoggedOutApiState() => _SignUpWidget(
+              emailController: _emailController,
+              passController: _passController,
+              apiCubit: _apiCubit,
+            ),
+          InProgressApiState() => Stack(
+              children: [
+                _SignUpWidget(
+                  emailController: _emailController,
+                  passController: _passController,
+                  apiCubit: _apiCubit,
+                ),
+                Container(
+                  color: const Color.fromARGB(80, 0, 0, 0),
+                  child: const Center(
+                    child: CircularProgressIndicator.adaptive(),
                   ),
-              requestInProgress: (_) => Stack(
-                    children: [
-                      _SignUpWidget(
-                        emailController: _emailController,
-                        passController: _passController,
-                        firebaseEmailAuthCubit: _firebaseEmailAuthCubit,
-                      ),
-                      Container(
-                        color: const Color.fromARGB(80, 0, 0, 0),
-                        child: const Center(
-                          child: CircularProgressIndicator.adaptive(),
-                        ),
-                      )
-                    ],
-                  ),
-              loggedIn: (_) => _SignUpWidget(
-                    emailController: _emailController,
-                    passController: _passController,
-                    firebaseEmailAuthCubit: _firebaseEmailAuthCubit,
-                  ),
-              loggedOut: (_) => _SignUpWidget(
-                    emailController: _emailController,
-                    passController: _passController,
-                    firebaseEmailAuthCubit: _firebaseEmailAuthCubit,
-                  ));
+                )
+              ],
+            ),
+          FailedApiState() => _SignUpWidget(
+              emailController: _emailController,
+              passController: _passController,
+              apiCubit: _apiCubit,
+            ),
         },
         listener: (context, state) {
-          state.mapOrNull(
-            loggedIn: (value) {
+          switch (state) {
+            case LoggedInApiState():
               navigateTo(
                   context: context,
-                  nextPage: const SignUpPage(),
+                  nextPage: const LockScreenPage(),
                   newRoot: true);
-            },
-            failure: (value) {
+              break;
+            case FailedApiState value:
               showModalMessage(context, "Error", value.message);
-            },
-          );
+            default:
+          }
         },
       ),
     );
@@ -107,10 +108,10 @@ class _SignUpWidget extends StatelessWidget {
   final ValueNotifier<String?> emailNotifier = ValueNotifier<String?>(null);
   final ValueNotifier<String?> passNotifier = ValueNotifier<String?>(null);
 
-  final FirebaseEmailAuthCubit firebaseEmailAuthCubit;
+  final ApiCubit apiCubit;
 
   _SignUpWidget(
-      {required this.firebaseEmailAuthCubit,
+      {required this.apiCubit,
       required this.emailController,
       required this.passController});
 
@@ -142,7 +143,7 @@ class _SignUpWidget extends StatelessWidget {
     }
   }
 
-  void signUp(BuildContext context) {
+  Future<void> signUp(BuildContext context) async {
     if (!commonValidate(emailController, emailNotifier)) {
       emailFocusNode.requestFocus();
       return;
@@ -155,7 +156,8 @@ class _SignUpWidget extends StatelessWidget {
       passFocusNode.requestFocus();
       return;
     }
-    firebaseEmailAuthCubit.login(emailController.text, passController.text);
+    await apiCubit.authWithEmailAndPass(
+        emailController.text, passController.text);
   }
 
   @override
@@ -224,8 +226,14 @@ class _SignUpWidget extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              navigateTo(
-                  context: context, nextPage: const ForgotPasswordPage());
+              //navigateTo(context: context, nextPage: const EmailAuthPage());
+            },
+            child: Text("Sign Up"),
+          ),
+          TextButton(
+            onPressed: () {
+              // navigateTo(
+              //     context: context, nextPage: const ForgotPasswordPage());
             },
             child: Text("Forgot password?"),
           ),

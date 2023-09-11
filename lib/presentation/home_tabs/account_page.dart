@@ -1,6 +1,7 @@
-import 'package:firebase_phone_auth_handler/firebase_phone_auth_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:service_app/bloc/api/api_cubit.dart';
+import 'package:service_app/bloc/api/api_state.dart';
 import 'package:service_app/bloc/firebase/firebase_db_cubit.dart';
 import 'package:service_app/core/firebase/firebase_repo.dart';
 import 'package:service_app/core/firebase/model/user.dart';
@@ -23,7 +24,7 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  late FirebaseDbCubit _firebaseDbCubit;
+  late ApiCubit _apiCubit;
   final TextEditingController _workEditController = TextEditingController();
   final TextEditingController _cityCountryEditController =
       TextEditingController();
@@ -33,7 +34,7 @@ class _AccountPageState extends State<AccountPage> {
   @override
   void initState() {
     super.initState();
-    _firebaseDbCubit = context.read<FirebaseDbCubit>();
+    _apiCubit = context.read<ApiCubit>();
   }
 
   @override
@@ -44,248 +45,262 @@ class _AccountPageState extends State<AccountPage> {
         title: const Text("Account"),
         automaticallyImplyLeading: false,
       ),
-      body: ListView(
-        children: [
-          CustomGroupTiles(setIconIndentDivider: true, children: [
-            CustomListTile(
-              height: 100,
-              title: _firebaseDbCubit.user != null
-                  ? Text(_firebaseDbCubit.user!.name)
-                  : const Text(""),
-              leadingIcon: Icons.account_circle,
-              // trailingInput: IconButton(
-              //   icon: Icon(
-              //     Icons.edit,
-              //     color: Colors.white70,
-              //   ),
-              //   onPressed: () {},
-              // ),
-            ),
-          ]),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: ConstrainedBox(
-                  constraints:
-                      const BoxConstraints(maxWidth: 320, minWidth: 250),
-                  child: _SignOutPageButton(
-                    firebaseDbCubit: _firebaseDbCubit,
+      body: BlocBuilder<ApiCubit, ApiState>(
+        bloc: _apiCubit,
+        builder: (context, state) => Stack(
+          children: [
+            ListView(
+              children: [
+                CustomGroupTiles(setIconIndentDivider: true, children: [
+                  CustomListTile(
+                    height: 100,
+                    title: _apiCubit.user != null
+                        ? Text(
+                            "${_apiCubit.user!.first_name!} ${_apiCubit.user!.last_name!} ${_apiCubit.user!.patronymic ?? ""}")
+                        : const Text(""),
+                    leadingIcon: Icons.account_circle,
+                    // trailingInput: IconButton(
+                    //   icon: Icon(
+                    //     Icons.edit,
+                    //     color: Colors.white70,
+                    //   ),
+                    //   onPressed: () {},
+                    // ),
                   ),
-                ),
-              ),
-            ),
-          ),
-          CustomGroupTiles(
-            title: "Personal information",
-            setIconIndentDivider: true,
-            children: [
-              CustomListTile(
-                height: 70,
-                title: _firebaseDbCubit.user != null
-                    ? Text(_firebaseDbCubit.user!.post)
-                    : const Text(""),
-                leadingIcon: Icons.work,
-                trailingInput: IconButton(
-                  icon: Icon(
-                    Icons.edit,
-                    color: theme.colorScheme.onPrimary,
-                  ),
-                  onPressed: () async {
-                    final result = await showEditDialog(
-                        context, "company post", _firebaseDbCubit.user!.post);
-                    if (result != null) {
-                      final updatedUser = ShadowUser(
-                          name: _firebaseDbCubit.user!.name,
-                          post: result,
-                          cityCountry: _firebaseDbCubit.user!.cityCountry,
-                          address: _firebaseDbCubit.user!.address,
-                          company: _firebaseDbCubit.user!.company,
-                          enabled: _firebaseDbCubit.user!.enabled);
-                      await _firebaseDbCubit.updateUser(updatedUser);
-                      _firebaseDbCubit.user =
-                          await _firebaseDbCubit.getUserIfExists();
-                      setState(() {});
-                    }
-                  },
-                ),
-              ),
-              CustomListTile(
-                height: 70,
-                title: _firebaseDbCubit.user != null
-                    ? Text(_firebaseDbCubit.user!.cityCountry)
-                    : const Text(""),
-                leadingIcon: Icons.map,
-                trailingInput: IconButton(
-                  icon: Icon(
-                    Icons.edit,
-                    color: theme.colorScheme.onPrimary,
-                  ),
-                  onPressed: () async {
-                    final result = await showEditDialog(context,
-                        "city, country", _firebaseDbCubit.user!.cityCountry);
-                    if (result != null) {
-                      final updatedUser = ShadowUser(
-                          name: _firebaseDbCubit.user!.name,
-                          post: _firebaseDbCubit.user!.post,
-                          cityCountry: result,
-                          address: _firebaseDbCubit.user!.address,
-                          company: _firebaseDbCubit.user!.company,
-                          enabled: _firebaseDbCubit.user!.enabled);
-                      await _firebaseDbCubit.updateUser(updatedUser);
-                      _firebaseDbCubit.user =
-                          await _firebaseDbCubit.getUserIfExists();
-                      setState(() {});
-                    }
-                  },
-                ),
-              ),
-              CustomListTile(
-                title: _firebaseDbCubit.user != null
-                    ? Text(_firebaseDbCubit.user!.address)
-                    : const Text(""),
-                height: 70,
-                leadingIcon: Icons.maps_home_work,
-                trailingInput: IconButton(
-                  icon: Icon(
-                    Icons.edit,
-                    color: theme.colorScheme.onPrimary,
-                  ),
-                  onPressed: () async {
-                    final result = await showEditDialog(
-                        context, "address", _firebaseDbCubit.user!.address);
-                    if (result != null) {
-                      final updatedUser = ShadowUser(
-                          name: _firebaseDbCubit.user!.name,
-                          post: _firebaseDbCubit.user!.post,
-                          cityCountry: _firebaseDbCubit.user!.cityCountry,
-                          address: result,
-                          company: _firebaseDbCubit.user!.company,
-                          enabled: _firebaseDbCubit.user!.enabled);
-                      await _firebaseDbCubit.updateUser(updatedUser);
-                      _firebaseDbCubit.user =
-                          await _firebaseDbCubit.getUserIfExists();
-                      setState(() {});
-                    }
-                  },
-                ),
-              ),
-              CustomListTile(
-                title: _firebaseDbCubit.user != null
-                    ? Text(_firebaseDbCubit.user!.company)
-                    : const Text(""),
-                height: 70,
-                leadingIcon: Icons.business,
-                trailingInput: IconButton(
-                  icon: Icon(
-                    Icons.edit,
-                    color: theme.colorScheme.onPrimary,
-                  ),
-                  onPressed: () async {
-                    final result = await showEditDialog(
-                        context, "company", _firebaseDbCubit.user!.company);
-                    if (result != null) {
-                      final updatedUser = ShadowUser(
-                          name: _firebaseDbCubit.user!.name,
-                          post: _firebaseDbCubit.user!.post,
-                          cityCountry: _firebaseDbCubit.user!.cityCountry,
-                          address: _firebaseDbCubit.user!.address,
-                          company: result,
-                          enabled: _firebaseDbCubit.user!.enabled);
-                      await _firebaseDbCubit.updateUser(updatedUser);
-                      _firebaseDbCubit.user =
-                          await _firebaseDbCubit.getUserIfExists();
-                      setState(() {});
-                    }
-                  },
-                ),
-              ),
-            ],
-          ),
-          CustomGroupTiles(
-            title: "Settings",
-            setIconIndentDivider: true,
-            children: [
-              Visibility(
-                visible: FirebaseRepo.firebaseUser != null &&
-                    FirebaseRepo.firebaseUser!.email != null,
-                child: CustomListTile(
-                  height: 70,
-                  title: Text("Change password"),
-                  leadingIcon: Icons.security,
-                  trailingInput: IconButton(
-                    icon: Icon(
-                      Icons.edit,
-                      color: theme.colorScheme.onPrimary,
+                ]),
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: ConstrainedBox(
+                        constraints:
+                            const BoxConstraints(maxWidth: 320, minWidth: 250),
+                        child: _SignOutPageButton(
+                          apiCubit: _apiCubit,
+                        ),
+                      ),
                     ),
-                    onPressed: () {
-                      navigateTo(
-                          context: context,
-                          nextPage: const ChangePasswordPage());
-                    },
                   ),
                 ),
-              ),
-              Visibility(
-                visible: FirebaseRepo.firebaseUser != null &&
-                    FirebaseRepo.firebaseUser!.email != null,
-                child: CustomListTile(
-                  height: 70,
-                  title: FirebaseRepo.firebaseUser != null &&
-                          FirebaseRepo.firebaseUser!.email != null
-                      ? Text(FirebaseRepo.firebaseUser!.email!)
-                      : const Text(""),
-                  leadingIcon: Icons.email,
+                CustomGroupTiles(
+                  title: "Personal information",
+                  setIconIndentDivider: true,
+                  children: [
+                    CustomListTile(
+                      height: 70,
+                      title: _apiCubit.user != null
+                          ? Text(_apiCubit.user!.job_title!)
+                          : const Text(""),
+                      leadingIcon: Icons.work,
+                      trailingInput: IconButton(
+                        icon: Icon(
+                          Icons.edit,
+                          color: theme.colorScheme.onPrimary,
+                        ),
+                        onPressed: () async {
+                          final result = await showEditDialog(
+                              context, "Job title", _apiCubit.user!.job_title!);
+                          if (result != null) {
+                            final updatedUser =
+                                _apiCubit.user!.copyWith(job_title: result);
+
+                            await _apiCubit.updateUser(updatedUser);
+
+                            // setState(() {});
+                          }
+                        },
+                      ),
+                    ),
+                    CustomListTile(
+                      height: 70,
+                      title: _apiCubit.user != null
+                          ? Text(_apiCubit.user!.country!)
+                          : const Text(""),
+                      leadingIcon: Icons.map,
+                      trailingInput: IconButton(
+                        icon: Icon(
+                          Icons.edit,
+                          color: theme.colorScheme.onPrimary,
+                        ),
+                        onPressed: () async {
+                          final result = await showEditDialog(
+                              context, "Country", _apiCubit.user!.country!);
+                          if (result != null) {
+                            final updatedUser =
+                                _apiCubit.user!.copyWith(country: result);
+
+                            await _apiCubit.updateUser(updatedUser);
+                          }
+                        },
+                      ),
+                    ),
+                    CustomListTile(
+                      height: 70,
+                      title: _apiCubit.user != null
+                          ? Text(_apiCubit.user!.city!)
+                          : const Text(""),
+                      leadingIcon: Icons.map,
+                      trailingInput: IconButton(
+                        icon: Icon(
+                          Icons.edit,
+                          color: theme.colorScheme.onPrimary,
+                        ),
+                        onPressed: () async {
+                          final result = await showEditDialog(
+                              context, "City", _apiCubit.user!.city!);
+                          if (result != null) {
+                            final updatedUser =
+                                _apiCubit.user!.copyWith(city: result);
+
+                            await _apiCubit.updateUser(updatedUser);
+                          }
+                        },
+                      ),
+                    ),
+                    CustomListTile(
+                      title: _apiCubit.user != null
+                          ? Text(_apiCubit.user!.installation_center_address!)
+                          : const Text(""),
+                      height: 70,
+                      leadingIcon: Icons.maps_home_work,
+                      trailingInput: IconButton(
+                        icon: Icon(
+                          Icons.edit,
+                          color: theme.colorScheme.onPrimary,
+                        ),
+                        onPressed: () async {
+                          final result = await showEditDialog(
+                              context,
+                              "Address",
+                              _apiCubit.user!.installation_center_address!);
+                          if (result != null) {
+                            final updatedUser = _apiCubit.user!
+                                .copyWith(installation_center_address: result);
+
+                            await _apiCubit.updateUser(updatedUser);
+                          }
+                        },
+                      ),
+                    ),
+                    CustomListTile(
+                      title: _apiCubit.user != null
+                          ? Text(_apiCubit.user!.organization!)
+                          : const Text(""),
+                      height: 70,
+                      leadingIcon: Icons.business,
+                      trailingInput: IconButton(
+                        icon: Icon(
+                          Icons.edit,
+                          color: theme.colorScheme.onPrimary,
+                        ),
+                        onPressed: () async {
+                          final result = await showEditDialog(context,
+                              "Organization", _apiCubit.user!.organization!);
+                          if (result != null) {
+                            final updatedUser =
+                                _apiCubit.user!.copyWith(organization: result);
+
+                            await _apiCubit.updateUser(updatedUser);
+                          }
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Visibility(
-                visible: FirebaseRepo.firebaseUser != null &&
-                    FirebaseRepo.firebaseUser!.phoneNumber != null,
-                child: CustomListTile(
-                  title: FirebaseRepo.firebaseUser != null &&
-                          FirebaseRepo.firebaseUser!.phoneNumber != null
-                      ? Text(FirebaseRepo.firebaseUser!.phoneNumber!)
-                      : const Text(""),
-                  height: 70,
-                  leadingIcon: Icons.phone,
+                // CustomGroupTiles(
+                //   title: "Settings",
+                //   setIconIndentDivider: true,
+                //   children: [
+                //     Visibility(
+                //       visible: FirebaseRepo.firebaseUser != null &&
+                //           FirebaseRepo.firebaseUser!.email != null,
+                //       child: CustomListTile(
+                //         height: 70,
+                //         title: Text("Change password"),
+                //         leadingIcon: Icons.security,
+                //         trailingInput: IconButton(
+                //           icon: Icon(
+                //             Icons.edit,
+                //             color: theme.colorScheme.onPrimary,
+                //           ),
+                //           onPressed: () {
+                //             navigateTo(
+                //                 context: context,
+                //                 nextPage: const ChangePasswordPage());
+                //           },
+                //         ),
+                //       ),
+                //     ),
+                //     Visibility(
+                //       visible: FirebaseRepo.firebaseUser != null &&
+                //           FirebaseRepo.firebaseUser!.email != null,
+                //       child: CustomListTile(
+                //         height: 70,
+                //         title: FirebaseRepo.firebaseUser != null &&
+                //                 FirebaseRepo.firebaseUser!.email != null
+                //             ? Text(FirebaseRepo.firebaseUser!.email!)
+                //             : const Text(""),
+                //         leadingIcon: Icons.email,
+                //       ),
+                //     ),
+                //     Visibility(
+                //       visible: FirebaseRepo.firebaseUser != null &&
+                //           FirebaseRepo.firebaseUser!.phoneNumber != null,
+                //       child: CustomListTile(
+                //         title: FirebaseRepo.firebaseUser != null &&
+                //                 FirebaseRepo.firebaseUser!.phoneNumber != null
+                //             ? Text(FirebaseRepo.firebaseUser!.phoneNumber!)
+                //             : const Text(""),
+                //         height: 70,
+                //         leadingIcon: Icons.phone,
+                //       ),
+                //     )
+                //   ],
+                // ),
+                // CustomGroupTiles(children: [
+                //   CustomListTile(
+                //     height: 70,
+                //     title: Text("One-time password"),
+                //     leadingIcon: Icons.password,
+                //     showArrow: true,
+                //     onPressed: () {},
+                //   ),
+                // ]),
+                // CustomGroupTiles(
+                //   children: [
+                // TextButton(
+                //     onPressed: () async {
+                //       final result = await showDeleteAccountDialog(context);
+                //       if (result == 0) {
+                //         await _firebaseDbCubit.deleteUser();
+                //         final lockScreenCubit = LockScreenCubit();
+                //         await lockScreenCubit.cleanPin();
+                //         await FirebaseRepo.auth.signOut();
+                //         if (mounted) {
+                //           navigateTo(
+                //             newRoot: true,
+                //             context: context,
+                //             nextPage: const SplashScreen(),
+                //           );
+                //         }
+                //       }
+                //     },
+                //     child: Text(
+                //       "Delete account",
+                //       style: TextStyle(color: Colors.red),
+                //     ))
+              ],
+            ),
+            if (state is InProgressApiState)
+              Container(
+                color: const Color.fromARGB(80, 0, 0, 0),
+                child: const Center(
+                  child: CircularProgressIndicator.adaptive(),
                 ),
               )
-            ],
-          ),
-          // CustomGroupTiles(children: [
-          //   CustomListTile(
-          //     height: 70,
-          //     title: Text("One-time password"),
-          //     leadingIcon: Icons.password,
-          //     showArrow: true,
-          //     onPressed: () {},
-          //   ),
-          // ]),
-          // CustomGroupTiles(
-          //   children: [
-          TextButton(
-              onPressed: () async {
-                final result = await showDeleteAccountDialog(context);
-                if (result == 0) {
-                  await _firebaseDbCubit.deleteUser();
-                  final lockScreenCubit = LockScreenCubit();
-                  await lockScreenCubit.cleanPin();
-                  await FirebaseRepo.auth.signOut();
-                  if (mounted) {
-                    navigateTo(
-                      newRoot: true,
-                      context: context,
-                      nextPage: const SplashScreen(),
-                    );
-                  }
-                }
-              },
-              child: Text(
-                "Delete account",
-                style: TextStyle(color: Colors.red),
-              ))
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: const ServiceAppBottomNavigationBar(),
     );
@@ -293,8 +308,8 @@ class _AccountPageState extends State<AccountPage> {
 }
 
 class _SignOutPageButton extends StatelessWidget {
-  const _SignOutPageButton({required this.firebaseDbCubit});
-  final FirebaseDbCubit firebaseDbCubit;
+  const _SignOutPageButton({required this.apiCubit});
+  final ApiCubit apiCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -302,10 +317,9 @@ class _SignOutPageButton extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: CustomElevatedButton(
         onPressed: () async {
-          firebaseDbCubit.logOut();
+          apiCubit.logOut();
           final lockScreenCubit = LockScreenCubit();
           await lockScreenCubit.cleanPin();
-          await FirebaseRepo.auth.signOut();
 
           if (context.mounted) {
             navigateTo(

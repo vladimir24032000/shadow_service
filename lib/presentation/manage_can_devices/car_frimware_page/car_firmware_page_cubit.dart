@@ -3,12 +3,11 @@ import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:service_app/core/firebase/firebase_repo.dart';
 import 'package:service_app/core/firebase/firmware_model/firmware_model.dart';
 import 'package:service_app/presentation/manage_can_devices/car_frimware_page/car_firmware_page_state.dart';
 
 class CarFirmwarePageCubit extends Cubit<CarFirmwarePageState> {
-  final FirebaseRepo _firebaseRepo = FirebaseRepo();
+  //final FirebaseRepo _firebaseRepo = FirebaseRepo();
   CarFirmwarePageCubit() : super(InitCarFirmwarePageState()) {
     getFirmwaresFromDb();
   }
@@ -20,7 +19,7 @@ class CarFirmwarePageCubit extends Cubit<CarFirmwarePageState> {
 
   Future<void> getFirmwaresFromDb() async {
     emit(InProgressCarFirmwarePageState());
-    firmwareModel = await _firebaseRepo.getFirmwareModel();
+    //firmwareModel = await _firebaseRepo.getFirmwareModel();
     emit(InitCarFirmwarePageState());
   }
 
@@ -56,8 +55,8 @@ class CarFirmwarePageCubit extends Cubit<CarFirmwarePageState> {
     switch (state) {
       case InitCarFirmwarePageState():
         if (downloadLink != null) {
-          firmwwareName = _firebaseRepo.getFrimwareName(downloadLink!);
-          carfirmware = await _firebaseRepo.downloadFrimware(downloadLink!);
+          // firmwwareName = _firebaseRepo.getFrimwareName(downloadLink!);
+          // carfirmware = await _firebaseRepo.downloadFrimware(downloadLink!);
           splitFirmware();
         }
         break;
