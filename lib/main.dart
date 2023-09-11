@@ -37,6 +37,7 @@ const _appName = "Shadow-ic";
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterLogs.initLogs(
+      attachTimeStamp: false,
       directoryStructure: DirectoryStructure.FOR_DATE,
       logFileExtension: LogFileExtension.LOG,
       timeStampFormat: TimeStampFormat.TIME_FORMAT_24_FULL);
