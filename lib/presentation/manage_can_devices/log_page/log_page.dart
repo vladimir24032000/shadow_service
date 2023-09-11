@@ -145,6 +145,7 @@ class _LogWidget extends StatelessWidget {
                       "Select log level",
                     ),
                     items: btpckg.DeviceLogLevel.values
+                        .sublist(1)
                         .map((e) => DropdownMenuItem(
                               value: e,
                               child: Text(e.index.toString()),

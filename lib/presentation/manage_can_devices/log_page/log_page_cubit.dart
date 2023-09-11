@@ -144,7 +144,7 @@ class LogPageCubit extends Cubit<LogPageState> {
           logs.add(
               LogStruct.fromBytes(Uint8List.fromList(event.logPacakge[i])));
         }
-        if (logs.length >= maxLog - minLog || !event.isLog) {
+        if (logs.length >= (maxLog - minLog) * 8 || !event.isLog) {
           completer.complete(InitLogPageState());
         }
       }

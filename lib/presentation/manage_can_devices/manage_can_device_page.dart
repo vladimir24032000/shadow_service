@@ -5,6 +5,7 @@ import 'package:bluetooth_package/bluetooth_package.dart' as btpckg;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_logs/flutter_logs.dart';
+import 'package:intl/intl.dart';
 import 'package:service_app/bloc/bluetooth/connected_device_bloc/connected_device_bloc.dart';
 import 'package:service_app/bloc/bluetooth/device_bloc/device_bloc.dart';
 import 'package:service_app/core/navigator.dart';
@@ -32,6 +33,7 @@ class ManageCanDevicePageState extends State<ManageCanDevicePage> {
   StreamController<btpckg.BaseWriteCommand> streamController =
       StreamController<btpckg.BaseWriteCommand>();
   StreamSubscription<btpckg.BaseWriteCommand>? streamSubscriptionWrite;
+  final DateFormat dateFormat = DateFormat("dd.MM.yyyy hh:mm:ss.SSS");
 
   @override
   void initState() {
@@ -112,7 +114,7 @@ class ManageCanDevicePageState extends State<ManageCanDevicePage> {
                       FlutterLogs.logThis(
                           tag: 'TX',
                           logMessage:
-                              'Command $sendedCommandName bytes $sendedCommandBytes',
+                              'Command $sendedCommandName bytes $sendedCommandBytes {${dateFormat.format(DateTime.now())}}',
                           level: LogLevel.INFO);
                       setState(() {});
                     });
@@ -148,7 +150,7 @@ class ManageCanDevicePageState extends State<ManageCanDevicePage> {
                       FlutterLogs.logThis(
                           tag: 'RX',
                           logMessage:
-                              'Command $receivedCommandName bytes $receivedCommandBytes',
+                              'Command $receivedCommandName bytes $receivedCommandBytes {${dateFormat.format(DateTime.now())}}',
                           level: LogLevel.INFO);
                       setState(() {});
                     });
