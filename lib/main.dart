@@ -1,20 +1,16 @@
 import 'dart:async';
 
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_phone_auth_handler/firebase_phone_auth_handler.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:service_app/bloc/api/api_cubit.dart';
 import 'package:service_app/bloc/bluetooth/connection/connection_bloc.dart';
-import 'package:service_app/bloc/firebase/firebase_bloc.dart';
-import 'package:service_app/bloc/firebase/firebase_db_cubit.dart';
 import 'package:service_app/bloc/navigation_bar/navigation_bar_bloc.dart';
 import 'package:service_app/core/globals.dart';
 import 'package:service_app/core/services/get_it.dart';
-import 'package:service_app/firebase_options.dart';
 import 'package:service_app/presentation/lock_screen/splash_screen.dart';
 import 'package:service_app/presentation/theme/theme.dart';
 import 'package:flutter_logs/flutter_logs.dart';
@@ -44,7 +40,6 @@ Future<void> main() async {
       directoryStructure: DirectoryStructure.FOR_DATE,
       logFileExtension: LogFileExtension.LOG,
       timeStampFormat: TimeStampFormat.TIME_FORMAT_24_FULL);
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   //app.name;
   configureDependencies();
   final storage = await HydratedStorage.build(
@@ -73,18 +68,18 @@ class _MyAppState extends State<MyApp> {
     return Builder(builder: (context) {
       return MultiBlocProvider(
         providers: [
-          BlocProvider<FirebaseDbCubit>(create: (_) => FirebaseDbCubit()),
+          BlocProvider<ApiCubit>(
+            create: (_) => ApiCubit(),
+          ),
           BlocProvider<BTConnectionBloc>(create: (_) => BTConnectionBloc()),
           BlocProvider(create: (_) => getIt<NavigationBarBloc>()),
         ],
-        child: FirebasePhoneAuthProvider(
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Shadow service',
-            scaffoldMessengerKey: Globals.scaffoldMessengerKey,
-            theme: mobileThemeData(),
-            home: const SplashScreen(),
-          ),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Shadow service',
+          scaffoldMessengerKey: Globals.scaffoldMessengerKey,
+          theme: mobileThemeData(),
+          home: const SplashScreen(),
         ),
       );
 

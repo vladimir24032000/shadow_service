@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:service_app/bloc/api/api_cubit.dart';
 import 'package:service_app/bloc/firebase/firebase_db_cubit.dart';
+import 'package:service_app/core/api/model/user.dart';
 import 'package:service_app/core/firebase/model/user.dart';
 import 'package:service_app/core/navigator.dart';
 import 'package:service_app/presentation/home_tabs/home_tabs.dart';
@@ -12,42 +14,36 @@ import 'package:service_app/presentation/theme/theme.dart';
 import 'package:service_app/presentation/widgets/custom_button/custom_elevated_button.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+  const SignUpPage({super.key, required this.email, required this.password});
+  final String email;
+  final String password;
 
   @override
   State<StatefulWidget> createState() => SignUpPageState();
 }
 
 class SignUpPageState extends State<SignUpPage> {
-  late FirebaseDbCubit _firebaseDbCubit;
-  late StreamSubscription<FirebaseDBState> _subscription;
-
   final TextEditingController nameController = TextEditingController();
   final TextEditingController postController = TextEditingController();
   final TextEditingController cityCountryController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController companyController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
+  final TextEditingController countryController = TextEditingController();
+
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController patronymicController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _firebaseDbCubit = context.read<FirebaseDbCubit>();
-    _subscription = _firebaseDbCubit.stream.listen((event) {
-      event.mapOrNull(
-        userExists: (_) => navigateTo(
-          context: context,
-          nextPage: const LockScreenPage(),
-          newRoot: true,
-        ),
-      );
-    });
-    _firebaseDbCubit.getUserIfExists();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _subscription.cancel();
   }
 
   @override
@@ -61,10 +57,14 @@ class SignUpPageState extends State<SignUpPage> {
                     children: [
                       _SignUpWidget(
                         addressController: addressController,
-                        cityCountryController: cityCountryController,
                         companyController: companyController,
-                        nameController: nameController,
                         postController: postController,
+                        cityController: cityController,
+                        countryController: countryController,
+                        firstNameController: firstNameController,
+                        lastNameController: lastNameController,
+                        patronymicController: patronymicController,
+                        phoneController: phoneController,
                       ),
                       Container(
                         color: const Color.fromARGB(80, 0, 0, 0),
@@ -95,31 +95,53 @@ class SignUpPageState extends State<SignUpPage> {
 }
 
 class _SignUpWidget extends StatelessWidget {
-  final TextEditingController nameController;
+  final TextEditingController firstNameController;
+  final TextEditingController lastNameController;
+  final TextEditingController patronymicController;
+
   final TextEditingController postController;
-  final TextEditingController cityCountryController;
+  final TextEditingController cityController;
+  final TextEditingController countryController;
+
   final TextEditingController addressController;
   final TextEditingController companyController;
+  final TextEditingController phoneController;
 
-  final FocusNode nameFocusNode = FocusNode();
+  final FocusNode firstNameFocusNode = FocusNode();
+  final FocusNode lastNameFocusNode = FocusNode();
+  final FocusNode patronymicFocusNode = FocusNode();
+  final FocusNode phoneFocusNode = FocusNode();
+
   final FocusNode postFocusNode = FocusNode();
-  final FocusNode cityCountryFocusNode = FocusNode();
+  final FocusNode countryFocusNode = FocusNode();
+  final FocusNode cityFocusNode = FocusNode();
+
   final FocusNode addressFocusNode = FocusNode();
   final FocusNode companyFocusNode = FocusNode();
 
-  final ValueNotifier<String?> nameNotifier = ValueNotifier<String?>(null);
-  final ValueNotifier<String?> postNotifier = ValueNotifier<String?>(null);
-  final ValueNotifier<String?> cityCountryNotifier =
+  final ValueNotifier<String?> firstNameNotifier = ValueNotifier<String?>(null);
+  final ValueNotifier<String?> lastNameNotifier = ValueNotifier<String?>(null);
+  final ValueNotifier<String?> patronymicNotifier =
       ValueNotifier<String?>(null);
+  final ValueNotifier<String?> phoneNotifier = ValueNotifier<String?>(null);
+
+  final ValueNotifier<String?> postNotifier = ValueNotifier<String?>(null);
+  final ValueNotifier<String?> cityNotifier = ValueNotifier<String?>(null);
+  final ValueNotifier<String?> countryNotifier = ValueNotifier<String?>(null);
   final ValueNotifier<String?> addressNotifier = ValueNotifier<String?>(null);
   final ValueNotifier<String?> companyNotifier = ValueNotifier<String?>(null);
 
-  _SignUpWidget(
-      {required this.nameController,
-      required this.postController,
-      required this.cityCountryController,
-      required this.addressController,
-      required this.companyController});
+  _SignUpWidget({
+    required this.postController,
+    required this.addressController,
+    required this.companyController,
+    required this.cityController,
+    required this.countryController,
+    required this.firstNameController,
+    required this.lastNameController,
+    required this.patronymicController,
+    required this.phoneController,
+  });
 
   bool commonValidate(
       TextEditingController controller, ValueNotifier<String?> notifier) {
@@ -133,10 +155,18 @@ class _SignUpWidget extends StatelessWidget {
   }
 
   void signUp(BuildContext context) {
-    if (!commonValidate(nameController, nameNotifier)) {
-      nameFocusNode.requestFocus();
+    if (!commonValidate(firstNameController, firstNameNotifier)) {
+      firstNameFocusNode.requestFocus();
       return;
     }
+    if (!commonValidate(lastNameController, lastNameNotifier)) {
+      lastNameFocusNode.requestFocus();
+      return;
+    }
+    // if (!commonValidate(patronymicController, patronymicNotifier)) {
+    //   patronymicFocusNode.requestFocus();
+    //   return;
+    // }
     if (!commonValidate(companyController, companyNotifier)) {
       companyFocusNode.requestFocus();
       return;
@@ -145,23 +175,36 @@ class _SignUpWidget extends StatelessWidget {
       postFocusNode.requestFocus();
       return;
     }
-    if (!commonValidate(cityCountryController, cityCountryNotifier)) {
-      cityCountryFocusNode.requestFocus();
+    if (!commonValidate(countryController, countryNotifier)) {
+      companyFocusNode.requestFocus();
+      return;
+    }
+    if (!commonValidate(cityController, cityNotifier)) {
+      cityFocusNode.requestFocus();
       return;
     }
     if (!commonValidate(addressController, addressNotifier)) {
       addressFocusNode.requestFocus();
       return;
     }
-    context.read<FirebaseDbCubit>().createUser(
-          ShadowUser(
-            name: nameController.text,
-            post: postController.text,
-            cityCountry: cityCountryController.text,
-            address: addressController.text,
-            company: companyController.text,
-            enabled: false,
-          ),
+    if (!commonValidate(phoneController, phoneNotifier)) {
+      phoneFocusNode.requestFocus();
+      return;
+    }
+    context.read<ApiCubit>().createUser(
+          User(
+              first_name: firstNameController.text,
+              last_name: lastNameController.text,
+              patronymic: patronymicController.text,
+              job_title: postController.text,
+              city: cityController.text,
+              country: companyController.text,
+              organization: companyController.text,
+              installation_center_address: addressController.text,
+              email: "",
+              password: "",
+              phone_number: phoneController.text,
+              is_verified_by_admin: false),
         );
   }
 
@@ -236,24 +279,45 @@ class _SignUpWidget extends StatelessWidget {
                 ),
               )),
           Padding(
-              padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-              child: ValueListenableBuilder<String?>(
-                valueListenable: cityCountryNotifier,
-                builder: (context, value, child) => TextField(
-                  style: const TextStyle(color: Colors.white),
-                  focusNode: cityCountryFocusNode,
-                  controller: cityCountryController,
-                  decoration: loginInputDecorationTheme.copyWith(
-                      prefixIcon: const Icon(Icons.map),
-                      labelText: "City, country",
-                      hintText: "Enter your location",
-                      errorText: value),
-                  onChanged: (value) {
-                    commonValidate(cityCountryController, cityCountryNotifier);
-                  },
-                  textInputAction: TextInputAction.next,
-                ),
-              )),
+            padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+            child: ValueListenableBuilder<String?>(
+              valueListenable: cityCountryNotifier,
+              builder: (context, value, child) => TextField(
+                style: const TextStyle(color: Colors.white),
+                focusNode: cityCountryFocusNode,
+                controller: cityCountryController,
+                decoration: loginInputDecorationTheme.copyWith(
+                    prefixIcon: const Icon(Icons.map),
+                    labelText: "Country",
+                    hintText: "Enter your country",
+                    errorText: value),
+                onChanged: (value) {
+                  commonValidate(cityCountryController, cityCountryNotifier);
+                },
+                textInputAction: TextInputAction.next,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+            child: ValueListenableBuilder<String?>(
+              valueListenable: cityCountryNotifier,
+              builder: (context, value, child) => TextField(
+                style: const TextStyle(color: Colors.white),
+                focusNode: cityCountryFocusNode,
+                controller: cityCountryController,
+                decoration: loginInputDecorationTheme.copyWith(
+                    prefixIcon: const Icon(Icons.map),
+                    labelText: "City",
+                    hintText: "Enter your city",
+                    errorText: value),
+                onChanged: (value) {
+                  commonValidate(cityCountryController, cityCountryNotifier);
+                },
+                textInputAction: TextInputAction.next,
+              ),
+            ),
+          ),
           Padding(
               padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
               child: ValueListenableBuilder<String?>(

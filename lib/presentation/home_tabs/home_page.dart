@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:service_app/bloc/firebase/firebase_db_cubit.dart';
-import 'package:service_app/core/firebase/firebase_repo.dart';
+import 'package:service_app/bloc/api/api_cubit.dart';
 import 'package:service_app/core/navigator.dart';
 import 'package:service_app/presentation/home_tabs/bottom_navigation_bar.dart';
 import 'package:service_app/presentation/manage_can_devices/connect_can_devices_page.dart';
@@ -34,10 +33,8 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          if (((FirebaseRepo.firebaseUser!.email != null &&
-                      FirebaseRepo.firebaseUser!.emailVerified) ||
-                  FirebaseRepo.firebaseUser!.phoneNumber != null) &&
-              context.read<FirebaseDbCubit>().user!.enabled)
+          if (context.read<ApiCubit>().user != null &&
+              context.read<ApiCubit>().user!.is_verified_by_admin)
             SafeArea(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
@@ -51,10 +48,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-          if (((FirebaseRepo.firebaseUser!.email != null &&
-                      FirebaseRepo.firebaseUser!.emailVerified) ||
-                  FirebaseRepo.firebaseUser!.phoneNumber != null) &&
-              context.read<FirebaseDbCubit>().user!.enabled)
+          if (context.read<ApiCubit>().user != null &&
+              context.read<ApiCubit>().user!.is_verified_by_admin)
             SafeArea(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
@@ -68,10 +63,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-          if (((FirebaseRepo.firebaseUser!.email == null ||
-                      !FirebaseRepo.firebaseUser!.emailVerified) &&
-                  FirebaseRepo.firebaseUser!.phoneNumber == null) ||
-              !context.read<FirebaseDbCubit>().user!.enabled)
+          if (context.read<ApiCubit>().user == null ||
+              !context.read<ApiCubit>().user!.is_verified_by_admin)
             SafeArea(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
